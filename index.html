@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lektionspuls</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Lilita+One&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#E9F1F8;--card:#FFFFFF;--ink:#13293D;--ink2:#4A6075;--line:#C9D8E6;
+--vakna:#F2B632;--on-vakna:#2A1E00;--lugna:#2D6FA6;--on-lugna:#FFFFFF;--energi:#277A4D;--on-energi:#FFFFFF;--soft:#F3F8FC;--sky:#9BDDFF;--ground:#5FCB6A;--wall:#CDEFE6;--wall2:#7ED6C6;--floor:#E8B77B;--floor2:#C98F4F;--rug:#FF6B6B;--hill:#7BD389;--hill2:#4FBF6B;--sky1:#35B6F5;--sky2:#BDEBFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1B27;--card:#172636;--ink:#E6EEF6;--ink2:#9FB3C5;--line:#2B4054;--soft:#122030;
+--vakna:#F2B632;--on-vakna:#2A1E00;--lugna:#7DB5E3;--on-lugna:#0B2236;--energi:#6CC79A;--on-energi:#06271A;--sky:#24507A;--ground:#2D6B3F;--wall:#27414A;--wall2:#1F5F58;--floor:#6B4B2D;--floor2:#523820;--rug:#A8323A;--hill:#2F7A4A;--hill2:#276B3F;--sky1:#0E2A52;--sky2:#2B5C94}}
+:root[data-theme="dark"]{--bg:#0F1B27;--card:#172636;--ink:#E6EEF6;--ink2:#9FB3C5;--line:#2B4054;--soft:#122030;
+--vakna:#F2B632;--on-vakna:#2A1E00;--lugna:#7DB5E3;--on-lugna:#0B2236;--energi:#6CC79A;--on-energi:#06271A;--sky:#24507A;--ground:#2D6B3F;--wall:#27414A;--wall2:#1F5F58;--floor:#6B4B2D;--floor2:#523820;--rug:#A8323A;--hill:#2F7A4A;--hill2:#276B3F;--sky1:#0E2A52;--sky2:#2B5C94}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.5}
+h1,h2,h3{font-family:'Baloo 2','Nunito',system-ui,sans-serif;margin:0;line-height:1.1}
+#app{max-width:600px;margin:0 auto;padding:16px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+h1{font-size:34px;font-weight:800}
+.sub{margin:0 0 18px;color:var(--ink2);font-size:16px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+.q{font-family:'Baloo 2','Nunito',sans-serif;font-weight:700;font-size:20px;margin:0 0 10px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font:inherit;font-weight:700;border:2px solid var(--line);background:var(--soft);color:var(--ink);border-radius:14px;padding:12px 16px;min-height:56px;cursor:pointer;flex:1 1 auto;text-align:center}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.g-vakna.on{background:var(--vakna);color:var(--on-vakna);border-color:var(--vakna)}
+.chip.g-lugna.on{background:var(--lugna);color:var(--on-lugna);border-color:var(--lugna)}
+.chip.g-energi.on{background:var(--energi);color:var(--on-energi);border-color:var(--energi)}
+.chip small{display:block;font-weight:600;font-size:13px;opacity:.85}
+.btn{font:inherit;font-family:'Baloo 2','Nunito',sans-serif;font-weight:700;font-size:22px;border:0;border-radius:16px;padding:14px 20px;min-height:60px;width:100%;cursor:pointer;background:var(--ink);color:var(--bg)}
+.btn2{font:inherit;font-weight:700;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px 16px;min-height:56px;cursor:pointer;flex:1}
+.link{font:inherit;font-weight:700;background:none;border:0;color:var(--ink);text-decoration:underline;padding:10px 4px;min-height:44px;cursor:pointer}
+.row{display:flex;gap:10px}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
+.sw button{min-width:92px}
+.exhead{border-radius:18px 18px 0 0;padding:16px;margin:-16px -16px 14px}
+.exhead.vakna{background:var(--vakna);color:var(--on-vakna)}
+.exhead.lugna{background:var(--lugna);color:var(--on-lugna)}
+.exhead.energi{background:var(--energi);color:var(--on-energi)}
+.exhead h2{font-size:32px;font-weight:800}
+.exhead p{margin:4px 0 0;font-weight:700;font-size:15px}
+ol.steg{margin:0 0 14px;padding:0 0 0 1.4em;font-size:19px;font-weight:600}
+ol.steg li{margin-bottom:10px;padding-left:4px}
+.alla{background:var(--soft);border:2px dashed var(--line);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+.alla b{font-family:'Baloo 2','Nunito',sans-serif;font-size:18px}
+.note{color:var(--ink2);font-size:15px;margin:0 0 12px}
+.clock{font-family:'Baloo 2','Nunito',sans-serif;font-weight:800;font-size:96px;text-align:center;line-height:1;margin:6px 0 14px;font-variant-numeric:tabular-nums}
+.done{text-align:center;padding:10px 0 4px}
+.done h2{font-size:34px;margin-bottom:6px}
+details{margin-top:6px}
+summary{cursor:pointer;font-weight:700;padding:12px 0;min-height:44px}
+.fine{color:var(--ink2);font-size:14px;margin-top:14px}
+.xbtn{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:5;font:inherit;font-weight:700;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:8px 14px;min-height:44px;cursor:pointer;opacity:.85}
+
+/* Bilder och animationer */
+.scene{width:100%;height:auto;display:block;border-radius:14px;border:2px solid var(--line);margin:0 0 4px;font-family:'Nunito',system-ui,sans-serif}
+.art{margin-bottom:10px}
+.exgrid{display:block}
+.scene text{user-select:none}
+.scene .lb{font-size:10px;font-weight:700;fill:var(--ink)}
+.scene .big{font-size:15px;font-weight:800;fill:#13293D}
+.scene.paused *{animation-play-state:paused!important}
+.kid .al,.kid .ar,.kid .ll,.kid .lr,.pl,.tr,.bl{transform-box:fill-box;transform-origin:50% 0}
+.pl,.bl{transform-origin:50% 50%}
+.tr{transform-origin:50% 100%}
+.sw{animation:swingA var(--d,1.2s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.au{animation:armUp var(--d,6s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.fz{animation:armFz var(--d,5s) linear infinite}
+.bn{animation:bounce var(--d,1s) ease-in-out infinite}
+.sy{animation:sway var(--d,2s) ease-in-out infinite}
+.wk{animation:walk var(--d,4s) ease-in-out infinite alternate}
+.gr{animation:grow var(--d,6s) ease-in-out infinite}
+.ju{animation:jump var(--d,1.4s) ease-in-out infinite}
+.dn{animation:dancebody var(--d,5s) linear infinite}
+.cl{animation:climb var(--d,6s) ease-in-out infinite alternate}
+.sq{animation:squeeze var(--d,2s) ease-in-out infinite}
+.sp{animation:spin 14s linear infinite}
+.dr{animation:drop 1.6s linear infinite}
+.pu{animation:pulse var(--d,3s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.bal{animation:balloon 5s ease-in-out infinite}
+.say{animation:say 1.6s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.fzt{animation:fzText 5s ease-in-out infinite}
+.nt{animation:noteUp 5s ease-in infinite;animation-delay:var(--dl,0s)}
+.tx{animation:txt 5s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.tx2{animation:txt 2s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.wv{animation:wave 3s linear infinite}
+.sm{animation:swim var(--d,6s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.bb{animation:bob var(--d,2s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.wd{animation:wind 2.4s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.sd{animation:soundw 2s ease-in-out infinite;animation-delay:var(--dl,0s)}
+.tdr{animation:treeSway var(--d,2s) ease-in-out infinite}
+@keyframes swingA{0%,100%{transform:rotate(var(--a0,0deg))}50%{transform:rotate(var(--a1,0deg))}}
+@keyframes armUp{0%,35%{transform:rotate(var(--a0,0deg))}70%,100%{transform:rotate(var(--a1,0deg))}}
+@keyframes armFz{0%,20%,40%{transform:rotate(var(--a0))}10%,30%,50%,60%,100%{transform:rotate(var(--a1))}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(var(--h,-8px))}}
+@keyframes sway{0%,100%{transform:rotate(calc(var(--r,8deg) * -1))}50%{transform:rotate(var(--r,8deg))}}
+@keyframes treeSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes walk{from{transform:translateX(var(--x0,-60px))}to{transform:translateX(var(--x1,60px))}}
+@keyframes grow{0%{transform:scale(1,.5)}50%,85%{transform:scale(1,1)}100%{transform:scale(1,.5)}}
+@keyframes jump{0%,100%{transform:translateY(0) scale(1.08,.88)}40%{transform:translateY(-34px) scale(.96,1.04)}70%{transform:translateY(0) scale(1.08,.88)}}
+@keyframes dancebody{0%{transform:rotate(-7deg)}10%{transform:rotate(7deg) translateY(-6px)}20%{transform:rotate(-7deg)}30%{transform:rotate(7deg) translateY(-6px)}40%{transform:rotate(-7deg)}50%{transform:rotate(7deg) translateY(-6px)}60%,100%{transform:rotate(5deg)}}
+@keyframes climb{from{transform:translate(0,0)}to{transform:translate(var(--cx,125px),var(--cy,-96px))}}
+@keyframes squeeze{0%,100%{transform:scale(1)}45%,60%{transform:scale(.93,1.03)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes drop{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(120px);opacity:0}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+@keyframes balloon{0%,100%{transform:scale(.55)}45%{transform:scale(1.4)}}
+@keyframes say{0%,30%{opacity:0}35%,75%{opacity:1}80%,100%{opacity:0}}
+@keyframes fzText{0%,58%{opacity:0}62%,95%{opacity:1}100%{opacity:0}}
+@keyframes noteUp{0%{transform:translateY(0);opacity:0}15%{opacity:1}60%{transform:translateY(-40px);opacity:0}100%{opacity:0}}
+@keyframes txt{0%,47%{opacity:1}48%,97%{opacity:0}98%,100%{opacity:1}}
+@keyframes wave{from{transform:translateX(0)}to{transform:translateX(-40px)}}
+@keyframes swim{0%,100%{transform:translateX(0)}50%{transform:translateX(110px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes wind{0%{transform:translateX(-10px);opacity:0}30%{opacity:1}100%{transform:translateX(80px);opacity:0}}
+@keyframes soundw{0%,100%{opacity:.1}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.scene *{animation-play-state:paused!important}}
+@media (min-width:900px){body.board .exgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:3vw;align-items:start}}
+
+.mas{animation:mbob 1.7s ease-in-out infinite}
+.mas.cheer{animation:cheer .85s ease-out}
+.mw{animation:mwave .7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+.cd{animation:cdrift 16s ease-in-out infinite alternate}
+.cf{animation:confetti 1.1s ease-out forwards}
+.pop{animation:popT .95s ease-out forwards}
+@keyframes mbob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+@keyframes cheer{0%{transform:translateY(0) scale(1) rotate(0)}30%{transform:translateY(-20px) scale(1.3) rotate(-16deg)}60%{transform:translateY(-8px) scale(1.2) rotate(14deg)}100%{transform:translateY(0) scale(1) rotate(0)}}
+@keyframes mwave{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+@keyframes cdrift{from{transform:translateX(-26px)}to{transform:translateX(26px)}}
+@keyframes confetti{0%{transform:translate(0,0) rotate(0) scale(.4);opacity:1}70%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--rt)) scale(1);opacity:0}}
+@keyframes popT{0%{transform:translateY(0) scale(.3);opacity:0}25%{transform:translateY(-6px) scale(1.25);opacity:1}70%{transform:translateY(-14px) scale(1);opacity:1}100%{transform:translateY(-26px) scale(1);opacity:0}}
+
+.tw{animation:twk 2.4s ease-in-out infinite}
+.bub{animation:bubUp calc(5s*var(--tempo,1.8)) ease-in infinite}
+.sw2{transform-box:fill-box;transform-origin:50% 100%;animation:swayW calc(3s*var(--tempo,1.8)) ease-in-out infinite alternate}
+.sn{animation:snowF calc(4s*var(--tempo,1.8)) linear infinite}
+.on .rkt{animation:rktUp calc(2.2s*var(--tempo,1.8)) ease-in forwards}
+.flm{animation:flick .2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 0}
+@keyframes twk{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes bubUp{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-110px);opacity:0}}
+@keyframes swayW{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+@keyframes snowF{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(10px,150px);opacity:0}}
+@keyframes rktUp{0%{transform:translateY(0)}100%{transform:translateY(-190px)}}
+@keyframes flick{from{transform:scaleY(.8)}to{transform:scaleY(1.3)}}
+
+/* Djur */
+.tur{animation:turWalk calc(10s*var(--tempo,1.8)) ease-in-out infinite alternate}.tur.tur-h{animation:none}
+.tl{animation:legStep calc(1.8s*var(--tempo,1.8)) ease-in-out infinite;animation-delay:calc(var(--dl,0s)*var(--tempo,1.8));transform-box:fill-box;transform-origin:50% 10%}
+.tur-h .tl{animation:legHide calc(8s*var(--tempo,1.8)) ease-in-out infinite}
+.th{animation:headBob calc(2.4s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:20% 60%}
+.thide{animation:headHide calc(8s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:10% 70%}
+.bear{animation:breath calc(4s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.zzz{animation:zzzUp calc(2.6s*var(--tempo,1.8)) ease-in infinite;animation-delay:calc(var(--dl,0s)*var(--tempo,1.8))}
+.ele,.gir{animation:eleStomp calc(1.6s*var(--tempo,1.8)) ease-in-out infinite}
+.ear{animation:earFlap calc(1.6s*var(--tempo,1.8)) ease-in-out infinite alternate;transform-box:fill-box;transform-origin:90% 30%}
+.trunk{animation:trunkSwing calc(2.2s*var(--tempo,1.8)) ease-in-out infinite alternate;transform-box:fill-box;transform-origin:80% 5%}
+.mou{animation:mouTip calc(1s*var(--tempo,1.8)) ease-in-out infinite}
+.mear{animation:earTw calc(1.4s*var(--tempo,1.8)) ease-in-out infinite;animation-delay:calc(var(--dl,0s)*var(--tempo,1.8));transform-box:fill-box;transform-origin:50% 100%}
+.frog,.kan{animation:frogJump calc(1.8s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.bfloat{animation:bfloat calc(5s*var(--tempo,1.8)) ease-in-out infinite}
+.wl{animation:flapL calc(.9s*var(--tempo,1.8)) ease-in-out infinite alternate}.wr{animation:flapR calc(.9s*var(--tempo,1.8)) ease-in-out infinite alternate}
+.gneck{animation:gSway calc(3.6s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:60% 100%}
+.lmouth{animation:yawnM calc(4s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:50% 0%}
+.ctail{animation:tailSwish calc(2.2s*var(--tempo,1.8)) ease-in-out infinite alternate;transform-box:fill-box;transform-origin:0% 100%}
+.cat{animation:catStretch calc(3.4s*var(--tempo,1.8)) ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.marm{animation:armSw calc(1.2s*var(--tempo,1.8)) ease-in-out infinite alternate;animation-delay:calc(var(--dl,0s)*var(--tempo,1.8));transform-box:fill-box;transform-origin:50% 0%}
+.mon{animation:monBounce calc(1.2s*var(--tempo,1.8)) ease-in-out infinite}
+.bird{animation:birdBob calc(2.4s*var(--tempo,1.8)) ease-in-out infinite}
+.bwing{animation:wingFlap calc(.8s*var(--tempo,1.8)) ease-in-out infinite alternate;transform-box:fill-box;transform-origin:10% 80%}
+.fsh{animation:fishSwim calc(5s*var(--tempo,1.8)) ease-in-out infinite alternate}
+@keyframes turWalk{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+@keyframes legStep{0%,100%{transform:rotate(-16deg)}50%{transform:rotate(16deg)}}
+@keyframes legHide{0%,15%{transform:scale(1)}30%,70%{transform:scale(.15)}85%,100%{transform:scale(1)}}
+@keyframes headBob{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(4px) rotate(-4deg)}}
+@keyframes headHide{0%,15%{transform:translateX(0) scale(1)}30%,70%{transform:translateX(-24px) scale(.4)}85%,100%{transform:translateX(0) scale(1)}}
+@keyframes breath{0%,100%{transform:scale(1)}50%{transform:scale(1.045,1.03)}}
+@keyframes zzzUp{0%{transform:translate(0,0) scale(.6);opacity:0}20%{opacity:1}100%{transform:translate(12px,-26px) scale(1.2);opacity:0}}
+@keyframes eleStomp{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes earFlap{from{transform:rotate(8deg)}to{transform:rotate(-14deg)}}
+@keyframes trunkSwing{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
+@keyframes mouTip{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes earTw{0%,70%,100%{transform:rotate(0)}80%{transform:rotate(-14deg)}90%{transform:rotate(8deg)}}
+@keyframes frogJump{0%,100%{transform:translateY(0) scale(1.08,.86)}40%{transform:translateY(-26px) scale(.95,1.1)}70%{transform:translateY(0) scale(1.1,.84)}85%{transform:translateY(0) scale(1,1)}}
+@keyframes bfloat{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,-10px)}50%{transform:translate(0,-4px)}75%{transform:translate(-14px,-12px)}}
+@keyframes flapL{from{transform:scaleX(1)}to{transform:scaleX(.2)}}
+@keyframes flapR{from{transform:scaleX(1)}to{transform:scaleX(.2)}}
+@keyframes gSway{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes yawnM{0%,20%{transform:scaleY(.1)}45%,70%{transform:scaleY(1.1)}90%,100%{transform:scaleY(.1)}}
+@keyframes tailSwish{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
+@keyframes catStretch{0%,100%{transform:scale(1)}40%{transform:scale(1.14,.88)}70%{transform:scale(.94,1.1)}}
+@keyframes armSw{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+@keyframes monBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes birdBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes wingFlap{from{transform:rotate(-32deg)}to{transform:rotate(24deg)}}
+@keyframes fishSwim{from{transform:translateX(-10px)}to{transform:translateX(10px)}}
+.tripsvg{width:100%;height:auto;display:block;border-radius:12px;border:2px solid var(--line);margin-bottom:8px}
+.pbar{height:14px;border-radius:8px;background:var(--line);overflow:hidden;margin:8px 0}
+.pbar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#FFD23F,#FF8C42);transition:width .9s}
+.tmini{display:flex;align-items:center;gap:10px;font-weight:800;margin:-4px 0 10px}.tmini .pbar{flex:1;margin:0}
+.starbtn{width:100%;margin-top:10px;background:#FFD23F!important;color:#2A1E00!important;border-color:#E0A800!important;font-family:'Baloo 2','Nunito',sans-serif;font-weight:800;font-size:19px}
+.starbtn[disabled]{opacity:.7;cursor:default}
+.cele{position:fixed;inset:0;background:rgba(10,20,40,.82);display:flex;align-items:center;justify-content:center;z-index:30;padding:16px;overflow:hidden}
+.cele .box{background:var(--card);border-radius:20px;max-width:520px;width:100%;padding:16px;text-align:center;position:relative;z-index:2}
+.cft{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:cfall 2.4s linear infinite}
+.mbob{animation:bob 1s ease-in-out infinite}.wd2{transform-box:fill-box;transform-origin:0 50%;animation:flagw .6s ease-in-out infinite alternate}
+@keyframes cfall{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(110vh) rotate(540deg)}}
+@keyframes flagw{from{transform:scaleX(1)}to{transform:scaleX(.75)}}
+.moods{display:grid;gap:10px}
+.mood{display:flex;align-items:center;gap:14px;text-align:left;border:2px solid #2B2140;border-radius:16px;padding:12px 14px;min-height:76px;cursor:pointer;font:inherit}
+.mood b{display:block;font-family:'Baloo 2','Nunito',sans-serif;font-size:22px;line-height:1.1}.mood small{display:block;font-size:14px;font-weight:600;opacity:.9}
+.mood .mi{font-size:34px;line-height:1}
+.mood.g-vakna{background:var(--vakna);color:var(--on-vakna)}.mood.g-lugna{background:var(--lugna);color:var(--on-lugna)}.mood.g-energi{background:var(--energi);color:var(--on-energi)}
+.ring{animation:ringp 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
+@keyframes ringp{0%,100%{transform:scale(.9);opacity:.9}50%{transform:scale(1.12);opacity:.4}}
+.scene [data-s],.scene [data-w]{opacity:0;transition:opacity .45s}
+.scene .on{opacity:1}
+.steg li{border-radius:12px}
+.stbtn{font:inherit;font-weight:inherit;color:inherit;text-align:left;background:none;border:0;padding:4px 10px;border-radius:12px;cursor:pointer;width:100%;display:block}
+.steg li.now .stbtn{background:var(--soft);box-shadow:inset 6px 0 0 var(--ink)}
+.note a{color:var(--ink);font-weight:700}
+.tempo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 8px;font-weight:700}
+.tchip{min-height:44px;padding:8px 12px;flex:0 1 auto;font-size:15px}
+.hint{color:var(--ink2);font-size:14px;margin:0 0 10px}
+/* Tavelläge: stor text för smartboard */
+body.board #app{max-width:1400px;padding:24px 4vw 40px}
+body.board .exhead h2{font-size:clamp(2.4rem,5.5vw,5rem)}
+body.board .exhead p{font-size:clamp(1.1rem,2vw,1.8rem)}
+body.board ol.steg{font-size:clamp(1.6rem,3.2vw,3rem);padding-left:1.6em}
+body.board ol.steg li{margin-bottom:.5em}
+body.board .alla{font-size:clamp(1.2rem,2.2vw,2rem)}
+body.board .alla b{font-size:clamp(1.3rem,2.4vw,2.2rem)}
+body.board .clock{font-size:clamp(6rem,22vw,16rem)}
+body.board .btn{font-size:clamp(1.6rem,3vw,2.6rem);min-height:90px}
+body.board .btn2{font-size:clamp(1.2rem,2.2vw,2rem);min-height:80px}
+body.board .note{font-size:clamp(1.1rem,1.8vw,1.6rem)}
+body.board .done h2{font-size:clamp(2.6rem,6vw,5rem)}
+body.board .done p{font-size:clamp(1.4rem,2.6vw,2.4rem)}
+body.board .hide-board{display:none}
+@media (prefers-reduced-motion:no-preference){.chip,.btn,.btn2{transition:background-color .12s,color .12s}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const $=s=>document.querySelector(s);
+function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+const MAL={vakna:{n:'Vakna',d:'Klassen är trött eller seg'},lugna:{n:'Lugna sig',d:'Det är stökigt eller spänt'},energi:{n:'Bränna energi',d:'Klassen behöver röra sig'}};
+const PLATS=[{n:'Vid bänken',d:'Ingen plats behövs'},{n:'Fritt golv',d:'Plats i klassrummet'},{n:'Ute',d:'Skolgård eller grönområde'}];
+
+/* krav: 0 = vid bänken, 1 = fritt golv, 2 = ute. tider = minuter övningen passar för. */
+const EX=[
+{id:'blomman',namn:'Blomman som vaknar',mal:'vakna',krav:0,tider:[2,3],miljo:true,intro:'Från frö till blomma.',steg:['Sitt eller stå. Gör er små som ett frö med händerna i knät.','Solen kommer fram. Växa sakta och sträck upp armarna.','Det börjar regna. Låt fingrarna dansa ner som regndroppar.','Sträck ut bladen och ta tre stora andetag.'],alla:'Gör hela övningen sittande. Armarna räcker.'},
+{id:'eko',namn:'Eko-klapp',mal:'vakna',krav:0,tider:[2,3,5],miljo:false,intro:'Klappa efter, precis likadant.',steg:['Läraren klappar ett kort mönster.','Klassen klappar tillbaka precis likadant.','Gör mönstret längre. Klappa sedan på knäna och stampa.','Låt en elev hitta på nästa mönster.'],alla:'Man kan klappa på bordet eller knäna i stället för att stå.'},
+{id:'tradet',namn:'Trädet i vinden',mal:'vakna',krav:0,tider:[2,3],miljo:true,intro:'Rötter i golvet, grenar i luften.',steg:['Stå bakom stolen. Armarna är grenar och fötterna är rötter.','Lätt vind: vicka försiktigt på grenarna.','Kraftig vind: svaja med hela kroppen. Rötterna sitter fast.','Stormen lägger sig. Stå stilla som ett träd.'],alla:'Sitt ner och svaja med överkroppen.'},
+{id:'skaka',namn:'Skaka ut',mal:'vakna',krav:0,tider:[2],miljo:false,intro:'Väck kroppen del för del.',steg:['Skaka händerna i tio sekunder.','Skaka armarna, sedan axlarna.','Skaka ena foten, sedan den andra.','Skaka hela kroppen och avsluta med ett stort pust.'],alla:'Skaka de delar av kroppen som känns bra.'},
+{id:'farg',namn:'Hitta färgen',mal:'vakna',krav:1,tider:[3,5],miljo:false,intro:'Gå tyst och hitta en färg.',steg:['Läraren säger en färg.','Alla går tyst och rör vid något i rummet med den färgen.','Gå tillbaka till platsen. Läraren säger nästa färg.','Gör fem färger.'],alla:'Peka på färgen från platsen eller gå tillsammans med en kompis.'},
+{id:'ballong',namn:'Ballongandning',mal:'lugna',krav:0,tider:[2,3],miljo:false,intro:'Andas som en ballong.',steg:['Håll händerna runt en tänkt ballong vid magen.','Andas in genom näsan så att ballongen blir stor.','Andas ut långsamt genom munnen så att luften går ur.','Gör det fem gånger.'],alla:'Den som inte vill blunda tittar på bordet.'},
+{id:'ljud',namn:'Lyssna på ljuden',mal:'lugna',krav:0,tider:[3,5],miljo:true,intro:'Hur många ljud hör du?',steg:['Sitt bekvämt. Blunda eller titta ner.','Lyssna på ljuden i rummet. Håll upp ett finger för varje ljud.','Lyssna nu på ljud utanför rummet.','Öppna ögonen och berätta ett ljud för en kompis.'],alla:'Man får titta ner i stället för att blunda.'},
+{id:'slowmotion',namn:'Slow motion',mal:'lugna',krav:1,tider:[2,3,5],miljo:false,intro:'Allt går väldigt långsamt.',steg:['Hitta en plats på golvet där du inte rör någon.','Gå som om luften vore tjock sirap.','Byt till att gå som en sköldpadda och sedan som en sovande björn.','Stanna och andas ut.'],alla:'Rör armarna i slow motion från platsen.'},
+{id:'spann',namn:'Spänn och släpp',mal:'lugna',krav:0,tider:[2,3],miljo:false,intro:'Hårt som sten, mjukt som gelé.',steg:['Kramma händerna hårt som stenar i fem sekunder. Släpp.','Dra upp axlarna mot öronen. Släpp.','Spänn magen som en sten. Släpp.','Skaka ut och ta ett stort andetag.'],alla:'Hoppa över det som känns obekvämt.'},
+{id:'regn',namn:'Regnskuren',mal:'lugna',krav:0,tider:[2,3],miljo:true,intro:'Ett regn som växer och lägger sig.',steg:['Gnugga handflatorna mot varandra: det börjar droppa.','Knäpp med fingrarna: regnet tilltar.','Klappa på knäna: kraftigt regn. Stampa lätt: åska.','Gör det baklänges tills det blir alldeles tyst.'],alla:'Använd bara händerna.'},
+{id:'sinnen',namn:'Sinnespromenad',mal:'lugna',krav:2,tider:[5],miljo:true,intro:'Gå ut och använd sinnena.',steg:['Gå ut och gå tyst i en lång rad.','Stanna och lyssna: vad hör du?','Titta efter något litet i naturen. Rör inte levande växter eller djur.','Känn på luften. Berätta en sak för en kompis.'],alla:'Man kan sitta på en bänk och ändå vara med.'},
+{id:'djur',namn:'Djurparad',mal:'energi',krav:1,tider:[3,5],miljo:false,intro:'Rör er som olika djur.',steg:['Se till att alla har plats runt sig.','Gå som en elefant. Sedan som en mus.','Hoppa som en groda. Fladdra som en fjäril.','Låt barnen föreslå fler djur.'],alla:'Gör djurens rörelser med armarna.'},
+{id:'flod',namn:'Floden och stenarna',mal:'energi',krav:1,tider:[3,5],miljo:true,intro:'Golvet är en flod.',steg:['Golvet är en flod. Simma runt som fiskar utan att nudda varandra.','När läraren säger "sten" fryser alla.','Vid "ström" simmar alla åt andra hållet.','Avsluta med att fiskarna vilar på botten.'],alla:'Simma med armarna från platsen.'},
+{id:'frys',namn:'Frys-dans',mal:'energi',krav:1,tider:[2,3,5],miljo:false,intro:'Dansa tills musiken stannar.',steg:['Sätt på musik eller klappa en takt.','Alla dansar fritt.','När musiken stannar fryser alla.','Byt stil några gånger: långsamt, snabbt, litet, stort.'],alla:'Dansa med armar och huvud från stolen.'},
+{id:'skrap',namn:'Skräpplockarna',mal:'energi',krav:1,tider:[3,5],miljo:true,intro:'Sortera tänkt skräp.',steg:['Visa tre tänkta kärl: papper, plast och matavfall.','Läraren säger ett föremål, till exempel bananskal, tidning eller flaska.','Barnen låtsas plocka upp det och går snabbt till rätt kärl.','Prata kort: vad kan vi göra för att det blir mindre skräp?'],alla:'Peka på rätt kärl.'},
+{id:'berg',namn:'Bergsklättring',mal:'energi',krav:0,tider:[2,3],miljo:true,intro:'Upp på berget och ner igen.',steg:['Stå vid bänken och marschera på stället.','Klättra uppför ett berg med armarna.','Titta ut över utsikten och sträck armarna ut.','Klättra ner och ta tre andetag.'],alla:'Gör rörelserna sittande.'},
+{id:'skatt',namn:'Naturskattjakt',mal:'energi',krav:2,tider:[5],miljo:true,intro:'Hitta mjukt, hårt och runt.',steg:['Gå ut. Ge klassen tre saker att hitta: något mjukt, något hårt och något runt.','Titta och peka. Plocka inte levande växter eller djur.','Samlas och berätta vad ni hittade.','Gå lugnt in igen.'],alla:'Peka och leta tillsammans med en kompis.'}
+];
+
+const S=Object.assign({tid:3,mal:'vakna',plats:0,miljo:false},load('lp_val',{}));
+S.tempo=load('lp_tempo',1.8);S.sound=load('lp_sound',true);S.music=load('lp_music',true);S.trip=Object.assign({type:'raket',goal:25,stars:0,done:0},load('lp_trip',{}));S.starGiven=false;S.celebrate=false;S.resetArm=false;S.tripShown=S.trip.stars;S.map=load('lp_map',null);S.used=load('lp_used',{});S.seq=Math.max(0,...Object.values(S.used));S.skip=[];S.prevUsed=null;S.mapShown=null;S.screen='setup';S.artPaused=false;S.cur=null;S.recent=[];S.board=false;S.timer=null;
+let tick=null,ctx=null;
+
+function candidates(){
+  const f=(useTid)=>EX.filter(e=>e.mal===S.mal&&e.krav<=S.plats&&(!S.miljo||e.miljo)&&(!useTid||e.tider.includes(S.tid)));
+  let l=f(true);if(!l.length)l=f(false);if(!l.length)l=EX.filter(e=>e.mal===S.mal&&e.krav<=S.plats);
+  return l}
+function pick(){
+  const l=candidates();if(!l.length)return null;
+  let pool=l.filter(e=>!S.skip.includes(e.id));if(!pool.length){S.skip=[];pool=l}
+  const min=Math.min(...pool.map(e=>S.used[e.id]||0));
+  const least=pool.filter(e=>(S.used[e.id]||0)===min);
+  return least[Math.floor(Math.random()*least.length)]}
+function chime(){if(!S.sound)return;try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();[0,.35,.7].forEach((t,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=[523,659,784][i];o.type='sine';g.gain.setValueAtTime(.0001,ctx.currentTime+t);g.gain.exponentialRampToValueAtTime(.25,ctx.currentTime+t+.05);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+t+.6);o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+.65)})}catch(e){}}
+function mmss(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function stopTimer(){if(tick){clearInterval(tick);tick=null}S.timer=null}
+function startTimer(){
+  try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume()}catch(e){}
+  stopTimer();S.timer={end:Date.now()+S.tid*60000,left:S.tid*60,paused:false,done:false};
+  tick=setInterval(()=>{const t=S.timer;if(!t||t.paused)return;t.left=(t.end-Date.now())/1000;
+    if(t.left<=0){t.done=true;clearInterval(tick);tick=null;chime();render();return}
+    const el=$('#clock');if(el)el.textContent=mmss(t.left)},250);
+  render()}
+function pauseTimer(){const t=S.timer;if(!t)return;if(t.paused){t.end=Date.now()+t.left*1000;t.paused=false}else{t.left=(t.end-Date.now())/1000;t.paused=true}render()}
+function enterBoard(){S.board=true;document.body.classList.add('board');try{const e=document.documentElement;if(e.requestFullscreen)e.requestFullscreen().catch(()=>{})}catch(e){}render()}
+function exitBoard(){S.board=false;document.body.classList.remove('board');try{if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen()}catch(e){}render()}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&S.board){S.board=false;document.body.classList.remove('board');render()}});
+
+
+/* ---------- Figurer: tecknade, färgglada barn som rör sig mellan poser, synkat med stegen ---------- */
+const OL='stroke="#2B2140" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"';
+const LOOKS=[
+ {skin:'#F7CFA6',hair:'#6B3E26',hs:'short',shirt:'#FF5A5F',stripe:'#FFFFFF',pants:'#2D6CDF',shoe:'#FFD23F',star:1},
+ {skin:'#9A5F3F',hair:'#1B120D',hs:'curly',shirt:'#1FC77E',stripe:'#FFFFFF',pants:'#4B3F8F',shoe:'#FF5A5F',acc:'band'},
+ {skin:'#FBDCC0',hair:'#E8B04B',hs:'pony',shirt:'#9B5DE5',stripe:'#F15BB5',pants:'#2D6CDF',shoe:'#00BBF9',acc:'bow'},
+ {skin:'#D49A6A',hair:'#2A1B12',hs:'bun',shirt:'#FFC43D',stripe:'#FF8C42',pants:'#00A6A6',shoe:'#FF5A5F',star:1},
+ {skin:'#EFC39C',hair:'#9A4E2B',hs:'short',shirt:'#00BBF9',stripe:'#FFFFFF',pants:'#5B5F97',shoe:'#FFC43D',acc:'beanie'},
+ {skin:'#EBC09A',hair:'#7A4A2B',hs:'bun',shirt:'#00A6A6',stripe:'',pants:'#4A4A68',shoe:'#9B5DE5',acc:'glasses'}
+];
+const CAP=(c)=>`<path d="M-18 -18 C-19.5 -42 19.5 -42 18 -18 C14 -30 6 -27 -1 -29.5 C-9 -27 -14.5 -26 -18 -18Z" fill="${c}" ${OL}/>`;
+const HAIR={
+ short:(c)=>CAP(c),
+ pony:(c)=>`<circle cx="19.5" cy="-27" r="7" fill="${c}" ${OL}/>`+CAP(c),
+ bun:(c)=>`<circle cx="0" cy="-40" r="8" fill="${c}" ${OL}/>`+CAP(c),
+ curly:(c)=>[[-13,-31],[-5,-36],[5,-36],[13,-31],[18,-23],[-18,-23]].map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="7.5" fill="${c}" ${OL}/>`).join('')+`<path d="M-17 -19 C-17 -36 17 -36 17 -19 C11 -27 -11 -27 -17 -19Z" fill="${c}"/>`
+};
+const ACC={
+ bow:()=>`<g transform="translate(13 -35)"><path d="M0 0L-9 -6L-9 6Z M0 0L9 -6L9 6Z" fill="#FF5DA2" ${OL}/><circle r="3" fill="#FF5DA2" ${OL}/></g>`,
+ beanie:()=>`<path d="M-18.8 -23 C-19.5 -50 19.5 -50 18.8 -23Z" fill="#FF5A5F" ${OL}/><rect x="-20" y="-27" width="40" height="8" rx="4" fill="#fff" ${OL}/><circle cy="-47" r="5" fill="#fff" ${OL}/>`,
+ band:()=>`<path d="M-17.5 -26 Q0 -36 17.5 -26" stroke="#FFD23F" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M-17.5 -26 Q0 -36 17.5 -26" stroke="#2B2140" stroke-width=".8" fill="none" opacity=".4"/>`,
+ glasses:()=>`<circle cx="-6.8" cy="-18" r="6.8" fill="rgba(255,255,255,.28)" stroke="#2B2140" stroke-width="1.5"/><circle cx="6.8" cy="-18" r="6.8" fill="rgba(255,255,255,.28)" stroke="#2B2140" stroke-width="1.5"/><path d="M-0 -18h0" stroke="#2B2140" stroke-width="1.5"/>`
+};
+function rigMarkup(i,L){
+  const sk=L.skin,sh=L.shirt,pa=L.pants,hr=L.hair,shoe=L.shoe;
+  const shirtPath='M-13 -39 Q-18 -37 -17 -29 L-14.5 -3 Q0 3 14.5 -3 L17 -29 Q18 -37 13 -39 Q0 -43 -13 -39Z';
+  const arm=(side)=>`<g data-j="arm${side}"><rect x="-5.3" y="-2" width="10.6" height="25" rx="5.3" fill="${sk}" ${OL}/><rect x="-6.6" y="-3" width="13.2" height="13" rx="5.6" fill="${sh}" ${OL}/><g data-j="fore${side}" transform="translate(0 22)"><rect x="-4.6" y="-2" width="9.2" height="22" rx="4.6" fill="${sk}" ${OL}/><circle cy="22" r="5.8" fill="${sk}" ${OL}/><circle r="4.9" fill="${sk}"/></g></g>`;
+  const leg=(side)=>{const dx=side==='L'?-1.5:1.5;return `<g data-j="leg${side}"><rect x="-6.6" y="-4" width="13.2" height="53" rx="6.2" fill="${pa}" ${OL}/><ellipse cx="${dx}" cy="50" rx="9.2" ry="5.2" fill="${shoe}" ${OL}/><path d="M${dx-7} 52.6 Q${dx} 56 ${dx+7} 52.6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></g>`};
+  const stripes=L.stripe?`<clipPath id="cs${i}"><path d="${shirtPath}"/></clipPath><g clip-path="url(#cs${i})"><rect x="-20" y="-31" width="40" height="5" fill="${L.stripe}"/><rect x="-20" y="-19" width="40" height="5" fill="${L.stripe}"/><rect x="-20" y="-7" width="40" height="5" fill="${L.stripe}"/></g>`:'';
+  const star=L.star?`<path d="M0 -26l2.6 5.2 5.7.8-4.1 4 1 5.7L0 -15.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8z" fill="#fff" opacity=".95"/>`:'';
+  return `<g data-kid="${i}"><ellipse cx="0" cy="2" rx="28" ry="5.5" fill="#000" opacity=".18"/><g data-j="body">`
+   +leg('L')+leg('R')
+   +`<g data-j="torso"><rect x="-14.5" y="-7" width="29" height="14" rx="6" fill="${pa}" ${OL}/><rect x="-4.8" y="-47" width="9.6" height="11" rx="3" fill="${sk}" ${OL}/><path d="${shirtPath}" fill="${sh}" ${OL}/>${stripes}${star}`
+   +`<g transform="translate(-15 -35)">${arm('L')}</g><g transform="translate(15 -35)">${arm('R')}</g>`
+   +`<g data-j="head" transform="translate(0 -42)"><circle cx="-17.5" cy="-17" r="4" fill="${sk}" ${OL}/><circle cx="17.5" cy="-17" r="4" fill="${sk}" ${OL}/><circle cy="-17" r="17.5" fill="${sk}" ${OL}/>`
+   +`<circle cx="-11.8" cy="-11.5" r="3.5" fill="#FF8FA3" opacity=".5"/><circle cx="11.8" cy="-11.5" r="3.5" fill="#FF8FA3" opacity=".5"/><path d="M0 -14 q1.6 3.4 -.8 3.6" stroke="rgba(0,0,0,.3)" stroke-width="1.1" fill="none" stroke-linecap="round"/>`
+   +HAIR[L.hs](hr)+(L.acc&&L.acc!=='glasses'?ACC[L.acc]():'')
+   +[['L',-6.8],['R',6.8]].map(q=>`<g data-j="eye${q[0]}" transform="translate(${q[1]} -18)"><ellipse rx="4.5" ry="5.2" fill="#fff" stroke="#2B2140" stroke-width="1.2"/><circle cx="${q[0]==='L'?.6:-.6}" r="2.8" fill="#2B2140"/><circle cx="${q[0]==='L'?1.6:.4}" cy="-1.3" r="1.1" fill="#fff"/></g><path data-j="lid${q[0]}" d="M${q[1]-5} -18 Q${q[1]} -14 ${q[1]+5} -18" stroke="#2B2140" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0"/><path data-j="brow${q[0]}" d="M-5 1 Q0 -2 5 1" transform="translate(${q[1]} -27)" stroke="${hr}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`).join('')
+   +(L.acc==='glasses'?ACC.glasses():'')
+   +`<path data-j="mouth" d="M-5.5 -8 Q0 -5 5.5 -8" stroke="#8A1E2D" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><ellipse data-j="tongue" cx="0" cy="-5.5" rx="3" ry="1.8" fill="#FF7A8A" opacity="0"/></g></g></g></g>`}
+const DEF={bx:0,by:0,c:0,tw:0,hd:0,la:6,lel:0,ra:6,rel:0,ll:4,lr:4,ey:1,mo:.35,br:0};
+function mouthD(m){
+  if(m<=.55)return `M-5.5 -8 Q0 ${-8+(-3+m*10)} 5.5 -8`;
+  if(m<=1.05)return `M-6.8 -9.5 Q0 ${-9.5+4+m*9} 6.8 -9.5 Z`;
+  return `M-3.8 -10 Q0 -13 3.8 -10 Q5.5 -4 0 -3.5 Q-5.5 -4 -3.8 -10Z`}
+function applyPose(k,p){
+  const c=p.c;
+  k.body.setAttribute('transform',`translate(${p.bx} ${p.by+20*c})`);
+  k.legL.setAttribute('transform',`translate(-7 -52) rotate(${p.ll+12*c}) scale(1 ${1-.4*c})`);
+  k.legR.setAttribute('transform',`translate(7 -52) rotate(${-(p.lr+12*c)}) scale(1 ${1-.4*c})`);
+  k.torso.setAttribute('transform',`translate(0 -52) rotate(${p.tw})`);
+  k.armL.setAttribute('transform',`rotate(${p.la})`);k.foreL.setAttribute('transform',`translate(0 22) rotate(${-p.lel})`);
+  k.armR.setAttribute('transform',`rotate(${-p.ra})`);k.foreR.setAttribute('transform',`translate(0 22) rotate(${p.rel})`);
+  k.head.setAttribute('transform',`translate(0 -42) rotate(${p.hd})`);
+  const sy=Math.max(.1,p.ey),closed=p.ey<.25;
+  k.eyeL.setAttribute('transform',`translate(-6.8 -18) scale(1 ${sy})`);k.eyeR.setAttribute('transform',`translate(6.8 -18) scale(1 ${sy})`);
+  k.eyeL.setAttribute('opacity',closed?0:1);k.eyeR.setAttribute('opacity',closed?0:1);
+  k.lidL.setAttribute('opacity',closed?1:0);k.lidR.setAttribute('opacity',closed?1:0);
+  k.browL.setAttribute('transform',`translate(-6.8 ${-27-p.br*3}) rotate(${-p.br*12})`);k.browR.setAttribute('transform',`translate(6.8 ${-27-p.br*3}) rotate(${p.br*12})`);
+  const open=p.mo>.55;k.mouth.setAttribute('d',mouthD(p.mo));k.mouth.setAttribute('fill',open?'#8A1E2D':'none');k.tongue.setAttribute('opacity',(open&&p.mo<=1.05)?1:0)}
+/* hjälpare för poser och tidslinjer */
+const osc=(t0,t1,n,A,B)=>{const o=[],d=(t1-t0)/(2*n);for(let i=0;i<=2*n;i++)o.push([Math.round(t0+i*d),i%2?B:A]);return o};
+const ease=u=>u*u*(3-2*u);
+const easeSpring=u=>u>=1?1:1-Math.pow(1-u,2)*Math.cos(u*Math.PI*1.2);
+function normTrack(tr,T){tr=tr.map(q=>[q[0],Object.assign({},DEF,q[1])]).sort((a,b)=>a[0]-b[0]);if(tr[0][0]>0)tr.unshift([0,tr[0][1]]);if(tr[tr.length-1][0]<T)tr.push([T,tr[0][1]]);return tr}
+function poseAt(tr,t){let i=0;while(i<tr.length-2&&tr[i+1][0]<=t)i++;const a=tr[i],b=tr[i+1],span=b[0]-a[0],u=span>0?Math.min(1,Math.max(0,(t-a[0])/span)):1,e=span>=380?easeSpring(u):ease(u),o={};for(const k in DEF)o[k]=a[1][k]+(b[1][k]-a[1][k])*e;return o}
+/* bakgrunder */
+const CLASS=()=>`<rect width="320" height="200" fill="var(--wall)"/><rect y="104" width="320" height="46" fill="var(--wall2)"/><rect y="102" width="320" height="4" fill="#fff" opacity=".9"/>`
+ +`<rect y="148" width="320" height="52" fill="var(--floor)"/><g stroke="var(--floor2)" stroke-width="1.5" opacity=".55"><path d="M0 162H320M0 176H320M0 190H320M60 148V162M180 148V162M260 148V162M20 162V176M120 162V176M220 162V176M300 162V176M70 176V190M170 176V190M270 176V190"/></g><rect y="146" width="320" height="4" fill="var(--floor2)"/>`
+ +`<ellipse cx="160" cy="181" rx="146" ry="17" fill="var(--rug)"/><ellipse cx="160" cy="181" rx="128" ry="13" fill="none" stroke="#FFD23F" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round"/>`
+ +`<rect x="16" y="30" width="72" height="60" rx="4" fill="var(--sky)" stroke="#fff" stroke-width="4"/><path d="M52 30V90M16 60H88" stroke="#fff" stroke-width="3"/><g class="cd"><ellipse cx="36" cy="46" rx="12" ry="5" fill="#fff" opacity=".9"/><ellipse cx="44" cy="43" rx="8" ry="5" fill="#fff" opacity=".9"/></g><path d="M8 26 Q22 58 10 94 H21 Q28 58 21 26Z" fill="#FF6B6B"/><path d="M96 26 Q82 58 94 94 H83 Q76 58 83 26Z" fill="#FF6B6B"/>`
+ +`<rect x="212" y="30" width="96" height="56" rx="5" fill="#264653" stroke="#B0BEC5" stroke-width="3"/><path d="M222 72 Q240 44 262 64 T296 50" stroke="#FFD23F" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="232" cy="46" r="5" fill="#FF5A5F"/><path d="M278 40l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#00BBF9"/>`
+ +`<g transform="translate(104 38)"><rect width="30" height="36" rx="3" fill="#fff" stroke="#E0E0E0"/><path d="M5 30 A10 10 0 0 1 25 30" stroke="#FF5A5F" stroke-width="3" fill="none"/><path d="M8 30 A7 7 0 0 1 22 30" stroke="#FFD23F" stroke-width="3" fill="none"/><path d="M11 30 A4 4 0 0 1 19 30" stroke="#00BBF9" stroke-width="3" fill="none"/></g><g transform="translate(142 42)"><rect width="30" height="28" rx="3" fill="#FFE29A"/><text x="15" y="19" text-anchor="middle" font-size="11" font-weight="800" fill="#FF5A5F" font-family="Baloo 2,Nunito,sans-serif">ABC</text></g>`
+ +`<g fill="#E0A458"><rect x="2" y="128" width="44" height="7" rx="2"/><rect x="274" y="128" width="44" height="7" rx="2"/></g><g stroke="#B07A3A" stroke-width="3"><path d="M8 135v13M40 135v13M280 135v13M312 135v13"/></g>`;
+const FLOWERS=[[18,170,'#FF5A5F'],[44,188,'#FFD23F'],[96,164,'#fff'],[140,192,'#FF8FD1'],[190,166,'#FFD23F'],[236,190,'#FF5A5F'],[270,168,'#fff'],[300,186,'#FF8FD1'],[70,196,'#FFD23F'],[212,196,'#fff']];
+const OUT=(sun)=>`<defs><linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sky1)"/><stop offset="1" style="stop-color:var(--sky2)"/></linearGradient></defs><rect width="320" height="200" fill="url(#skyg)"/>`
+ +`<g fill="none" stroke-width="5" opacity=".5">${['#FF5A5F','#FF9F1C','#FFD23F','#2ED47A','#00BBF9','#9B5DE5'].map((c,k)=>{const r=150-k*5;return `<path d="M${140-r} 160 A${r} ${r} 0 0 1 ${140+r} 160" stroke="${c}"/>`}).join('')}</g>`
+ +(sun===false?'':`<g transform="translate(288 40)"><g class="sp">${[0,45,90,135,180,225,270,315].map(a=>`<line x1="0" y1="-24" x2="0" y2="-32" stroke="#FFC933" stroke-width="4.5" stroke-linecap="round" transform="rotate(${a})"/>`).join('')}</g><circle r="18" fill="#FFD23F" stroke="#FFB300" stroke-width="2"/><circle cx="-6" cy="-3" r="2.2" fill="#2B2140"/><circle cx="6" cy="-3" r="2.2" fill="#2B2140"/><path d="M-7 5 Q0 11 7 5" stroke="#2B2140" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="-11" cy="3" r="3" fill="#FF8FA3" opacity=".6"/><circle cx="11" cy="3" r="3" fill="#FF8FA3" opacity=".6"/></g>`)
+ +`<g class="cd"><g fill="#fff"><ellipse cx="60" cy="48" rx="28" ry="10"/><ellipse cx="82" cy="40" rx="18" ry="9"/><ellipse cx="44" cy="42" rx="14" ry="8"/></g></g><g class="cd" style="animation-delay:-5s"><g fill="#fff" opacity=".95"><ellipse cx="200" cy="70" rx="24" ry="8"/><ellipse cx="216" cy="64" rx="14" ry="7"/></g></g>`
+ +`<ellipse cx="70" cy="160" rx="160" ry="38" fill="var(--hill)"/><ellipse cx="270" cy="164" rx="130" ry="30" fill="var(--hill2)"/><rect y="152" width="320" height="48" fill="var(--ground)"/>`
+ +FLOWERS.map(f=>`<g transform="translate(${f[0]} ${f[1]})"><circle r="3.4" fill="${f[2]}"/><circle r="1.4" fill="#FFB300"/></g>`).join('');
+const TREE=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><rect x="-6" y="-44" width="12" height="44" rx="3" fill="#8B5A2B" ${OL}/><circle cx="0" cy="-60" r="27" fill="#2EAF5A" ${OL}/><circle cx="-17" cy="-47" r="17" fill="#3CC46B" ${OL}/><circle cx="17" cy="-47" r="17" fill="#27A04E" ${OL}/><circle cx="-8" cy="-66" r="3.4" fill="#FF5A5F"/><circle cx="12" cy="-54" r="3.4" fill="#FF5A5F"/><circle cx="-18" cy="-44" r="3.4" fill="#FF5A5F"/></g>`;
+const CLOUD=(x,y)=>`<g transform="translate(${x} ${y})"><ellipse rx="27" ry="13" fill="#9FB2C4"/><ellipse cx="-15" cy="4" rx="17" ry="10" fill="#9FB2C4"/><ellipse cx="17" cy="4" rx="19" ry="10" fill="#8CA1B5"/><circle cx="-6" cy="-1" r="2" fill="#2B2140"/><circle cx="6" cy="-1" r="2" fill="#2B2140"/><path d="M-4 5 q4 3 8 0" stroke="#2B2140" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>`;
+const RAINFROM=(x0,n,gap,y0)=>Array.from({length:n},(_,i)=>`<line class="dr" x1="${x0+i*gap}" y1="${y0}" x2="${x0+i*gap}" y2="${y0+9}" stroke="#1E88E5" stroke-width="3" stroke-linecap="round" style="animation-delay:${-(i*0.37%1.6)}s"/>`).join('');
+const FL=(x,y,c)=>`<g transform="translate(${x} ${y})"><path d="M0 0V-16" stroke="#2E9E4A" stroke-width="2.4"/><circle cy="-19" r="6" fill="${c}" ${OL}/><circle cy="-19" r="2.6" fill="#FFD23F"/></g>`;
+const SUN=`<g transform="translate(274 36)"><g class="sp">${[0,45,90,135,180,225,270,315].map(a=>`<line x1="0" y1="-24" x2="0" y2="-32" stroke="#FFC933" stroke-width="4.5" stroke-linecap="round" transform="rotate(${a})"/>`).join('')}</g><circle r="18" fill="#FFD23F" stroke="#FFB300" stroke-width="2"/><circle cx="-6" cy="-3" r="2.2" fill="#2B2140"/><circle cx="6" cy="-3" r="2.2" fill="#2B2140"/><path d="M-7 5 Q0 11 7 5" stroke="#2B2140" stroke-width="2" fill="none" stroke-linecap="round"/></g>`;
+const WINDS=(ys,x0)=>ys.map((y,i)=>`<path class="wd" style="--dl:${-i*.7}s" d="M${x0} ${y} q14 -8 28 0 t26 0" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".95"/>`).join('');
+const MASCOT=(x,y)=>{const pts=[];for(let i=0;i<10;i++){const r=i%2?9.5:18,a=-Math.PI/2+i*Math.PI/5;pts.push((Math.cos(a)*r).toFixed(1)+','+(Math.sin(a)*r).toFixed(1))}const P=pts.join(' ');
+ return `<g transform="translate(${x} ${y})"><g id="mascot" class="mas"><path class="mw" d="M-12 3 Q-21 0 -22 -10" stroke="#FFB300" stroke-width="4.5" fill="none" stroke-linecap="round"/><path class="mw" style="animation-delay:-.4s" d="M12 3 Q21 0 22 -10" stroke="#FFB300" stroke-width="4.5" fill="none" stroke-linecap="round"/><polygon points="${P}" fill="#FFD23F" stroke="#FFB300" stroke-width="6" stroke-linejoin="round"/><polygon points="${P}" fill="#FFD23F" stroke="#FFD23F" stroke-width="3" stroke-linejoin="round"/><ellipse cx="-4.6" cy="-1" rx="3" ry="3.6" fill="#fff"/><ellipse cx="4.6" cy="-1" rx="3" ry="3.6" fill="#fff"/><circle cx="-4.2" cy="-.6" r="1.8" fill="#2B2140"/><circle cx="5" cy="-.6" r="1.8" fill="#2B2140"/><path d="M-5 5 Q0 11 5 5Z" fill="#8A1E2D"/><circle cx="-9" cy="4" r="2.4" fill="#FF8FA3" opacity=".7"/><circle cx="9" cy="4" r="2.4" fill="#FF8FA3" opacity=".7"/></g></g>`};
+/* scener */
+const KNEE={c:.35,la:12,ra:12,lel:6,rel:6},KNEE2={c:.35,la:12,ra:12,lel:48,rel:48};
+const CLAPO={la:44,ra:44,lel:74,rel:74},CLAPS={la:27,ra:27,lel:106,rel:106};
+const WALKA={ll:14,lr:1,la:14,ra:-4},WALKB={ll:1,lr:14,la:-4,ra:14};
+
+const SCN={
+blomman:()=>({T:[3000,3500,3500,3000],caps:['Gör dig liten som ett frö','Solen kommer: växa sakta','Regn: fingrarna dansar ner','Sträck ut bladen och andas'],
+ bg:OUT(false)+FL(40,176,'#FF5A5F')+FL(282,178,'#FFD23F'),
+ props:`<g data-s="2 3 4">${SUN}</g><g data-s="3">${CLOUD(200,58)}${RAINFROM(176,6,10,74)}</g>`,
+ kids:[{x:160,y:186,s:1.1,look:0,tr:[[0,{c:1,hd:30,la:8,ra:8,lel:125,rel:125,tw:8,ey:.3,mo:0}],[2600,{c:1,hd:30,la:8,ra:8,lel:125,rel:125,tw:8,ey:.3,mo:0}],[4800,{c:.5,la:70,ra:70,lel:10,rel:10,hd:0,ey:1,mo:.4}],[6500,{la:150,ra:150,hd:-14,mo:.8}],...osc(6500,10000,5,{la:150,ra:150,lel:20,rel:20,hd:-10,mo:.8},{la:150,ra:150,lel:-20,rel:-20,hd:-10,mo:.8}),[11200,{la:172,ra:172,hd:-6,mo:.8}],[12000,{la:172,ra:172,hd:-6,mo:.8}]]}]}),
+eko:()=>{const cl=(a,b,n)=>osc(a,b,n,CLAPO,CLAPS),pat=(a,b,n)=>osc(a,b,n,KNEE,KNEE2);return({T:[3500,3500,3500,3500],caps:['Läraren klappar ett mönster','Alla klappar tillbaka','Klappa, knän, stampa','En elev hittar på nästa'],bg:CLASS(),props:'',cues:[...[662,1387,2112,2837].map(t=>[t,'KLAPP!',90,58,'#FF5A5F']),...[4162,4887,5612,6337].map(t=>[t,'KLAPP!',215,66,'#9B5DE5']),...[7450,7950,8450].map(t=>[t,'KLAPP!',150,60,'#FF8C42']),...[11133,11999,12866].map(t=>[t,'KLAPP!',262,70,'#1FC77E'])],
+ kids:[{x:84,y:186,s:1.1,look:5,tr:[[0,{mo:.9}],...cl(300,3200,4),[3500,{mo:.7}],[6500,{mo:.7}],...cl(7200,8700,3),...pat(8800,10200,3),[10500,{}],[13500,{}]]},
+  {x:190,y:186,s:.96,look:2,tr:[[0,{}],[3500,{}],...cl(3800,6700,4),...cl(7200,8700,3),...pat(8800,10200,3),[10500,{mo:.8}],[13500,{}]]},
+  {x:262,y:186,s:.92,look:1,tr:[[0,{}],[3500,{}],...cl(3800,6700,4),...cl(7200,8700,3),...pat(8800,10200,3),[10500,{}],...cl(10700,13300,3),[13500,{}]]}]})},
+tradet:()=>({T:[3000,3500,3500,3000],caps:['Fötter som rötter','Lätt vind: grenarna vickar','Storm: hela trädet svajar','Vinden lägger sig'],
+ bg:OUT()+TREE(290,176,.9),props:`<g data-s="2">${WINDS([70,92],10)}</g><g data-s="3">${WINDS([60,78,96,114],6)}</g>`,
+ kids:[{x:90,y:186,s:1.02,look:3,tr:[[0,{ll:12,lr:12,la:5,ra:5}],[3000,{ll:12,lr:12,la:5,ra:5}],[3600,{ll:12,lr:12,la:150,ra:150}],...osc(4000,6500,3,{ll:12,lr:12,la:150,ra:150,tw:-5},{ll:12,lr:12,la:150,ra:150,tw:5}),...osc(6500,10000,4,{ll:12,lr:12,la:168,ra:140,tw:-14,hd:-8},{ll:12,lr:12,la:140,ra:168,tw:14,hd:8}),[11500,{ll:12,lr:12,la:158,ra:158}],[13000,{ll:12,lr:12,la:158,ra:158}]]},
+  {x:190,y:186,s:.96,look:4,tr:[[0,{ll:12,lr:12,la:5,ra:5}],[3000,{ll:12,lr:12,la:5,ra:5}],[3600,{ll:12,lr:12,la:150,ra:150}],...osc(4200,6500,3,{ll:12,lr:12,la:150,ra:150,tw:5},{ll:12,lr:12,la:150,ra:150,tw:-5}),...osc(6500,10000,4,{ll:12,lr:12,la:140,ra:168,tw:14,hd:8},{ll:12,lr:12,la:168,ra:140,tw:-14,hd:-8}),[11500,{ll:12,lr:12,la:158,ra:158}],[13000,{ll:12,lr:12,la:158,ra:158}]]}]}),
+skaka:()=>({T:[2600,2600,2600,3000],caps:['Skaka händerna','Skaka armar och axlar','Skaka en fot i taget','Skaka hela kroppen: pust!'],bg:CLASS(),props:'',cues:[[300,'BRR!',160,60,'#FF8C42'],[2900,'SKAKA!',160,60,'#9B5DE5'],[5400,'HOPP!',160,60,'#00BBF9'],[8000,'SKAKA!',160,60,'#FF5A5F'],[11000,'PUUUST!',160,60,'#1FC77E']],
+ kids:[{x:100,y:186,s:1.05,look:0,tr:[[0,{la:18,ra:18,lel:70,rel:70}],...osc(200,2400,11,{la:18,ra:18,lel:60,rel:60},{la:18,ra:18,lel:110,rel:110}),...osc(2800,5000,7,{la:12,ra:12,lel:5,rel:5,tw:-3},{la:48,ra:48,lel:5,rel:5,tw:3}),...osc(5400,6400,2,{ll:26,lr:2},{ll:4,lr:2}),...osc(6600,7600,2,{ll:4,lr:26},{ll:4,lr:2}),...osc(8000,10600,12,{la:40,ra:60,tw:-5,by:-4,ll:14,lr:14},{la:60,ra:40,tw:5,by:0,ll:6,lr:6,hd:6}),[11000,{mo:1.4,la:30,ra:30}],[11600,{mo:.4}]]},
+  {x:220,y:186,s:.98,look:1,tr:[[0,{la:18,ra:18,lel:70,rel:70}],...osc(200,2400,11,{la:18,ra:18,lel:110,rel:110},{la:18,ra:18,lel:60,rel:60}),...osc(2800,5000,7,{la:48,ra:48,lel:5,rel:5},{la:12,ra:12,lel:5,rel:5}),...osc(5400,6400,2,{ll:4,lr:20},{ll:4,lr:2}),...osc(6600,7600,2,{ll:22,lr:2},{ll:4,lr:2}),...osc(8000,10600,12,{la:60,ra:40,tw:5,by:0,ll:6,lr:6},{la:40,ra:60,tw:-5,by:-4,ll:14,lr:14}),[11000,{mo:1.4,la:30,ra:30}],[11600,{mo:.4}]]}]}),
+farg:()=>({T:[3000,3500,3000,3500],caps:['Läraren säger en färg','Gå och rör vid något blått','Tillbaka till platsen','Nästa färg: fem gånger'],
+ bg:CLASS()+`<circle cx="100" cy="177" r="9" fill="#FF5A5F" stroke="#2B2140" stroke-width="1.5"/><rect x="120" y="150" width="26" height="22" rx="3" fill="#3B82C4"/><rect x="154" y="168" width="22" height="16" rx="2" fill="#3B82C4"/><path d="M230 170q4 -14 9 0 q6 -12 9 0z" fill="#2E9E5B"/><rect x="188" y="170" width="14" height="14" rx="3" fill="#F2B632"/>`,
+ props:`<g data-s="1"><rect x="26" y="96" width="30" height="22" rx="3" fill="#3B82C4" stroke="#fff" stroke-width="2"/></g><g data-s="4"><circle cx="100" cy="30" r="7" fill="#E03C31"/><circle cx="124" cy="30" r="7" fill="#F2B632"/><circle cx="148" cy="30" r="7" fill="#2E9E5B"/><circle cx="172" cy="30" r="7" fill="#3B82C4"/><circle cx="196" cy="30" r="7" fill="#7A4FBF"/></g>`,
+ kids:[{x:70,y:186,s:1.08,look:5,tr:[[0,{la:150,ra:6,mo:.9}],[3000,{la:150,ra:6,mo:.9}],[3500,{la:8}],[13500,{}]]},
+  {x:128,y:186,s:.96,look:2,tr:[[0,{}],[3000,{}],...osc(3000,5000,3,WALKA,WALKB),[5200,{bx:34,ra:90,rel:-10,la:6}],[6500,{bx:34,ra:90,rel:-10}],...osc(6500,9000,3,{bx:34,ll:14,lr:1},{bx:2,ll:1,lr:14}),[9300,{}],[9800,{}],[13500,{}]]},
+  {x:240,y:186,s:.92,look:1,tr:[[0,{}],[3000,{}],...osc(3000,5000,3,{ll:1,lr:14,la:-4,ra:14},{ll:14,lr:1,la:14,ra:-4}),[5200,{bx:-60,la:90,lel:-10}],[6500,{bx:-60,la:90,lel:-10}],...osc(6500,9000,3,{bx:-60,ll:14,lr:1},{bx:-4,ll:1,lr:14}),[9300,{}],[13500,{}]]}]}),
+ballong:()=>({T:[3000,3500,3500,3000],caps:['Händerna runt en ballong','In genom näsan: magen ut','Blås ut: ballongen krymper','Gör det fem gånger'],bg:CLASS(),props:'',cues:[[3000,'IN…',160,62,'#00BBF9'],[6500,'UT…',160,62,'#FF5A5F'],[10000,'IN…',160,62,'#00BBF9'],[11500,'UT…',160,62,'#FF5A5F']],
+ front:[0,1,2].map(i=>`<circle id="bal${i}" r="7" fill="#E4572E" stroke="rgba(0,0,0,.2)" stroke-width="1" opacity=".9"/>`).join(''),
+ tick:(t,x)=>{const T=13000;let r;if(t<3000)r=7;else if(t<6500)r=7+15*ease((t-3000)/3500);else if(t<10000)r=22-15*ease((t-6500)/3500);else r=7+13*Math.abs(Math.sin((t-10000)/3000*Math.PI*2));[[80,0],[160,1],[240,2]].forEach(q=>{const e=x.q('#bal'+q[1]);if(e){e.setAttribute('cx',q[0]);e.setAttribute('cy',121);e.setAttribute('r',r.toFixed(1))}})},
+ kids:[80,160,240].map((px,i)=>({x:px,y:186,s:.97,look:[2,0,3][i],tr:[[0,{la:36,ra:36,lel:106,rel:106,mo:.2}],[3000,{la:36,ra:36,lel:106,rel:106,mo:.1}],[6500,{la:56,ra:56,lel:96,rel:96,by:-2,mo:0,hd:-4}],[10000,{la:34,ra:34,lel:108,rel:108,by:0,mo:1,hd:0}],...osc(10000,13000,2,{la:34,ra:34,lel:108,rel:108,mo:1,by:0},{la:58,ra:58,lel:96,rel:96,mo:0,by:-2})]}))}),
+ljud:()=>({T:[3000,3500,3500,3500],caps:['Sitt bekvämt, blunda','Lyssna inne: finger per ljud','Lyssna ute: vad hörs?','Öppna ögonen, berätta'],bg:CLASS(),
+ props:`<g data-s="3"><path d="M100 50 q8 8 0 16 M108 44 q13 14 0 28" stroke="#13293D" stroke-width="2.4" fill="none" stroke-linecap="round" class="sd"/><text x="56" y="56" font-size="18">🐦</text></g><g data-s="2"><text x="150" y="40" font-size="14">🔔 ♪ ♪</text></g>`,
+ kids:[{x:130,y:186,s:1.04,look:3,tr:[[0,{c:.25,ey:0,mo:.2,la:10,ra:10}],[3000,{c:.25,ey:0,la:10,ra:10}],[3600,{c:.25,ey:0,la:10,ra:160,rel:-18}],[4500,{c:.25,ey:0,la:10,ra:160,rel:-18}],[5400,{c:.25,ey:0,la:10,ra:160,rel:-18}],...osc(4000,6200,3,{c:.25,ey:0,la:10,ra:170,rel:-10},{c:.25,ey:0,la:10,ra:152,rel:-26}),[6700,{c:.25,ey:0,hd:-12,la:14,ra:130,rel:-95,tw:-4}],[9900,{c:.25,ey:0,hd:-12,la:14,ra:130,rel:-95,tw:-4}],[10300,{c:.1,ey:1,hd:10,la:10,ra:10,mo:.9}],...osc(10300,13500,3,{hd:10,mo:1.4},{hd:10,mo:.6})]},
+  {x:230,y:186,s:.98,look:1,tr:[[0,{c:.25,ey:0,mo:.2}],[6700,{c:.25,ey:0,hd:12,la:14,ra:10,lel:0,rel:0}],[9900,{c:.25,ey:0,hd:12,la:14}],[10300,{c:.1,ey:1,hd:-10,mo:.8}],...osc(10300,13500,3,{hd:-10,mo:.5},{hd:-10,mo:1.3})]}]}),
+slowmotion:()=>({T:[3000,4000,4000,3000],caps:['Hitta en egen plats','Gå som i tjock sirap','Sköldpadda, sedan björn','Stanna och andas ut'],bg:CLASS(),
+ props:`<g data-w="7000-9000">${ANI('turtle',262,176,1.2,true)}</g><g data-w="9000-11200">${ANI('bear',262,176,1.15)}</g>`,
+ kids:[{x:46,y:186,s:1.02,look:2,tr:[[0,{}],[800,{bx:-20}],...osc(1000,3000,2,WALKA,WALKB),[3000,{bx:-20}],...osc(3000,7000,2,{bx:-20,ll:12,lr:1,la:18,ra:-2},{bx:-4,ll:1,lr:12,la:-2,ra:18}),[7000,{bx:-4,c:.5,la:60,ra:60,lel:80,rel:80,hd:-10}],[8200,{bx:-4,c:.5,la:60,ra:60,lel:80,rel:80}],[9500,{bx:-4,tw:16,hd:12,la:30,ra:30,lel:20,rel:20}],[11000,{bx:0}],[11500,{bx:0,la:70,ra:70,mo:1.5}],[14000,{bx:0}]]},
+  {x:120,y:186,s:.96,look:4,tr:[[0,{}],[1000,{bx:0}],[3000,{bx:10}],...osc(3000,7000,2,{bx:10,ll:1,lr:12,la:-2,ra:18},{bx:30,ll:12,lr:1,la:18,ra:-2}),[7000,{bx:30,c:.5,la:60,ra:60,lel:80,rel:80}],[9500,{bx:30,tw:-16,hd:-12,la:30,ra:30,lel:20,rel:20}],[11000,{bx:20}],[11500,{bx:20,la:70,ra:70,mo:1.5}],[14000,{bx:0}]]},
+  {x:190,y:186,s:.92,look:1,tr:[[0,{}],[800,{bx:20}],[3000,{bx:20}],...osc(3000,7000,2,{bx:20,ll:12,lr:1,la:18,ra:-2},{bx:0,ll:1,lr:12,la:-2,ra:18}),[7000,{bx:0,c:.5,la:60,ra:60,lel:80,rel:80}],[9500,{bx:0,tw:16,hd:12,la:30,ra:30}],[11000,{bx:10}],[11500,{bx:10,la:70,ra:70,mo:1.5}],[14000,{bx:0}]]}]}),
+spann:()=>({T:[3000,3000,3000,3500],caps:['Händerna som hårda stenar','Axlar upp mot öronen','Magen som en sten','Släpp: skaka ut och andas'],bg:CLASS(),props:'',cues:[[600,'SPÄNN!',160,62,'#C0392B'],[2900,'SLÄPP!',160,62,'#1FC77E'],[3600,'SPÄNN!',160,62,'#C0392B'],[5900,'SLÄPP!',160,62,'#1FC77E'],[6300,'SPÄNN!',160,62,'#C0392B'],[8900,'SLÄPP!',160,62,'#1FC77E']],
+ kids:[{x:110,y:186,s:1.06,look:0,tr:[[0,{}],[500,{la:10,ra:10,lel:98,rel:98,ey:.45,mo:0,br:-1,hd:2}],[2400,{la:10,ra:10,lel:98,rel:98,ey:.45,mo:0,br:-1}],[2900,{la:6,ra:6,lel:4,rel:4,ey:1,mo:.4}],[3500,{la:3,ra:3,by:-3,ey:.45,mo:0,br:-1,hd:6,lel:20,rel:20}],[5400,{la:3,ra:3,by:-3,ey:.45,mo:0,br:-1,hd:6,lel:20,rel:20}],[5900,{la:6,ra:6,by:0,ey:1,mo:.4,hd:0,lel:0,rel:0}],[6200,{tw:-5,la:30,ra:30,lel:95,rel:95,ey:.45,mo:0,br:-1,hd:10}],[8400,{tw:-5,la:30,ra:30,lel:95,rel:95,ey:.45,mo:0,br:-1,hd:10}],[8900,{la:6,ra:6,lel:0,rel:0}],...osc(9000,11800,7,{la:14,ra:30,lel:10,rel:20,tw:-3},{la:30,ra:14,lel:20,rel:10,tw:3}),[12400,{la:150,ra:150,mo:1.2,br:.9}],[13000,{la:40,ra:40,mo:.9}],[13500,{}]]},
+  {x:230,y:186,s:.98,look:3,tr:[[0,{}],[500,{la:10,ra:10,lel:98,rel:98,ey:.45,mo:0,br:-1}],[2400,{la:10,ra:10,lel:98,rel:98,ey:.45,mo:0,br:-1}],[2900,{la:6,ra:6,lel:4,rel:4,ey:1}],[3500,{la:3,ra:3,by:-3,ey:.45,mo:0,br:-1,hd:6,lel:20,rel:20}],[5400,{la:3,ra:3,by:-3,ey:.45,mo:0,br:-1,lel:20,rel:20}],[5900,{ey:1,by:0}],[6200,{tw:5,la:30,ra:30,lel:95,rel:95,ey:.45,mo:0,br:-1}],[8400,{tw:5,la:30,ra:30,lel:95,rel:95,ey:.45,mo:0,br:-1}],[8900,{la:6,ra:6,lel:0,rel:0}],...osc(9000,11800,7,{la:30,ra:14,lel:20,rel:10,tw:3},{la:14,ra:30,lel:10,rel:20,tw:-3}),[12400,{la:150,ra:150,mo:1.2,br:.9}],[13000,{la:40,ra:40,mo:.9}],[13500,{}]]}]}),
+regn:()=>({T:[3000,3500,3500,3000],caps:['Gnugga handflatorna: droppar','Knäpp med fingrarna','Klappa knän, stampa: skur','Baklänges tills det är tyst'],
+ bg:CLASS(),props:`<g data-s="1 2 3 4">${RAINFROM(24,3,22,30)}</g><g data-s="2 3">${RAINFROM(32,3,22,36)}</g><g data-s="3">${RAINFROM(22,5,13,42)}</g><g data-s="4">${RAINFROM(34,2,26,30)}</g>`,
+ kids:[{x:130,y:186,s:1.04,look:2,tr:[[0,{la:28,ra:28,lel:106,rel:106}],...osc(300,2900,9,{la:28,ra:28,lel:100,rel:100},{la:32,ra:32,lel:112,rel:112}),...osc(3200,6400,8,{la:6,ra:6,lel:10,rel:10},{la:6,ra:150,rel:-35}),...osc(6500,8400,4,KNEE,KNEE2),...osc(8500,9800,3,{by:0,ll:4,lr:4,c:.1},{by:-5,ll:10,lr:10}),[10000,{la:28,ra:28,lel:100,rel:100}],...osc(10200,12600,5,{la:28,ra:28,lel:100,rel:100},{la:32,ra:32,lel:112,rel:112}),[13000,{}]]},
+  {x:230,y:186,s:.97,look:1,tr:[[0,{la:28,ra:28,lel:106,rel:106}],...osc(300,2900,9,{la:32,ra:32,lel:112,rel:112},{la:28,ra:28,lel:100,rel:100}),...osc(3200,6400,8,{la:150,ra:6,lel:-35},{la:6,ra:6,lel:10,rel:10}),...osc(6500,8400,4,KNEE2,KNEE),...osc(8500,9800,3,{by:-5,ll:10,lr:10},{by:0,ll:4,lr:4,c:.1}),[10000,{la:28,ra:28,lel:100,rel:100}],...osc(10200,12600,5,{la:32,ra:32,lel:112,rel:112},{la:28,ra:28,lel:100,rel:100}),[13000,{}]]}]}),
+sinnen:()=>({T:[3000,3500,3500,3500],caps:['Gå tyst i en rad','Stanna och lyssna','Titta efter något litet','Känn luften, berätta'],
+ bg:OUT()+TREE(40,176,.8)+TREE(290,176,.85)+FL(150,176,'#E4572E')+FL(166,178,'#F6C945'),props:`<g data-s="2"><path d="M200 76 q8 8 0 16 M208 70 q13 14 0 28" stroke="#13293D" stroke-width="2.2" fill="none" stroke-linecap="round" class="sd"/></g><g data-s="4">${WINDS([70,92],200)}</g>`,
+ kids:[{x:100,y:186,s:1.0,look:2,tr:[[0,{}],...osc(0,2800,4,WALKA,WALKB),[3000,{bx:0}],[3600,{hd:-12,la:10,ra:128,rel:-95,tw:-3}],[6000,{hd:-12,la:10,ra:128,rel:-95,tw:-3}],[6500,{c:.7,tw:14,hd:12,la:10,ra:36,rel:-6}],[9800,{c:.7,tw:14,hd:12,la:10,ra:36,rel:-6}],[10400,{hd:-14,la:62,ra:62,ey:0,mo:.8}],[12000,{hd:-14,la:62,ra:62,ey:0,mo:.8}],[13000,{hd:8,la:10,ra:10,ey:1,mo:1.3}]]},
+  {x:210,y:186,s:.96,look:4,tr:[[0,{}],...osc(0,2800,4,WALKB,WALKA),[3000,{}],[3600,{hd:12,la:128,lel:-95,ra:10,tw:3}],[6000,{hd:12,la:128,lel:-95,ra:10,tw:3}],[6500,{c:.7,tw:-14,hd:-12,la:36,lel:-6}],[9800,{c:.7,tw:-14,hd:-12,la:36,lel:-6}],[10400,{hd:14,la:62,ra:62,ey:0,mo:.8}],[12000,{hd:14,la:62,ra:62,ey:0,mo:.8}],[13000,{hd:-8,ey:1,mo:.7}]]}]}),
+djur:()=>({T:[2500,3500,3500,3500],caps:['Se till att ni har plats','Elefant, sedan mus','Groda, sedan fjäril','Barnen föreslår fler djur'],bg:CLASS(),
+ props:`<g data-w="2600-4300">${ANI('elephant',262,176,1.0)}</g><g data-w="4400-6000">${ANI('mouse',262,176,1.5)}</g><g data-w="6100-7700">${ANI('frog',262,176,1.5)}</g><g data-w="7800-9500">${ANI('butterfly',248,108,1.2)}</g><g data-s="4"><text x="230" y="96" font-size="26">❓ 🦒 🐍 🦆</text></g>`,
+ kids:[{x:92,y:186,s:1.04,look:0,tr:[[0,{la:8,ra:8}],[500,{la:70,ra:70,ll:12,lr:12}],[2500,{la:70,ra:70,ll:12,lr:12}],[2700,{la:20,ra:20,lel:100,rel:100,tw:0}],...osc(2800,4300,2,{tw:-9,la:22,ra:22,lel:110,rel:110,ll:10,lr:3,by:-2},{tw:9,la:22,ra:22,lel:110,rel:110,ll:3,lr:10,by:0}),...osc(4400,6000,6,{c:.4,la:30,ra:30,lel:60,rel:60,ll:4,lr:4},{c:.4,la:30,ra:30,lel:60,rel:60,by:-3,ll:10,lr:10}),...osc(6100,7700,2,{c:.9,la:22,ra:22,lel:30,rel:30},{c:0,by:-24,la:62,ra:62,lel:-10,rel:-10,ll:10,lr:10}),...osc(7800,9500,4,{la:130,ra:130},{la:55,ra:55}),[10000,{la:8,ra:8}],[13500,{}]]},
+  {x:172,y:186,s:.96,look:1,tr:[[0,{}],[2500,{}],...osc(2800,4300,2,{tw:9,la:22,ra:22,lel:110,rel:110},{tw:-9,la:22,ra:22,lel:110,rel:110}),...osc(4400,6000,6,{c:.4,la:30,ra:30,lel:60,rel:60,by:-3},{c:.4,la:30,ra:30,lel:60,rel:60}),...osc(6100,7700,2,{c:0,by:-24,la:62,ra:62},{c:.9,la:22,ra:22}),...osc(7800,9500,4,{la:55,ra:55},{la:130,ra:130}),[10000,{}],[13500,{}]]}]}),
+flod:()=>({T:[3000,4000,3500,3500],caps:['Golvet är en flod','Simma som fiskar','"Sten!" frys. "Ström!" åt andra hållet','Vila på botten'],cues:[[7200,'',0,0,'','ping'],[8700,'',0,0,'','whoosh']],
+ bg:CLASS()+`<rect y="150" width="320" height="50" fill="#38B6FF" opacity=".8"/><g class="wv" opacity=".5"><path d="M-40 154 q10 -8 20 0 ${'t20 0 '.repeat(19)}" stroke="#fff" stroke-width="2" fill="none"/></g>`,props:`<g data-w="7200-8500"><rect x="124" y="40" width="72" height="26" rx="13" fill="#fff" stroke="#2B2140" stroke-width="1.5"/><text x="160" y="58" text-anchor="middle" class="big">STEN!</text></g><g data-w="8700-10500"><rect x="124" y="40" width="72" height="26" rx="13" fill="#fff" stroke="#2B2140" stroke-width="1.5"/><text x="160" y="58" text-anchor="middle" class="big">STRÖM!</text></g>`,
+ kids:[{x:90,y:186,s:1.0,look:2,tr:[[0,{tw:-6,la:70,ra:70,lel:60,rel:60}],...osc(3000,7000,5,{bx:0,tw:-12,la:150,ra:30,hd:-8},{bx:40,tw:12,la:30,ra:150,hd:8}),[7200,{bx:20,tw:0,la:90,ra:90,lel:-30,rel:-30,mo:1.2,br:.9}],[8600,{bx:20,tw:0,la:90,ra:90,lel:-30,rel:-30,mo:1.2,br:.9}],...osc(8800,10500,3,{bx:20,tw:12,la:30,ra:150},{bx:-30,tw:-12,la:150,ra:30}),[10700,{bx:-30,c:1,tw:0,hd:28,la:10,ra:10,lel:90,rel:90}],[13000,{bx:-30,c:1,hd:28,la:10,ra:10,lel:90,rel:90}]]},
+  {x:230,y:186,s:.96,look:4,tr:[[0,{tw:6,la:70,ra:70,lel:60,rel:60}],...osc(3000,7000,5,{bx:0,tw:12,la:30,ra:150,hd:8},{bx:-40,tw:-12,la:150,ra:30,hd:-8}),[7200,{bx:-20,tw:0,la:90,ra:90,lel:-30,rel:-30,mo:1.2,br:.9}],[8600,{bx:-20,la:90,ra:90,lel:-30,rel:-30,mo:1.2,br:.9}],...osc(8800,10500,3,{bx:-20,tw:-12,la:150,ra:30},{bx:30,tw:12,la:30,ra:150}),[10700,{bx:30,c:1,hd:-28,la:10,ra:10,lel:90,rel:90}],[13000,{bx:30,c:1,hd:-28,la:10,ra:10,lel:90,rel:90}]]}]}),
+frys:()=>({T:[2000,5000,3000,3000],caps:['Musik: börja dansa','Dansa fritt','FRYS! Stå stilla','Byt stil: långsamt, snabbt, litet, stort'],cues:[[7000,'',0,0,'','ping']],
+ bg:CLASS(),props:`<g data-s="1 2"><text x="40" y="44" font-size="22" class="nt">🎵</text><text x="270" y="40" font-size="20" class="nt" style="--dl:-2.4s">🎶</text></g><g data-s="3"><rect x="112" y="40" width="96" height="30" rx="14" fill="#fff" stroke="#2B2140" stroke-width="1.5"/><text x="160" y="61" text-anchor="middle" class="big">🧊 FRYS!</text></g>`,
+ kids:[{x:90,y:186,s:1.0,look:2,tr:[[0,{}],...osc(0,2000,2,{tw:-5,la:60,ra:20},{tw:5,la:20,ra:60}),...osc(2000,6800,10,{tw:-9,la:150,ra:60,by:0,ll:12,lr:4,hd:-6},{tw:9,la:60,ra:150,by:-5,ll:4,lr:12,hd:6}),[7000,{tw:8,la:120,ra:30,lel:-40,ll:18,lr:2,hd:8,mo:.9}],[9800,{tw:8,la:120,ra:30,lel:-40,ll:18,lr:2,hd:8,mo:.9}],...osc(10000,12000,2,{tw:-3,la:34,ra:34,by:0},{tw:3,la:50,ra:50}),...osc(12000,13000,4,{tw:-9,la:150,ra:60,by:-4},{tw:9,la:60,ra:150,by:0})]},
+  {x:190,y:186,s:.96,look:3,tr:[[0,{}],...osc(0,2000,2,{tw:5,la:20,ra:60},{tw:-5,la:60,ra:20}),...osc(2000,6800,10,{tw:9,la:60,ra:150,by:-5,ll:4,lr:12},{tw:-9,la:150,ra:60,by:0,ll:12,lr:4}),[7000,{tw:-6,la:30,ra:140,rel:-30,c:.3,mo:1.2,br:.9}],[9800,{tw:-6,la:30,ra:140,rel:-30,c:.3,mo:1.2,br:.9}],...osc(10000,12000,2,{la:34,ra:34,tw:3},{la:50,ra:50,tw:-3}),...osc(12000,13000,4,{tw:9,la:60,ra:150,by:0},{tw:-9,la:150,ra:60,by:-4})]},
+  {x:260,y:186,s:.92,look:1,tr:[[0,{}],...osc(0,2000,2,{tw:-4,la:50,ra:30},{tw:4,la:30,ra:50}),...osc(2000,6800,10,{tw:-8,la:90,ra:90,by:-4,ll:14,lr:14},{tw:8,la:150,ra:150,by:0,ll:4,lr:4}),[7000,{la:90,ra:90,lel:-90,rel:-90,hd:-14,mo:1.2,br:.9}],[9800,{la:90,ra:90,lel:-90,rel:-90,hd:-14,mo:1.2,br:.9}],...osc(10000,12000,2,{la:34,ra:34},{la:50,ra:50}),...osc(12000,13000,4,{tw:-8,la:90,ra:90,by:-4},{tw:8,la:150,ra:150,by:0})]}]}),
+skrap:()=>({T:[3000,3000,4500,3000],caps:['Tre tänkta kärl','Läraren: bananskal!','Plocka upp och lägg i rätt kärl','Prata: hur får vi mindre skräp?'],mascot:[196,120],
+ bg:CLASS()+`<g><rect x="228" y="140" width="28" height="36" rx="3" fill="#3B82C4"/><rect x="258" y="140" width="28" height="36" rx="3" fill="#E8A33D"/><rect x="288" y="140" width="28" height="36" rx="3" fill="#8A5A3C"/><text class="lb" style="font-size:8px" x="242" y="190" text-anchor="middle">papper</text><text class="lb" style="font-size:8px" x="272" y="190" text-anchor="middle">plast</text><text class="lb" style="font-size:8px" x="302" y="190" text-anchor="middle">mat</text></g>`,
+ props:`<text id="item" font-size="18" text-anchor="middle" opacity="0">🍌</text><g data-w="3200-5800"><rect x="108" y="38" width="104" height="28" rx="14" fill="#fff" stroke="#2B2140" stroke-width="1.5"/><text x="160" y="57" text-anchor="middle" class="big">Bananskal!</text></g>`,
+ tick:(t,x)=>{const e=x.q('#item');if(!e)return;const k=x.def.kids[0],p=x.pose(0,t);let ix,iy,v=1;if(t<6000)v=0;else if(t<7500){ix=150;iy=178}else if(t<10200){ix=k.x+p.bx+20*k.s;iy=186-62*k.s+p.c*14}else if(t<10900){const u=ease((t-10200)/700);ix=k.x+120+20*k.s+(302-(k.x+120+20*k.s))*u;iy=186-62*k.s+(160-(186-62*k.s))*u}else v=0;e.setAttribute('opacity',v);if(v){e.setAttribute('x',ix);e.setAttribute('y',iy)}},
+ kids:[{x:96,y:186,s:1.0,look:0,tr:[[0,{}],[6000,{}],[6300,{bx:12,ll:14,lr:1}],[6600,{bx:25,ll:1,lr:14}],[6900,{bx:38,ll:14,lr:1}],[7200,{bx:50,ll:4,lr:4}],[7900,{bx:50,c:.9,tw:20,la:14,ra:14,lel:0,hd:10}],[8700,{bx:50,c:.1,tw:0,la:40,ra:40,lel:70,rel:70,hd:0}],[9000,{bx:66,ll:14,lr:1,la:40,ra:40,lel:70,rel:70}],[9300,{bx:82,ll:1,lr:14,la:40,ra:40,lel:70,rel:70}],[9600,{bx:98,ll:14,lr:1,la:40,ra:40,lel:70,rel:70}],[9900,{bx:112,ll:1,lr:14,la:44,ra:44,lel:60,rel:60}],[10200,{bx:120,la:62,ra:62,lel:20,rel:20}],[10500,{bx:120,la:75,ra:75,lel:10,rel:10}],[11000,{bx:120,la:20,ra:20,lel:0,rel:0}],[11800,{bx:100,mo:1.2,br:.9}],[13500,{bx:0}]]},
+  {x:36,y:186,s:1.08,look:5,tr:[[0,{la:150,ra:8,mo:.9}],[2800,{la:150,ra:8}],[3300,{la:8,ra:80,rel:-30,mo:1}],[5800,{la:8,ra:80,rel:-30,mo:1}],[6500,{}],[13500,{mo:.8}]]}]}),
+berg:()=>({T:[3000,4000,3500,2500],caps:['Marschera på stället','Klättra uppför berget','Se dig omkring på toppen','Klättra ner, andas ut'],
+ bg:OUT().replace('var(--hill)','#9AA7B4').replace('var(--hill2)','#8D99A6')+`<polygon points="150,150 230,64 330,150" fill="#7D8995"/><polygon points="230,64 215,82 228,77 241,85" fill="#fff"/><path d="M168 150 Q190 122 214 88" stroke="#C9B28A" stroke-width="3" fill="none" stroke-dasharray="4 4"/><g class="bb" style="--d:1.2s"><text x="226" y="62" font-size="18">🚩</text></g>`,props:'',
+ kids:[{x:90,y:186,s:1.02,look:0,tr:[[0,{}],...osc(0,3000,6,{ll:22,lr:2,la:30,ra:-6,by:-3},{ll:2,lr:22,la:-6,ra:30,by:0}),...osc(3000,7000,6,{ll:24,lr:2,la:170,ra:40,hd:-8,by:-3,tw:-4},{ll:2,lr:24,la:40,ra:170,hd:-8,by:0,tw:4}),[7500,{la:100,lel:-100,ra:10,hd:-4}],[8200,{la:100,lel:-100,ra:10,hd:-10}],[9000,{la:100,lel:-100,ra:10,hd:10}],[10500,{la:110,ra:110,hd:-4}],...osc(10500,13000,4,{ll:22,lr:2,la:40,ra:170,hd:6,by:-3},{ll:2,lr:22,la:170,ra:40,hd:6,by:0}),[13500,{la:60,ra:60,mo:1.3}]]},
+  {x:200,y:186,s:.96,look:2,tr:[[0,{}],...osc(0,3000,6,{ll:2,lr:22,la:-6,ra:30,by:0},{ll:22,lr:2,la:30,ra:-6,by:-3}),...osc(3000,7000,6,{ll:2,lr:24,la:40,ra:170,hd:-8,by:0},{ll:24,lr:2,la:170,ra:40,hd:-8,by:-3}),[7500,{ra:100,rel:-100,la:10,hd:4}],[9000,{ra:100,rel:-100,la:10,hd:-6}],[10500,{la:110,ra:110,hd:-4}],...osc(10500,13000,4,{ll:2,lr:22,la:170,ra:40,hd:6},{ll:22,lr:2,la:40,ra:170,hd:6}),[13500,{la:60,ra:60,mo:1.3}]]}]}),
+skatt:()=>({T:[3000,4000,3500,3000],caps:['Mjukt, hårt och runt','Leta och peka (rör inte levande växter)','Samlas och berätta','Gå lugnt in igen'],
+ bg:OUT()+TREE(30,176,.8)+TREE(292,176,.85)+`<ellipse cx="86" cy="181" rx="19" ry="7" fill="#5E9A4A"/><ellipse cx="160" cy="182" rx="15" ry="9" fill="#8E949B" stroke="rgba(0,0,0,.2)"/><g transform="translate(236 180)"><circle r="8" fill="#B07A45"/><path d="M-8 -2h16a8 5 0 0 0 -16 0z" fill="#7B5638"/></g>`,
+ props:`<g data-s="1"><rect x="50" y="42" width="220" height="30" rx="14" fill="#fff" stroke="#2B2140" stroke-width="1.5"/><text x="160" y="62" text-anchor="middle" class="big">mjukt · hårt · runt</text></g>`,
+ kids:[{x:60,y:186,s:1.0,look:2,tr:[[0,{la:150,ra:8,mo:.9}],[2800,{la:150,ra:8}],[3200,{}],...osc(3200,4400,2,WALKA,WALKB),[4800,{bx:20,c:.6,tw:12,ra:34,rel:-8,la:6}],[6600,{bx:20,c:.6,tw:12,ra:34,rel:-8}],[7200,{bx:60,c:0,tw:0,la:70,lel:50,ra:12,mo:1.1}],[9500,{bx:60,mo:1.1,la:70,lel:50}],...osc(10000,13000,5,{bx:20,ll:14,lr:1},{bx:0,ll:1,lr:14}),[13500,{}]]},
+  {x:130,y:186,s:.96,look:4,tr:[[0,{}],[3200,{}],...osc(3200,4400,2,WALKB,WALKA),[4800,{bx:30,c:.5,tw:-12,la:34,lel:-8}],[6600,{bx:30,c:.5,tw:-12,la:34,lel:-8}],[7200,{bx:-18,c:0,tw:0,ra:70,rel:50,mo:.6}],[9500,{bx:-18,mo:1.2,br:.9}],...osc(10000,13000,5,{bx:-30,ll:1,lr:14},{bx:-40,ll:14,lr:1}),[13500,{}]]},
+  {x:250,y:186,s:.92,look:1,tr:[[0,{}],[3200,{}],...osc(3200,4400,2,WALKA,WALKB),[4800,{bx:-12,c:.6,tw:-10,la:34,lel:-8}],[6600,{bx:-12,c:.6,tw:-10,la:34,lel:-8}],[7200,{bx:-60,c:0,tw:0,la:70,lel:50,mo:.7}],[9500,{bx:-60,mo:1.2,br:.9}],...osc(10000,13000,5,{bx:-100,ll:14,lr:1},{bx:-110,ll:1,lr:14}),[13500,{}]]}]})
+};
+/* ---------- Ljud: små syntetiska effekter (inga ljudfiler) ---------- */
+let AC=null;
+function ac(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}}
+function tone(a,f,t0,d,type,g,f2){const o=a.createOscillator(),v=a.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t0+d);v.gain.setValueAtTime(.0001,t0);v.gain.exponentialRampToValueAtTime(g||.15,t0+.015);v.gain.exponentialRampToValueAtTime(.0001,t0+d);o.connect(v);v.connect(a.destination);o.start(t0);o.stop(t0+d+.02)}
+function noise(a,t0,d,fc,q,g,type){const n=Math.floor(a.sampleRate*d),buf=a.createBuffer(1,n,a.sampleRate),ch=buf.getChannelData(0);for(let i=0;i<n;i++)ch[i]=Math.random()*2-1;const s=a.createBufferSource();s.buffer=buf;const f=a.createBiquadFilter();f.type=type||'bandpass';f.frequency.value=fc;f.Q.value=q||1;const v=a.createGain();v.gain.setValueAtTime(g||.2,t0);v.gain.exponentialRampToValueAtTime(.0001,t0+d);s.connect(f);f.connect(v);v.connect(a.destination);s.start(t0)}
+const SFX={
+ step:a=>{const t=a.currentTime;[523,659,784,1047].forEach((f,i)=>tone(a,f,t+i*.09,.35,'triangle',.13))},
+ clap:a=>{const t=a.currentTime;noise(a,t,.07,1700,.8,.45);noise(a,t+.012,.05,3200,1,.25)},
+ shake:a=>{const t=a.currentTime;for(let i=0;i<5;i++)noise(a,t+i*.05,.04,4200,2,.18)},
+ squeeze:a=>{tone(a,320,a.currentTime,.35,'sawtooth',.07,120)},
+ release:a=>{const t=a.currentTime;tone(a,180,t,.3,'sine',.12,700);noise(a,t,.25,1200,.6,.12,'lowpass')},
+ inhale:a=>{tone(a,260,a.currentTime,.7,'sine',.1,520)},
+ exhale:a=>{const t=a.currentTime;tone(a,520,t,.8,'sine',.1,240);noise(a,t,.6,900,.5,.08,'lowpass')},
+ blow:a=>{noise(a,a.currentTime,.7,1100,.4,.22,'lowpass')},
+ ping:a=>{const t=a.currentTime;tone(a,1568,t,.6,'sine',.12);tone(a,2349,t+.05,.5,'sine',.07)},
+ whoosh:a=>{noise(a,a.currentTime,.5,700,.7,.2,'bandpass')},
+ fanfare:a=>{const t=a.currentTime;[523,659,784,1047,1319].forEach((f,i)=>tone(a,f,t+i*.14,.7,'triangle',.14));tone(a,2093,t+.8,.9,'sine',.08)}
+};
+const CUESFX={'KLAPP!':'clap','BRR!':'shake','SKAKA!':'shake','HOPP!':'shake','SPÄNN!':'squeeze','SLÄPP!':'release','IN…':'inhale','UT…':'exhale','PUUUST!':'blow'};
+function sfx(k){if(!S.sound)return;const a=ac();if(a&&SFX[k]){try{SFX[k](a)}catch(e){}}}
+/* ---------- Lugn bakgrundsmusik: skapas av appen, inga inspelningar ---------- */
+const MUS={run:false,g:null,timer:0,nextChord:0,nextNote:0,ci:0,dry:null,wet:null,conv:null};
+const CHORDS=[[261.63,329.63,392.00,493.88],[220.00,261.63,329.63,392.00],[174.61,220.00,261.63,329.63],[196.00,246.94,293.66,329.63]];
+const BELLS=[523.25,587.33,659.25,783.99,880.00,659.25,523.25];
+function impulse(a,dur,decay){const n=Math.floor(a.sampleRate*dur),b=a.createBuffer(2,n,a.sampleRate);for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,decay)}return b}
+function musPad(a,f,t0,d,gain){const o=a.createOscillator(),v=a.createGain(),lp=a.createBiquadFilter();o.type='triangle';o.frequency.value=f;o.detune.value=(Math.random()*8-4);lp.type='lowpass';lp.frequency.value=1100;
+  v.gain.setValueAtTime(0,t0);v.gain.linearRampToValueAtTime(gain,t0+1.8);v.gain.setValueAtTime(gain,t0+d);v.gain.linearRampToValueAtTime(0,t0+d+2.4);
+  o.connect(lp);lp.connect(v);v.connect(MUS.dry);v.connect(MUS.conv);o.start(t0);o.stop(t0+d+2.6)}
+function musBell(a,f,t0){const o=a.createOscillator(),o2=a.createOscillator(),v=a.createGain(),v2=a.createGain();o.type='sine';o2.type='sine';o.frequency.value=f;o2.frequency.value=f*2.01;
+  v.gain.setValueAtTime(.0001,t0);v.gain.exponentialRampToValueAtTime(.05,t0+.02);v.gain.exponentialRampToValueAtTime(.0001,t0+3.2);
+  v2.gain.setValueAtTime(.0001,t0);v2.gain.exponentialRampToValueAtTime(.012,t0+.02);v2.gain.exponentialRampToValueAtTime(.0001,t0+1.2);
+  o.connect(v);o2.connect(v2);v.connect(MUS.dry);v.connect(MUS.conv);v2.connect(MUS.conv);o.start(t0);o2.start(t0);o.stop(t0+3.3);o2.stop(t0+1.3)}
+function musTick(){const a=AC;if(!a||!MUS.run)return;const now=a.currentTime;
+  while(MUS.nextChord<now+1.5){const ch=CHORDS[MUS.ci%CHORDS.length];ch.forEach(f=>musPad(a,f,MUS.nextChord,7,.03));musPad(a,ch[0]/2,MUS.nextChord,7,.045);MUS.ci++;MUS.nextChord+=7}
+  while(MUS.nextNote<now+1.5){musBell(a,BELLS[Math.floor(Math.random()*BELLS.length)],MUS.nextNote);MUS.nextNote+=1.3+Math.random()*1.9}}
+function musicStart(){const a=ac();if(!a||MUS.run)return;MUS.run=true;
+  MUS.g=a.createGain();MUS.g.gain.setValueAtTime(0,a.currentTime);MUS.g.gain.linearRampToValueAtTime(.9,a.currentTime+2.5);MUS.g.connect(a.destination);
+  MUS.dry=a.createGain();MUS.dry.gain.value=.8;MUS.dry.connect(MUS.g);
+  MUS.conv=a.createConvolver();MUS.conv.buffer=impulse(a,3.2,2.4);MUS.wet=a.createGain();MUS.wet.gain.value=.9;MUS.conv.connect(MUS.wet);MUS.wet.connect(MUS.g);
+  MUS.nextChord=a.currentTime+.1;MUS.nextNote=a.currentTime+1.2;MUS.ci=0;musTick();MUS.timer=setInterval(musTick,300)}
+function musicStop(){if(!MUS.run)return;MUS.run=false;clearInterval(MUS.timer);const a=AC,g=MUS.g;if(a&&g){try{g.gain.cancelScheduledValues(a.currentTime);g.gain.setValueAtTime(g.gain.value,a.currentTime);g.gain.linearRampToValueAtTime(0,a.currentTime+.9)}catch(e){}setTimeout(()=>{try{g.disconnect()}catch(e){}},1200)}}
+function wantMusic(){return !!(S.music&&S.screen==='ex'&&S.cur&&!(S.timer&&(S.timer.done||S.timer.paused))&&!document.hidden)}
+function syncMusic(){const w=wantMusic();if(w&&!MUS.run)musicStart();else if(!w&&MUS.run)musicStop()}
+document.addEventListener('visibilitychange',syncMusic);
+/* ---------- Animerade djur (ritade som SVG, rör sig i tempo med övningen) ---------- */
+const AO='stroke="#2B2140" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"';
+const EYE=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" stroke="#2B2140" stroke-width="1"/><circle cx="${x+r*.2}" cy="${y}" r="${r*.52}" fill="#2B2140"/><circle cx="${x+r*.45}" cy="${y-r*.3}" r="${r*.2}" fill="#fff"/>`;
+const BLUSH=(x,y)=>`<circle cx="${x}" cy="${y}" r="3" fill="#FF8FA3" opacity=".6"/>`;
+const AN={
+turtle:(hide)=>`<g class="tur ${hide?'tur-h':''}">
+ <g class="tl" style="--dl:0s"><ellipse cx="-18" cy="-5" rx="7.5" ry="9.5" fill="#8ED16A" ${AO}/></g><g class="tl" style="--dl:-1.1s"><ellipse cx="8" cy="-5" rx="7.5" ry="9.5" fill="#8ED16A" ${AO}/></g>
+ <path d="M-30 -13 q-10 0 -13 8 q10 2 14 -3z" fill="#8ED16A" ${AO}/><ellipse cx="0" cy="-13" rx="31" ry="7.5" fill="#A8E07C" ${AO}/>
+ <g class="${hide?'thide':'th'}"><circle cx="37" cy="-25" r="12" fill="#A8E07C" ${AO}/>${EYE(41,-28,3.8)}<path d="M39 -19 q5 4.5 10 0" stroke="#2B2140" stroke-width="1.7" fill="none" stroke-linecap="round"/>${BLUSH(35,-21)}</g>
+ <path d="M-32 -13 C-32 -58 32 -58 32 -13Z" fill="#3FA34D" ${AO}/>
+ <g fill="#7FD487" stroke="#2E7D3A" stroke-width="1.5" stroke-linejoin="round"><path d="M-9 -45 l9 -5 l9 5 l-1.5 10 h-15z"/><path d="M-26 -30 l8 -5 l8 4 l-1 9 h-14z"/><path d="M10 -31 l8 -4 l8 5 l-1 9 h-14z"/><path d="M-9 -29 h18 l2 9 h-22z" opacity=".85"/></g>
+ <g class="tl" style="--dl:-.55s"><ellipse cx="22" cy="-5" rx="7.5" ry="9.5" fill="#8ED16A" ${AO}/></g><g class="tl" style="--dl:-1.65s"><ellipse cx="-6" cy="-5" rx="7.5" ry="9.5" fill="#8ED16A" ${AO}/></g></g>`,
+bear:()=>`<g class="bear"><ellipse cx="-15" cy="-4" rx="11" ry="6.5" fill="#B07A44" ${AO}/><ellipse cx="15" cy="-4" rx="11" ry="6.5" fill="#B07A44" ${AO}/>
+ <ellipse cx="0" cy="-26" rx="28" ry="25" fill="#B07A44" ${AO}/><ellipse cx="0" cy="-22" rx="16" ry="16" fill="#EBC38D"/>
+ <ellipse cx="-27" cy="-26" rx="8" ry="15" fill="#B07A44" ${AO} transform="rotate(14 -27 -26)"/><ellipse cx="27" cy="-26" rx="8" ry="15" fill="#B07A44" ${AO} transform="rotate(-14 27 -26)"/>
+ <circle cx="-15" cy="-79" r="8" fill="#C08850" ${AO}/><circle cx="-15" cy="-79" r="4.2" fill="#EBC38D"/><circle cx="15" cy="-79" r="8" fill="#C08850" ${AO}/><circle cx="15" cy="-79" r="4.2" fill="#EBC38D"/>
+ <circle cx="0" cy="-62" r="21" fill="#C08850" ${AO}/><ellipse cx="0" cy="-56" rx="10.5" ry="8" fill="#EBC38D"/><ellipse cx="0" cy="-60" rx="3.8" ry="2.8" fill="#2B2140"/>
+ <path d="M-11 -67 q3.5 3.5 7 0 M4 -67 q3.5 3.5 7 0" stroke="#2B2140" stroke-width="1.9" fill="none" stroke-linecap="round"/><path d="M-4 -53 q4 3 8 0" stroke="#2B2140" stroke-width="1.6" fill="none" stroke-linecap="round"/>${BLUSH(-14,-57)}${BLUSH(14,-57)}</g>
+ <text class="zzz" x="22" y="-84" font-size="14" font-weight="800" fill="#fff" stroke="#2B2140" stroke-width="2" paint-order="stroke" font-family="Baloo 2,Nunito,sans-serif">z</text><text class="zzz" style="--dl:-1.3s" x="32" y="-96" font-size="19" font-weight="800" fill="#fff" stroke="#2B2140" stroke-width="2" paint-order="stroke" font-family="Baloo 2,Nunito,sans-serif">Z</text>`,
+elephant:()=>`<g class="ele">
+ <rect x="-18" y="-20" width="12" height="20" rx="5" fill="#8896A5" ${AO}/><rect x="2" y="-20" width="12" height="20" rx="5" fill="#8896A5" ${AO}/><rect x="22" y="-20" width="12" height="20" rx="5" fill="#8896A5" ${AO}/>
+ <path d="M42 -34 q10 4 8 14" stroke="#2B2140" stroke-width="5" fill="none" stroke-linecap="round"/>
+ <ellipse cx="10" cy="-36" rx="36" ry="25" fill="#9AA8B8" ${AO}/><rect x="-6" y="-20" width="12" height="20" rx="5" fill="#9AA8B8" ${AO}/><rect x="14" y="-20" width="12" height="20" rx="5" fill="#9AA8B8" ${AO}/>
+ <g class="ear"><ellipse cx="-13" cy="-44" rx="14" ry="19" fill="#B7C3D0" ${AO}/><ellipse cx="-13" cy="-42" rx="8" ry="12" fill="#F2B6C4"/></g>
+ <circle cx="-32" cy="-44" r="19" fill="#9AA8B8" ${AO}/>
+ <g class="trunk"><path d="M-42 -38 Q-56 -22 -48 -2" stroke="#2B2140" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M-42 -38 Q-56 -22 -48 -2" stroke="#9AA8B8" stroke-width="11" fill="none" stroke-linecap="round"/></g>
+ ${EYE(-37,-50,4.2)}<path d="M-46 -34 q-8 7 -4 14" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="M-30 -36 q4 4 8 0" stroke="#2B2140" stroke-width="1.6" fill="none" stroke-linecap="round"/>${BLUSH(-26,-40)}</g>`,
+mouse:()=>`<g class="mou">
+ <path d="M14 -12 Q34 -8 28 -30" stroke="#2B2140" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M14 -12 Q34 -8 28 -30" stroke="#FF9FB2" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+ <ellipse cx="-6" cy="-3" rx="5.5" ry="3" fill="#FFB3C1" ${AO}/><ellipse cx="10" cy="-3" rx="5.5" ry="3" fill="#FFB3C1" ${AO}/>
+ <ellipse cx="3" cy="-14" rx="17" ry="12.5" fill="#BFC4CE" ${AO}/>
+ <g class="mear"><circle cx="-12" cy="-32" r="8" fill="#CBD0D9" ${AO}/><circle cx="-12" cy="-32" r="4.6" fill="#FFB3C1"/></g><g class="mear" style="--dl:-.2s"><circle cx="-25" cy="-28" r="7.5" fill="#CBD0D9" ${AO}/><circle cx="-25" cy="-28" r="4.2" fill="#FFB3C1"/></g>
+ <circle cx="-17" cy="-20" r="11" fill="#CBD0D9" ${AO}/><ellipse cx="-27" cy="-17" rx="3" ry="2.4" fill="#FF7A9A"/>${EYE(-20,-23,2.9)}
+ <path d="M-27 -16 l-9 -2 M-27 -14 l-9 1" stroke="#2B2140" stroke-width="1" stroke-linecap="round"/><path d="M-24 -12 q3 3 6 0" stroke="#2B2140" stroke-width="1.3" fill="none" stroke-linecap="round"/>${BLUSH(-15,-15)}</g>`,
+frog:()=>`<g class="frog">
+ <ellipse cx="-24" cy="-8" rx="11" ry="7" fill="#3FAE4D" ${AO} transform="rotate(-16 -24 -8)"/><ellipse cx="24" cy="-8" rx="11" ry="7" fill="#3FAE4D" ${AO} transform="rotate(16 24 -8)"/>
+ <ellipse cx="0" cy="-17" rx="24" ry="16.5" fill="#4CC15A" ${AO}/><ellipse cx="0" cy="-13" rx="14" ry="9" fill="#B8F08A"/>
+ <circle cx="-12" cy="-33" r="9" fill="#4CC15A" ${AO}/><circle cx="12" cy="-33" r="9" fill="#4CC15A" ${AO}/>${EYE(-12,-34,5.8)}${EYE(12,-34,5.8)}
+ <path d="M-13 -20 Q0 -8 13 -20" stroke="#2B2140" stroke-width="1.9" fill="none" stroke-linecap="round"/>${BLUSH(-17,-20)}${BLUSH(17,-20)}
+ <ellipse cx="-10" cy="-2" rx="7" ry="3.4" fill="#3FAE4D" ${AO}/><ellipse cx="10" cy="-2" rx="7" ry="3.4" fill="#3FAE4D" ${AO}/></g>`,
+butterfly:()=>`<g class="bfloat"><g class="bfly">
+ <g class="wl"><path d="M0 -6 C-34 -42 -46 -8 -10 4Z" fill="#FF8C42" ${AO}/><path d="M0 4 C-28 6 -30 34 -4 20Z" fill="#FFD23F" ${AO}/><circle cx="-26" cy="-14" r="4" fill="#fff" opacity=".9"/><circle cx="-14" cy="16" r="3" fill="#FF5A5F"/></g>
+ <g class="wr"><path d="M0 -6 C34 -42 46 -8 10 4Z" fill="#FF8C42" ${AO}/><path d="M0 4 C28 6 30 34 4 20Z" fill="#FFD23F" ${AO}/><circle cx="26" cy="-14" r="4" fill="#fff" opacity=".9"/><circle cx="14" cy="16" r="3" fill="#FF5A5F"/></g>
+ <ellipse cx="0" cy="3" rx="3.6" ry="14" fill="#2B2140"/><circle cx="0" cy="-14" r="4.6" fill="#2B2140"/><path d="M-1 -17 Q-8 -28 -12 -26 M1 -17 Q8 -28 12 -26" stroke="#2B2140" stroke-width="1.5" fill="none" stroke-linecap="round"/></g></g>`,
+giraffe:()=>`<g class="gir">
+ <rect x="-18" y="-36" width="7" height="36" rx="3" fill="#FFC857" ${AO}/><rect x="-8" y="-36" width="7" height="36" rx="3" fill="#FFC857" ${AO}/><rect x="9" y="-36" width="7" height="36" rx="3" fill="#FFC857" ${AO}/><rect x="19" y="-36" width="7" height="36" rx="3" fill="#FFC857" ${AO}/>
+ <path d="M26 -46 q10 4 8 16" stroke="#2B2140" stroke-width="4" fill="none" stroke-linecap="round"/>
+ <ellipse cx="4" cy="-46" rx="25" ry="15" fill="#FFC857" ${AO}/>
+ <g fill="#C8742B"><circle cx="-6" cy="-48" r="4.2"/><circle cx="8" cy="-52" r="3.6"/><circle cx="14" cy="-42" r="4"/><circle cx="-2" cy="-40" r="3"/></g>
+ <g class="gneck"><path d="M-16 -52 L-24 -104 L-9 -104 L-2 -52Z" fill="#FFC857" ${AO}/><g fill="#C8742B"><circle cx="-14" cy="-62" r="3.6"/><circle cx="-16" cy="-78" r="3.4"/><circle cx="-14" cy="-92" r="3"/></g>
+ <ellipse cx="-20" cy="-108" rx="13" ry="9" fill="#FFC857" ${AO} transform="rotate(-8 -20 -108)"/><ellipse cx="-30" cy="-105" rx="6" ry="5" fill="#F5DDA0"/>${EYE(-20,-111,3.2)}
+ <path d="M-24 -116 l-1 -8 M-16 -117 l1 -8" stroke="#2B2140" stroke-width="2" stroke-linecap="round"/><circle cx="-25" cy="-125" r="2.4" fill="#C8742B"/><circle cx="-15" cy="-126" r="2.4" fill="#C8742B"/>${BLUSH(-24,-105)}</g></g>`,
+lion:()=>`<g class="lion">
+ <path d="M24 -14 Q44 -10 38 -34" stroke="#2B2140" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M24 -14 Q44 -10 38 -34" stroke="#F4B860" stroke-width="2.8" fill="none" stroke-linecap="round"/><circle cx="38" cy="-36" r="5" fill="#E8892B" ${AO}/>
+ <ellipse cx="0" cy="-16" rx="23" ry="16" fill="#F4B860" ${AO}/><ellipse cx="-11" cy="-3" rx="8" ry="4.5" fill="#F7C873" ${AO}/><ellipse cx="11" cy="-3" rx="8" ry="4.5" fill="#F7C873" ${AO}/>
+ <circle cx="0" cy="-52" r="29" fill="#E8892B" ${AO}/><circle cx="0" cy="-50" r="19" fill="#F7C873" ${AO}/>
+ <circle cx="-18" cy="-70" r="6.5" fill="#F7C873" ${AO}/><circle cx="18" cy="-70" r="6.5" fill="#F7C873" ${AO}/>
+ <path d="M-12 -57 q4 -4 8 0 M4 -57 q4 -4 8 0" stroke="#2B2140" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M-4 -51 h8 l-4 5z" fill="#8A3B34"/>
+ <g class="lmouth"><ellipse cx="0" cy="-41" rx="8" ry="7" fill="#8A1E2D"/><ellipse cx="0" cy="-38" rx="4.5" ry="2.6" fill="#FF7A8A"/></g>${BLUSH(-14,-46)}${BLUSH(14,-46)}</g>`,
+cat:()=>`<g class="cat">
+ <g class="ctail"><path d="M18 -16 Q42 -18 36 -44" stroke="#2B2140" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M18 -16 Q42 -18 36 -44" stroke="#F4A259" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+ <g class="cbody"><ellipse cx="0" cy="-19" rx="21" ry="18" fill="#F4A259" ${AO}/><ellipse cx="0" cy="-14" rx="11" ry="12" fill="#FFD9A8"/><path d="M-14 -30 l6 4 M-6 -34 l3 6 M10 -32 l-4 5" stroke="#D97B2B" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="-9" cy="-3" rx="8" ry="4.2" fill="#FFD9A8" ${AO}/><ellipse cx="9" cy="-3" rx="8" ry="4.2" fill="#FFD9A8" ${AO}/></g>
+ <path d="M-15 -52 l-2 -17 l12 8z M15 -52 l2 -17 l-12 8z" fill="#F4A259" ${AO}/><path d="M-13 -57 l-1 -8 l6 4z M13 -57 l1 -8 l-6 4z" fill="#FFB3C1"/>
+ <circle cx="0" cy="-47" r="16" fill="#F4A259" ${AO}/>${EYE(-6,-49,3.6)}${EYE(6,-49,3.6)}<path d="M-2 -43 h4 l-2 2.6z" fill="#FF7A9A"/><path d="M-1 -40 q-3 3 -6 0 M1 -40 q3 3 6 0" stroke="#2B2140" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+ <path d="M-9 -42 l-13 -3 M-9 -40 l-13 1 M9 -42 l13 -3 M9 -40 l13 1" stroke="#2B2140" stroke-width="1" stroke-linecap="round"/>${BLUSH(-11,-42)}${BLUSH(11,-42)}</g>`,
+monkey:()=>`<g class="mon">
+ <path d="M14 -22 Q36 -12 30 -38 Q26 -48 18 -42" stroke="#2B2140" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M14 -22 Q36 -12 30 -38 Q26 -48 18 -42" stroke="#A86B3C" stroke-width="5" fill="none" stroke-linecap="round"/>
+ <ellipse cx="-8" cy="-4" rx="8" ry="4.6" fill="#A86B3C" ${AO}/><ellipse cx="8" cy="-4" rx="8" ry="4.6" fill="#A86B3C" ${AO}/>
+ <ellipse cx="0" cy="-26" rx="16" ry="20" fill="#A86B3C" ${AO}/><ellipse cx="0" cy="-23" rx="10" ry="13" fill="#EBC9A0"/>
+ <g class="marm"><path d="M-12 -36 Q-27 -30 -29 -16" stroke="#2B2140" stroke-width="9.5" fill="none" stroke-linecap="round"/><path d="M-12 -36 Q-27 -30 -29 -16" stroke="#A86B3C" stroke-width="6.5" fill="none" stroke-linecap="round"/><circle cx="-29" cy="-14" r="5" fill="#EBC9A0" ${AO}/></g>
+ <g class="marm" style="--dl:-.5s"><path d="M12 -36 Q27 -30 29 -16" stroke="#2B2140" stroke-width="9.5" fill="none" stroke-linecap="round"/><path d="M12 -36 Q27 -30 29 -16" stroke="#A86B3C" stroke-width="6.5" fill="none" stroke-linecap="round"/><circle cx="29" cy="-14" r="5" fill="#EBC9A0" ${AO}/></g>
+ <circle cx="-17" cy="-54" r="7" fill="#A86B3C" ${AO}/><circle cx="-17" cy="-54" r="3.8" fill="#EBC9A0"/><circle cx="17" cy="-54" r="7" fill="#A86B3C" ${AO}/><circle cx="17" cy="-54" r="3.8" fill="#EBC9A0"/>
+ <circle cx="0" cy="-54" r="16" fill="#A86B3C" ${AO}/><ellipse cx="0" cy="-51" rx="11.5" ry="10.5" fill="#EBC9A0"/>${EYE(-5,-56,3.2)}${EYE(5,-56,3.2)}<circle cx="-1.6" cy="-50" r="1" fill="#2B2140"/><circle cx="1.6" cy="-50" r="1" fill="#2B2140"/><path d="M-5 -46 q5 4 10 0" stroke="#2B2140" stroke-width="1.5" fill="none" stroke-linecap="round"/></g>`,
+kangaroo:()=>`<g class="kan">
+ <path d="M18 -8 Q40 -4 52 -2" stroke="#2B2140" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M18 -8 Q40 -4 52 -2" stroke="#D99A5B" stroke-width="8" fill="none" stroke-linecap="round"/>
+ <ellipse cx="8" cy="-14" rx="13" ry="17" fill="#D99A5B" ${AO}/><ellipse cx="-8" cy="-3" rx="16" ry="4.8" fill="#C98848" ${AO}/>
+ <ellipse cx="3" cy="-38" rx="18" ry="27" fill="#D99A5B" ${AO} transform="rotate(-10 3 -38)"/><ellipse cx="-4" cy="-30" rx="9" ry="10" fill="#F2C48D"/><circle cx="-4" cy="-40" r="5.5" fill="#C98848" ${AO}/><circle cx="-6" cy="-45" r="2.4" fill="#C98848" ${AO}/>
+ <ellipse cx="-13" cy="-36" rx="3.8" ry="7" fill="#D99A5B" ${AO} transform="rotate(30 -13 -36)"/>
+ <ellipse cx="-12" cy="-66" rx="10" ry="12" fill="#D99A5B" ${AO}/><ellipse cx="-20" cy="-62" rx="6" ry="5" fill="#F2C48D"/><ellipse cx="-24" cy="-62" rx="2.4" ry="1.8" fill="#2B2140"/>
+ <ellipse cx="-8" cy="-84" rx="3.8" ry="10" fill="#D99A5B" ${AO}/><ellipse cx="-15" cy="-82" rx="3.8" ry="10" fill="#D99A5B" ${AO} transform="rotate(-14 -15 -82)"/>${EYE(-14,-69,3)}${BLUSH(-14,-61)}</g>`,
+bird:()=>`<g class="bird">
+ <path d="M16 -22 L36 -16 L18 -12Z" fill="#0090C5" ${AO}/><path d="M-6 -4 v-8 M6 -4 v-8" stroke="#FF9F1C" stroke-width="2.6" stroke-linecap="round"/>
+ <ellipse cx="2" cy="-24" rx="21" ry="17" fill="#00BBF9" ${AO}/><ellipse cx="-2" cy="-18" rx="12" ry="9" fill="#BDEBFF"/>
+ <circle cx="-13" cy="-38" r="12" fill="#00BBF9" ${AO}/><path d="M-24 -38 l-11 3 l11 4z" fill="#FF9F1C" ${AO}/>${EYE(-16,-41,3.8)}${BLUSH(-9,-34)}
+ <g class="bwing"><path d="M2 -26 Q22 -46 34 -24 Q16 -16 2 -26Z" fill="#0090C5" ${AO}/></g></g>`,
+fish:()=>`<g class="fsh"><path d="M14 0 L28 -10 L28 10Z" fill="#FF8C42" ${AO}/><ellipse cx="0" cy="0" rx="18" ry="12" fill="#FF9F1C" ${AO}/><path d="M-4 -11 q8 -6 12 0" fill="#FF8C42"/><circle cx="-9" cy="-3" r="3.2" fill="#fff" stroke="#2B2140" stroke-width="1"/><circle cx="-8.4" cy="-3" r="1.6" fill="#2B2140"/><path d="M-14 4 q3 3 6 0" stroke="#2B2140" stroke-width="1.3" fill="none" stroke-linecap="round"/></g>`
+};
+const ANLABEL=(t)=>`<text class="lb" y="13" text-anchor="middle" style="font-size:11px">${t}</text>`;
+const ANI=(name,x,y,s,extra)=>`<g transform="translate(${x} ${y}) scale(${s||1})">${AN[name](extra)}${name==='butterfly'||name==='fish'?'':ANLABEL(({turtle:'Sköldpadda',bear:'Björn',elephant:'Elefant',mouse:'Mus',frog:'Groda',giraffe:'Giraff',lion:'Lejon',cat:'Katt',monkey:'Apa',kangaroo:'Känguru',bird:'Fågel'})[name]||'')}</g>`;
+
+/* ---------- Klassens resa: gemensamma stjärnor, ingen tävling mellan barn ---------- */
+const TRIPS={raket:{n:'Raket till månen',done:'Ni landade på månen!',alt:'En raket flyger mot månen'},berg:{n:'Bergsklättring',done:'Ni nådde toppen!',alt:'En klättrare går uppför ett berg'},trad:{n:'Trädgård',done:'Trädgården blommar!',alt:'En blomma växer'}};
+function quadPt(t){const P0=[58,104],P1=[150,-16],P2=[262,46],u=1-t;return{x:u*u*P0[0]+2*u*t*P1[0]+t*t*P2[0],y:u*u*P0[1]+2*u*t*P1[1]+t*t*P2[1],a:Math.atan2(2*u*(P1[1]-P0[1])+2*t*(P2[1]-P1[1]),2*u*(P1[0]-P0[0])+2*t*(P2[0]-P1[0]))*180/Math.PI}}
+const BP=[[36,122],[88,98],[126,104],[168,70],[198,76],[230,40]];
+function polyPt(t){const seg=[];let L=0;for(let i=1;i<BP.length;i++){const l=Math.hypot(BP[i][0]-BP[i-1][0],BP[i][1]-BP[i-1][1]);seg.push(l);L+=l}let d=t*L;for(let i=0;i<seg.length;i++){if(d<=seg[i]||i===seg.length-1){const u=Math.min(1,Math.max(0,d/seg[i]));return{x:BP[i][0]+(BP[i+1][0]-BP[i][0])*u,y:BP[i][1]+(BP[i+1][1]-BP[i][1])*u}}d-=seg[i]}}
+function moverStyle(type,p){if(type==='raket'){const q=quadPt(p);return `translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px) rotate(${(q.a+90).toFixed(1)}deg)`}const q=polyPt(p);return `translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px)`}
+function journeySVG(type,stars,goal){
+  const p=Math.max(0,Math.min(1,stars/goal));
+  if(type==='raket'){
+    const dots=Array.from({length:goal-1},(_,i)=>{const q=quadPt((i+1)/goal);return `<circle cx="${q.x.toFixed(1)}" cy="${q.y.toFixed(1)}" r="2.2" fill="${(i+1)<=stars?'#FFD23F':'rgba(255,255,255,.35)'}"/>`}).join('');
+    return `<defs><linearGradient id="tg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1D4D"/><stop offset="1" stop-color="#3A4FA0"/></linearGradient></defs><rect width="320" height="130" rx="10" fill="url(#tg1)"/>`
+     +[[20,18],[70,40],[120,12],[190,24],[240,8],[300,70],[150,70],[210,96]].map((q,i)=>`<circle class="tw" style="animation-delay:${-i*.4}s" cx="${q[0]}" cy="${q[1]}" r="1.6" fill="#FFF3B0"/>`).join('')
+     +`<circle cx="30" cy="124" r="40" fill="#2D8CFF" stroke="#1B5FBF" stroke-width="2"/><path d="M8 108q14 -10 28 -2q6 8 -6 12q-14 2 -22 -10z M36 128q12 -8 22 2q-4 10 -18 8z" fill="#4CC15A"/>`
+     +`<g transform="translate(288 32)"><circle r="22" fill="#FFF3B0" stroke="#FFD86B" stroke-width="2"/><circle cx="-8" cy="-8" r="3.4" fill="#E8D68C"/><circle cx="9" cy="6" r="4.4" fill="#E8D68C"/><circle cx="-3" cy="9" r="2.4" fill="#E8D68C"/><circle cx="-6" cy="-1" r="1.8" fill="#2B2140"/><circle cx="6" cy="-3" r="1.8" fill="#2B2140"/><path d="M-6 5 Q0 ${p>=1?'13':'9'} 6 3" stroke="#2B2140" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>`
+     +dots+`<g id="mover" style="transform:${moverStyle('raket',p)};transition:transform 1.4s cubic-bezier(.3,1.3,.5,1)"><g transform="scale(.46) translate(0 34)">${ROCKETSHAPE('')}</g></g>`}
+  if(type==='berg'){
+    const dots=Array.from({length:goal-1},(_,i)=>{const q=polyPt((i+1)/goal);return `<circle cx="${q.x.toFixed(1)}" cy="${q.y.toFixed(1)}" r="2.2" fill="${(i+1)<=stars?'#FFD23F':'rgba(255,255,255,.7)'}" stroke="#2B2140" stroke-width=".6"/>`}).join('');
+    return `<defs><linearGradient id="tg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#35B6F5"/><stop offset="1" stop-color="#BDEBFF"/></linearGradient></defs><rect width="320" height="130" rx="10" fill="url(#tg2)"/>`
+     +`<g class="cd"><g fill="#fff"><ellipse cx="60" cy="24" rx="24" ry="8"/><ellipse cx="78" cy="18" rx="14" ry="7"/></g></g><polygon points="150,130 214,52 280,130" fill="#8FA2B5"/><polygon points="-10,130 60,92 130,96 232,32 290,100 330,130" fill="#7D8995" stroke="#2B2140" stroke-width="1.4" stroke-linejoin="round"/><polygon points="232,32 216,52 229,47 241,54 251,49" fill="#fff"/><rect y="118" width="320" height="12" fill="#6BCB77"/>`
+     +dots+`<path d="M232 34V12" stroke="#2B2140" stroke-width="1.6"/><path class="wd2" d="M232 12 l16 4 l-16 5z" fill="#FF5A5F" stroke="#2B2140" stroke-width="1"/>`
+     +`<g id="mover" style="transform:${moverStyle('berg',p)};transition:transform 1.4s cubic-bezier(.3,1.3,.5,1)"><g class="mbob"><rect x="-6" y="-14" width="5" height="8" rx="2" fill="#FF8C42" stroke="#2B2140" stroke-width=".8"/><rect x="-3" y="-15" width="7" height="10" rx="2.5" fill="#FF5A5F" stroke="#2B2140" stroke-width="1"/><circle cx="0" cy="-20" r="4.6" fill="#F7CFA6" stroke="#2B2140" stroke-width="1"/><path d="M-5 -22 Q0 -29 5 -22Z" fill="#FFD23F" stroke="#2B2140" stroke-width=".9"/><path d="M-2 -5v5 M2 -5v5" stroke="#2B2140" stroke-width="2.2" stroke-linecap="round"/><path d="M4 -12l6 -6" stroke="#F7CFA6" stroke-width="2.4" stroke-linecap="round"/></g></g>`}
+  const h=6+66*p,sx=160,sy=112,top=sy-h;
+  let g=`<defs><linearGradient id="tg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FD0FF"/><stop offset="1" stop-color="#D5F3FF"/></linearGradient></defs><rect width="320" height="130" rx="10" fill="url(#tg3)"/><g transform="translate(284 26)"><circle r="14" fill="#FFD23F" stroke="#FFB300" stroke-width="2"/><circle cx="-4" cy="-2" r="1.8" fill="#2B2140"/><circle cx="4" cy="-2" r="1.8" fill="#2B2140"/><path d="M-5 4 Q0 9 5 4" stroke="#2B2140" stroke-width="1.6" fill="none" stroke-linecap="round"/></g><g class="cd"><g fill="#fff"><ellipse cx="60" cy="26" rx="24" ry="8"/><ellipse cx="78" cy="20" rx="14" ry="7"/></g></g>`
+   +`<rect y="108" width="320" height="22" fill="#6BCB77"/><ellipse cx="160" cy="112" rx="64" ry="9" fill="#8B5A2B" stroke="#2B2140" stroke-width="1.4"/>`
+   +`<path d="M${sx} ${sy} Q${sx-7} ${sy-h/2} ${sx} ${top}" stroke="#2E9E4A" stroke-width="${3+p*2.5}" fill="none" stroke-linecap="round"/>`;
+  [[.14,-1],[.3,1],[.48,-1],[.62,1]].forEach(l=>{if(p>l[0]){const k=Math.min(1,(p-l[0])/.2),y=sy-h*(.25+l[0]*.9);g+=`<ellipse cx="${sx+l[1]*(8+10*k)}" cy="${y}" rx="${4+9*k}" ry="${2.4+4*k}" fill="#4CC15A" stroke="#2E7D3A" stroke-width="1.2" transform="rotate(${l[1]*-25} ${sx} ${y})"/>`}});
+  if(p<.7){g+=`<circle cx="${sx}" cy="${top}" r="${3+7*p}" fill="#7FD487" stroke="#2E7D3A" stroke-width="1.4"/>`}
+  else{const k=(p-.7)/.3,r=4+6*k;g+=`<g transform="translate(${sx} ${top})">${Array.from({length:12},(_,i)=>`<ellipse cx="0" cy="${-r*1.45}" rx="${r*.52}" ry="${r}" fill="#FFD23F" stroke="#E0A800" stroke-width="1" transform="rotate(${i*30})"/>`).join('')}<circle r="${r*.9}" fill="#8B5A2B" stroke="#2B2140" stroke-width="1.2"/></g>`}
+  if(p>=1)g+=`<text class="bb" x="110" y="52" font-size="20">🦋</text><text class="bb" style="animation-delay:-.8s" x="204" y="40" font-size="18">🐝</text>`;
+  else g+=`<g class="rainy">${[120,140,180,200].map((x,i)=>`<line class="dr" x1="${x}" y1="14" x2="${x}" y2="22" stroke="#1E88E5" stroke-width="2.4" stroke-linecap="round" style="animation-delay:${-i*.4}s"/>`).join('')}</g>`;
+  return g}
+function animTrip(){const m=document.getElementById('mover');const prev=S.tripShown;S.tripShown=S.trip.stars;if(!m||prev==null||prev===S.trip.stars||S.trip.type==='trad')return;
+  const to=m.style.transform;m.style.transition='none';m.style.transform=moverStyle(S.trip.type,Math.max(0,Math.min(1,prev/S.trip.goal)));void m.getBoundingClientRect();m.style.transition='transform 1.4s cubic-bezier(.3,1.3,.5,1)';m.style.transform=to}
+function tripCard(){const t=S.trip,pct=Math.round(100*t.stars/t.goal);
+  return `<div class="card"><p class="q">Klassens resa</p><svg class="tripsvg" viewBox="0 0 320 130" role="img" aria-label="${TRIPS[t.type].alt}, ${t.stars} av ${t.goal} stjärnor">${journeySVG(t.type,t.stars,t.goal)}</svg>
+<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${t.goal}" aria-valuenow="${t.stars}"><i style="width:${pct}%"></i></div>
+<p class="note" style="margin:0 0 8px">⭐ ${t.stars} av ${t.goal} stjärnor${t.done?` · ${t.done} avklarade resor`:''}. Tryck "Klar!" efter varje övning så får klassen en stjärna.</p>
+<div class="chips">${Object.keys(TRIPS).map(k=>`<button class="chip ${t.type===k?'on':''}" data-trip="${k}" aria-pressed="${t.type===k}">${TRIPS[k].n}</button>`).join('')}</div>
+<div class="tempo" style="margin-top:10px"><span>Mål:</span>${[15,25,40].map(g=>`<button class="chip tchip ${t.goal===g?'on':''}" data-goal="${g}" aria-pressed="${t.goal===g}">${g} stjärnor</button>`).join('')}<button class="link" data-act="resettrip">${S.resetArm?'Tryck igen för att börja om':'Börja om'}</button></div></div>`}
+function tripMini(){const t=S.trip,pct=Math.round(100*t.stars/t.goal);return `<div class="tmini hide-board-no"><span>⭐ ${t.stars}/${t.goal}</span><div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${t.goal}" aria-valuenow="${t.stars}"><i style="width:${pct}%"></i></div></div>`}
+function celebrateBox(){const t=S.trip;const cf=Array.from({length:26},(_,i)=>`<i class="cft" style="left:${(i*37)%100}%;background:${CONF[i%CONF.length]};animation-delay:${-(i*.31%2.4)}s"></i>`).join('');
+  return `<div class="cele" role="dialog" aria-label="${TRIPS[t.type].done}">${cf}<div class="box"><svg class="tripsvg" viewBox="0 0 320 130" role="img" aria-label="${TRIPS[t.type].alt}">${journeySVG(t.type,t.goal,t.goal)}</svg><h2 style="margin:10px 0 4px;font-size:30px">${TRIPS[t.type].done}</h2><p style="margin:0 0 12px;font-size:18px;font-weight:700">Klassen samlade ${t.goal} stjärnor tillsammans. Bra jobbat!</p><button class="btn" data-act="newtrip">Starta en ny resa</button></div></div>`}
+/* ---------- Spelkarta: en ny värld varje vecka, en nivå per övning ---------- */
+const WORLDS=[
+ {n:'Skogsriket',sky:['#9BE3FF','#D8F5C9'],ground:'#6BCB77',path:'#C98F4F',node:'#2EAF5A',castle:'#B07A44',roof:'#2E9E4A',decor:[['🌳',22,76,26],['🌲',300,70,24],['🍄',70,198,16],['🐿️',300,196,16],['🌳',160,24,22],['🦊',22,128,18]]},
+ {n:'Havsriket',sky:['#5DD6F7','#1B6FB8'],ground:'#F0D79A',path:'#FFFFFF',node:'#00BBF9',castle:'#FF8FA3',roof:'#FFD23F',decor:[['🐠',46,66,22],['🐙',296,66,22],['🐚',24,198,16],['🦀',300,198,18],['🐳',176,26,26],['🐡',304,134,18]]},
+ {n:'Rymdriket',sky:['#0B1D4D','#3A4FA0'],ground:'#4A3A8C',path:'#FFD23F',node:'#9B5DE5',castle:'#B6C2D0',roof:'#FF5A5F',decor:[['🪐',40,66,26],['🌙',296,52,22],['⭐',176,26,18],['👽',300,198,18],['🚀',22,130,20],['☄️',250,26,18]]},
+ {n:'Bergsriket',sky:['#8ED8FF','#E5F6FF'],ground:'#8FA2B5',path:'#FFFFFF',node:'#FF8C42',castle:'#7D8995',roof:'#FF5A5F',decor:[['🏔️',34,76,32],['🏔️',296,70,30],['🌲',22,196,20],['🐐',300,198,18],['🦅',176,26,22],['⛺',306,140,16]]},
+ {n:'Djungeln',sky:['#7FDB8A','#2E8F4F'],ground:'#2E9E4A',path:'#E8C07A',node:'#1FC77E',castle:'#C98F4F',roof:'#FFC43D',decor:[['🌴',28,76,28],['🦜',296,64,22],['🍌',40,198,16],['🐒',300,198,20],['🐍',176,26,18],['🦒',308,134,20]]},
+ {n:'Öknen',sky:['#FFE29A','#FFF3D1'],ground:'#F2C879',path:'#FFFFFF',node:'#FF8C42',castle:'#E8B76A',roof:'#FF5A5F',decor:[['🌵',28,76,26],['🐪',296,70,24],['☀️',176,26,24],['🦂',40,198,16],['🌵',300,198,20],['🐫',22,130,18]]},
+ {n:'Isriket',sky:['#BFEAFF','#F2FBFF'],ground:'#E4F4FF',path:'#7FD3FF',node:'#00BBF9',castle:'#BFEAFF',roof:'#7FD3FF',decor:[['⛄',28,76,26],['🐧',296,70,22],['❄️',176,26,20],['🐻',40,198,18],['🌨️',286,28,18],['🎿',306,140,16]]},
+ {n:'Godisriket',sky:['#FFD1EA','#FFF0F8'],ground:'#FFB3D9',path:'#FFFFFF',node:'#FF5DA2',castle:'#FFB3D9',roof:'#9B5DE5',decor:[['🍭',28,76,26],['🧁',296,70,22],['🍬',176,26,20],['🍩',40,198,18],['🍪',300,198,18],['🎂',306,134,20]]}
+];
+const WNODES=5;
+const DAYS=['Måndag','Tisdag','Onsdag','Torsdag','Fredag'],DAYS_S=['Mån','Tis','Ons','Tors','Fre'];
+const NP=[[40,176],[108,150],[176,176],[248,146],[232,96],[122,62]];
+function todayIdx(){if(S.dbgDay!=null)return S.dbgDay;const d=new Date().getDay();return d===0?4:Math.min(4,d-1)}
+function isoWeekKey(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const day=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-day);const y=t.getUTCFullYear();const w=Math.ceil(((t-Date.UTC(y,0,1))/86400000+1)/7);return y+'-W'+String(w).padStart(2,'0')}
+function worldFor(k){const q=k.split('-W').map(Number);return (q[0]*53+q[1])%WORLDS.length}
+function ensureWeek(){const k=S.dbgWeek||isoWeekKey(new Date());if(!S.map||S.map.week!==k||!Array.isArray(S.map.done)){S.map={week:k,world:worldFor(k),done:[false,false,false,false,false],bonus:0,worlds:(S.map&&S.map.worlds)||0};S.mapShown=null;save('lp_map',S.map)}}
+function avIdx(done,ti){return Math.min(WNODES,done[ti]?ti+1:ti)}
+const ND=["Nyårsdagen|Svea, Sverker|Alfred, Alfrida|Rut, Ritva|Hanna, Hannele|Baltasar, Kasper|August, Augusta|Erland, Erhard|Gunnar, Gunder|Sigurd, Sigmund|Hugo, Hagar|Frideborg, Fridolf|Knut|Felix, Felicia|Laura, Liv|Hjalmar, Hervor|Anton, Tony|Hilda, Hildur|Henrik, Henry|Fabian, Sebastian|Agnes, Agneta|Vincent, Veine|Emilia, Emelie|Erika, Eira|Paul, Pål|Bodil, Boel|Göte, Göta|Karl, Karla|Valter, Vilma|Gunhild, Gunilla|Ivar, Joar", "Max, Magda|Marja, Mia|Disa, Hjördis|Ansgar, Anslem|Lisa, Elise|Dorotea, Dora|Rikard, Dick|Berta, Berthold|Fanny, Betty|Ergon, Eugenia|Yngve, Ingolf|Evelina, Evy|Agne, Agnar|Valentin, Tina|Sigfrid, Sigbritt|Julia, Jill|Alexandra, Sandra|Frida, Fritz|Gabriella, Ella|Rasmus, Ruben|Hilding, Hulda|Marina, Marlene|Torsten, Torun|Mattias, Mats|Sigvard, Sivert|Torgny, Torkel|Lage, Laila|Maria, Maja", "Albin, Inez|Ernst, Erna|Gunborg, Gunvor|Adrian, Ada|Tora, Tor|Ebba, Ebbe|Isidor, Doris|Siv, Saga|Torbjörn, Ambjörn|Edla, Ethel|Edvin, Elon|Viktoria, Viktor|Greger, Iris|Matilda, Maud|Kristofer, Christel|Herbert, Gilbert|Gertrud, Görel|Edvard, Eddie|Josef, Josefina|Joakim, Kim|Bengt, Benny|Viktor, Vilgot|Gerda, Gerd|Gabriel, Rafael|Mary, Marion|Emanuel, Manne|Ralf, Raymond|Elma, Elmer|Jonas, Jens|Holger, Reidar|Ester, Estrid", "Harald, Halvar|Gunnel, Gun|Ferdinand, Florence|Irene, Irja|Nanna, Nanny|Vilhelm, Willy|Irma, Mimmi|Vanja, Ronja|Otto, Ottila|Ingvar, Ingvor|Ulf, Ylva|Julius, Gillis|Artur, Douglas|Tiburtius, Tim|Olivia, Oliver|Patrik, Patricia|Elias, Elis|Valdemar, Volmar|Olaus, Ola|Amalia, Amelie|Annika, Anneli|Allan, Alida|Georg, Göran|Vega, Viveka|Markus, Mark|Teresia, Terese|Engelbrekt, Enok|Ture, Tyko|Kennet, Kent|Mariana, Marianne", "Valborg|Filip, Filippa|John, Jack, Göta|Monika, Mona|Vivianne, Vivan|Marit, Rita, Sigmund|Lilian, Lilly|Åke, Ove|Jonatan, Gideon|Elvira, Elvy|Märta, Märit|Charlotta, Lotta|Linnea, Nina|Lillemor, Lill|Sofia, Sonja|Hilma, Hilmer|Nora, Rebecka|Erik, Jerker|Majken, Alrik|Karolina, Lina|Konstantin, Conny|Henning, Hemming|Desirée, Renée|Ivan, Yvonne|Urban, Ursula|Vilhelmina, Helmy|Blenda, Beda|Ingeborg, Borghild|Jean, Baltsar|Fritjof, Frej|Isabella, Isa", "Rune, Nikodemus|Rutger, Roger|Ingemar, Gudmar|Solveig, Solbritt|Bo, Boris|Gustav, Gösta|Robert, Robin|Eivor, Elaine|Petra, Börje|Kerstin, Svante|Bertil, Berit|Eskil, Esbjörn|Aina, Eila|Håkan, Heidi|Margit, Justina|Axel, Axelina|Torborg, Torvald|Björn, Bjare|Germund, Jerry|Linda, Linn, Flora|Alf, Alva|Paulina, Paula|Adolf, Adela|Johan, Jan|David, Salomon|Gunni, Jim|Selma, Herta|Leo, Leopold|Petrus, Peter|Elof, Leif", "Aron, Mirjam|Rosa, Rosita|Aurora, Adina|Ulrika, Ulla|Melker, Agaton|Ronald, Esaias|Klas, Kaj|Kjell, Tjelvar|Jörgen, Örjan|Anund, Gunda|Eleonora, Ellinor|Herman, Hermine|Joel, Judit|Folke, Odd|Ragnhild, Ragnvald|Reinhold, Reine|Alexis, Alice|Fredrik, Fred|Sara, Sally|Margareta, Greta|Johanna, Jane|Magdalena, Madeleine|Emma, Emmy|Kristina, Stina|Jakob, James|Jesper, Jessika|Marta, Moa|Botvid, Seved|Olof, Olle|Algot, Margot|Elin, Elna", "Per, Pernilla|Karin, Kajsa|Tage, Tanja|Arne, Arnold|Ulrik, Alrik|Sixten, Sölve|Dennis, Donald|Silvia, Sylvia|Roland, Roine|Lars, Lorentz|Susanna, Sanna|Klara, Clary|Hillevi, Gullvi|William, Bill|Stella, Stellan|Brynolf, Sigyn|Verner, Veronika|Helena, Lena|Magnus, Måns|Bernhard, Bernt|Jon, Josefina|Henrietta, Henny|Signe, Signhild|Bartolomeus, Bert|Lovisa, Louise|Östen, Ejvind|Rolf, Rudolf|Gurli, Gull|Hans, Hampus|Albert, Albertina|Arvid, Vidar", "Samuel, Sam|Justus, Justina|Alfhild, Alfons|Gisela, Glenn|Harry, Harriet|Sakarias, Esaias|Regina, Roy|Alma, Ally|Anita, Anja|Tord, Tove|Dagny, Daniela|Tyra, Åsa|Sture, Styrbjörn|Ida, Ellida|Sigrid, Siri|Dag, Daga|Hildegard, Magnhild|Alvar, Orvar|Frederika, Carita|Agda, Agata|Ellen, Elly|Maurits, Morgan|Tekla, Tea|Gerhard, Gert|Kåre, Tryggve|Einar, Enar|Dagmar, Rigmor|Lennart, Leonard|Mikael, Mikaela|Helge, Helny", "Ragnar, Ragna|Ludvig, Louis|Evald, Osvald|Frans, Frank|Bror, Bruno|Jenny, Jennifer|Birgitta, Britta|Nils, Nelly|Ingrid, Inger|Helmer, Hadar|Erling, Jarl|Valfrid, Ernfrid|Birgit, Britt|Manfred, Helfrid|Hedvig, Hedda|Fingal, Finn|Antonia, Annette|Lukas, Matteus|Tore, Torleif|Sibylla, Camilla|Birger, Börje|Marika, Marita|Sören, Severin|Evert, Eilert|Inga, Ignvald|Amanda, My|Sabina, Ina|Simon, Simone|Viola, Vivi|Elsa, Elsie|Edit, Edgar", "André, Andrea|Tobias, Toini|Hubert, Diana|Uno, Unn|Eugen, Eugenia|Gustav Adolf|Ingegerd, Ingela|Vendela, Vanda|Teodor, Ted|Martin, Martina|Mårten|Konrad, Kurt|Kristian, Krister|Emil, Mildred|Katja, Nadja|Edmund, Gudmund|Naemi, Nancy|Pierre, Percy|Elisabet, Lisbet|Pontus, Pia|Helga, Olga|Cecilia, Cornelia|Klemens, Clarence|Gudrun, Runar|Katarina, Carina|Linus, Love|Astrid, Asta|Malte, Malkolm|Sune, Synnöve|Anders, Andreas", "Oskar, Ossian|Beata, Beatrice|Lydia, Carola|Barbro, Barbara|Sven, Svante|Nikolaus, Niklas|Angelika, Angela|Virginia, Vera|Anna, Annie|Malin, Malena|Daniel, Dan|Alexander, Alex|Lucia|Sten, Stig|Gottfrid, Gotthard|Assar, Astor|Inge, Ingemund|Abraham, Efraim|Isak, Rebecka|Israel, Moses|Tomas, Tom|Natanael, Natalia|Adam|Eva|Juldagen|Stefan, Staffan|Johannes, Hannes|Rakel, Benjamin|Abel, Set|Gunlög, Åslög|Nyårsafton, Sylvester"];
+const MONTHS=['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'],WDAYS=['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'];
+const HOLIDAY_NAMES=['Nyårsdagen','Valborg','Juldagen'];
+function nameFor(m0,d){const a=ND[m0].split('|');return a[d-1]||''}
+function dateInfo(){const d=S.dbgDate?new Date(S.dbgDate):new Date();const nm=nameFor(d.getMonth(),d.getDate());const wd=WDAYS[d.getDay()];
+  return{line1:wd.charAt(0).toUpperCase()+wd.slice(1)+' '+d.getDate()+' '+MONTHS[d.getMonth()],name:nm,line2:!nm?'Skottdag':(HOLIDAY_NAMES.includes(nm)?nm:'Namnsdag: '+nm)}}
+function dateBanner(){const i=dateInfo(),fs=Math.min(13.5,262/((i.line2.length+3)*.5)),f1=Math.min(21,270/(i.line1.length*.52));
+  return `<g transform="translate(14 4)"><path d="M10 0H282a10 10 0 0 1 10 10V46a10 10 0 0 1-10 10H10A10 10 0 0 1 0 46V10A10 10 0 0 1 10 0Z" fill="#FFE29A" stroke="#8B5A2B" stroke-width="3"/><path d="M8 4H284a6 6 0 0 1 6 6V46a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6Z" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.6"/><path d="M14 18H278M14 36H278" stroke="#E8C170" stroke-width="1.2" opacity=".6"/><circle cx="9" cy="9" r="2.4" fill="#8B5A2B"/><circle cx="283" cy="9" r="2.4" fill="#8B5A2B"/><circle cx="9" cy="47" r="2.4" fill="#8B5A2B"/><circle cx="283" cy="47" r="2.4" fill="#8B5A2B"/>`
+   +`<text x="146" y="25" text-anchor="middle" font-family="Lilita One,Baloo 2,Nunito,sans-serif" font-size="${f1.toFixed(1)}" fill="#5A3412" stroke="#FFF6D6" stroke-width="3" paint-order="stroke" stroke-linejoin="round">${i.line1}</text>`
+   +`<text x="146" y="45" text-anchor="middle" font-family="Lilita One,Baloo 2,Nunito,sans-serif" font-size="${fs.toFixed(1)}" fill="#C2410C">🎈 ${i.line2}</text></g>`}
+function pathD(){let d=`M${NP[0][0]} ${NP[0][1]}`;for(let i=1;i<NP.length-1;i++){const mx=(NP[i][0]+NP[i+1][0])/2,my=(NP[i][1]+NP[i+1][1])/2;d+=` Q${NP[i][0]} ${NP[i][1]} ${mx} ${my}`}const L=NP[NP.length-1];return d+` L${L[0]} ${L[1]}`}
+function avatarT(i){const q=NP[Math.max(0,Math.min(5,i))];return `translate(${q[0]}px,${q[1]-12}px)`}
+function worldSVG(wi,done,ti){
+  const w=WORLDS[wi],id='wg'+wi,won=!!done[4];
+  let g=`<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${w.sky[0]}"/><stop offset="1" stop-color="${w.sky[1]}"/></linearGradient></defs><rect width="320" height="266" rx="10" fill="url(#${id})"/><g transform="translate(0 56)">`
+   +`<ellipse cx="60" cy="214" rx="180" ry="52" fill="${w.ground}" opacity=".9"/><ellipse cx="290" cy="216" rx="150" ry="46" fill="${w.ground}"/>`
+   +w.decor.map((q,i)=>`<text x="${q[1]}" y="${q[2]}" font-size="${q[3]}" text-anchor="middle" class="bb" style="animation-delay:${-i*.6}s;--d:${3+i%3}s">${q[0]}</text>`).join('');
+  g+=`<path d="${pathD()}" stroke="rgba(0,0,0,.18)" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 2)"/><path d="${pathD()}" stroke="${w.path}" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="${pathD()}" stroke="rgba(255,255,255,.75)" stroke-width="2" fill="none" stroke-dasharray="1 7" stroke-linecap="round"/>`;
+  for(let i=0;i<WNODES;i++){const x=NP[i][0],y=NP[i][1],isd=!!done[i],cur=i===ti&&!isd,missed=!isd&&i<ti;
+    g+=`<g transform="translate(${x} ${y})">${cur?`<circle r="21" fill="none" stroke="#fff" stroke-width="2.8" class="ring"/>`:''}<circle r="15" fill="${isd?'#FFD23F':cur?w.node:missed?'#CBD5DD':'#B0BEC5'}" stroke="#2B2140" stroke-width="2"/>`
+     +(isd?`<path d="M0 -8l2.6 5.4 5.9.8-4.3 4.2 1 5.9L0 5l-5.2 2.7 1-5.9-4.3-4.2 5.9-.8z" fill="#fff" stroke="#E0A800" stroke-width=".9"/>`:`<text y="4.6" text-anchor="middle" font-size="12.5" font-weight="800" fill="${cur?'#fff':'#6B7A88'}" font-family="Baloo 2,Nunito,sans-serif">${i+1}</text>`)
+     +`<text y="30" text-anchor="middle" font-size="11" font-weight="800" fill="#2B2140" stroke="#fff" stroke-width="3" paint-order="stroke" font-family="Baloo 2,Nunito,sans-serif">${DAYS_S[i]}</text></g>`}
+  const cx=NP[5][0],cy=NP[5][1];
+  g+=`<g transform="translate(${cx} ${cy+10})"><rect x="-26" y="-34" width="14" height="34" fill="${w.castle}" stroke="#2B2140" stroke-width="1.8"/><rect x="12" y="-34" width="14" height="34" fill="${w.castle}" stroke="#2B2140" stroke-width="1.8"/><rect x="-16" y="-26" width="32" height="26" fill="${w.castle}" stroke="#2B2140" stroke-width="1.8"/>`
+   +`<path d="M-29 -34 L-19 -50 L-9 -34Z M9 -34 L19 -50 L29 -34Z M-12 -26 L0 -44 L12 -26Z" fill="${w.roof}" stroke="#2B2140" stroke-width="1.8" stroke-linejoin="round"/><path d="M-6 0 v-10 a6 6 0 0 1 12 0 v10Z" fill="#2B2140"/><rect x="-22" y="-26" width="6" height="8" rx="3" fill="#7CD3FF"/><rect x="16" y="-26" width="6" height="8" rx="3" fill="#7CD3FF"/>`
+   +`<path d="M0 -44V-58" stroke="#2B2140" stroke-width="1.8"/><path class="wd2" d="M0 -58 l14 4 l-14 5z" fill="${won?'#FFD23F':'#FF5A5F'}" stroke="#2B2140" stroke-width="1"/>${won?`<text y="-62" x="0" text-anchor="middle" font-size="16" class="bb">🎉</text>`:''}</g>`;
+  g+=`<g id="avatar" style="transform:${avatarT(avIdx(done,ti))};transition:transform 1.6s cubic-bezier(.3,1.3,.5,1)"><g transform="translate(0 -14) scale(.62)">${MASCOT(0,0)}</g></g>`;
+  return g+`</g>`+dateBanner()}
+function animMap(){const a=document.getElementById('avatar');const cur=avIdx(S.map.done,todayIdx());const prev=S.mapShown;S.mapShown=cur;if(!a||prev==null||prev===cur)return;const to=a.style.transform;a.style.transition='none';a.style.transform=avatarT(prev);void a.getBoundingClientRect();a.style.transition='transform 1.6s cubic-bezier(.3,1.3,.5,1)';a.style.transform=to}
+function mapCard(){ensureWeek();const m=S.map,w=WORLDS[m.world],ti=todayIdx(),dn=m.done.filter(Boolean).length,pct=Math.round(100*dn/WNODES),todayDone=!!m.done[ti];
+  return `<div class="card"><p class="q" style="margin-bottom:4px">Veckans värld: ${w.n}</p><p class="note" style="margin:0 0 8px">${todayDone?`${DAYS[ti]}ens nivå är klar. Fler pauser idag är en bonus!`:`Idag är det ${DAYS[ti].toLowerCase()}: gör en övning så klarar klassen dagens nivå.`} En nivå per skoldag, måndag till fredag. Ny värld varje måndag.</p>
+<svg class="tripsvg" viewBox="0 0 320 266" role="img" aria-label="Karta över ${w.n}. ${dn} av ${WNODES} dagar klara. Idag är ${DAYS[ti].toLowerCase()}.">${worldSVG(m.world,m.done,ti)}</svg>
+<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${WNODES}" aria-valuenow="${dn}"><i style="width:${pct}%"></i></div>
+<div class="tempo" style="margin:0"><span>⭐ ${dn} av ${WNODES} dagar klara${m.bonus?` · ${m.bonus} bonuspauser`:''}${m.worlds?` · ${m.worlds} världar klarade`:''}</span><button class="link" data-act="resetmap">${S.resetArm?'Tryck igen för att börja om':'Börja om veckan'}</button></div></div>`}
+function mapMini(){ensureWeek();const m=S.map,w=WORLDS[m.world],ti=todayIdx(),dn=m.done.filter(Boolean).length,pct=Math.round(100*dn/WNODES);return `<div class="tmini"><span>🗺️ ${w.n}: ${DAYS_S[ti].toLowerCase()}</span><div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${WNODES}" aria-valuenow="${dn}"><i style="width:${pct}%"></i></div></div>`}
+function moodCard(){return `<div class="card"><p class="q">Hur är stämningen i klassen idag?</p><div class="moods">${Object.keys(MAL).map(k=>`<button class="mood g-${k}" data-mood="${k}"><span class="mi">${{vakna:'🥱',lugna:'😌',energi:'⚡'}[k]}</span><span><b>${MAL[k].n}</b><small>${MAL[k].d}</small></span></button>`).join('')}</div></div>`}
+function worldBox(){ensureWeek();const m=S.map,w=WORLDS[m.world];const cf=Array.from({length:26},(_,i)=>`<i class="cft" style="left:${(i*37)%100}%;background:${CONF[i%CONF.length]};animation-delay:${-(i*.31%2.4)}s"></i>`).join('');
+  return `<div class="cele" role="dialog" aria-label="${w.n} klarad"><div class="cfwrap">${cf}</div><div class="box"><svg class="tripsvg" viewBox="0 0 320 266" role="img" aria-label="Kartan över ${w.n} med slottet nått">${worldSVG(m.world,[true,true,true,true,true],4)}</svg><h2 style="margin:10px 0 4px;font-size:30px">Ni klarade ${w.n}!</h2><p style="margin:0 0 12px;font-size:18px;font-weight:700">Klassen nådde slottet efter en hel vecka. Ny värld väntar på måndag. Trevlig helg!</p><button class="btn" data-act="closeworld">Stäng</button></div></div>`}
+/* rotation: den övning som användes senast hamnar sist i kön */
+function markUsed(e){S.prevUsed={id:e.id,v:S.used[e.id]};S.seq=(S.seq||0)+1;S.used[e.id]=S.seq;save('lp_used',S.used)}
+function unmarkUsed(){const q=S.prevUsed;if(!q)return;if(q.v==null)delete S.used[q.id];else S.used[q.id]=q.v;S.prevUsed=null;save('lp_used',S.used)}
+/* ---------- Animationsmotor ---------- */
+const NS='http://www.w3.org/2000/svg';
+const ANIM={raf:0,svg:null,def:null,kids:[],T:0,bounds:[],t:0,last:0,paused:false,step:-1,mal:'vakna'};
+const CONF=['#FF5A5F','#FFD23F','#00BBF9','#2ED47A','#9B5DE5','#FF8C42'];
+function sceneMarkup(e){const d=SCN[e.id]();ANIM.def=d;ANIM.mal=e.mal;ANIM.T=d.T.reduce((a,b)=>a+b,0);let b=0;ANIM.bounds=d.T.map(x=>{const r=[b,b+x];b+=x;return r});
+  d.kids.forEach(k=>{k.tr=normTrack(k.tr,ANIM.T)});
+  const m=e.mal;
+  const cap=`<g id="cap"><rect id="caprect" x="10" y="5" width="300" height="27" rx="13.5" fill="var(--${m})" stroke="#2B2140" stroke-width="1.6"/><circle id="capbadge" cx="26" cy="18.5" r="9.5" fill="#fff" stroke="#2B2140" stroke-width="1.4"/><text id="capnum" x="26" y="23" text-anchor="middle" font-size="13" font-weight="800" fill="#2B2140" font-family="Baloo 2,Nunito,sans-serif">1</text><text id="captxt" x="168" y="24" text-anchor="middle" font-size="13" font-weight="800" fill="var(--on-${m})" font-family="Baloo 2,Nunito,sans-serif"></text></g>`;
+  const mp=d.mascot||[24,168];
+  return `${d.bg}${d.props||''}${MASCOT(mp[0],mp[1])}${d.kids.map((k,i)=>`<g transform="translate(${k.x} ${k.y}) scale(${k.s})">${rigMarkup(i,LOOKS[k.look])}</g>`).join('')}${d.front||''}<g id="fx"></g>${cap}`}
+function poseOf(i,t){const k=ANIM.def.kids[i];return poseAt(k.tr,((t+(k.ph||0))%ANIM.T+ANIM.T)%ANIM.T)}
+function burst(x,y){const fx=ANIM.svg&&ANIM.svg.querySelector('#fx');if(!fx||(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches))return;
+  for(let i=0;i<18;i++){const g=document.createElementNS(NS,'g');g.setAttribute('transform',`translate(${x} ${y})`);const r=document.createElementNS(NS,i%3===0?'circle':'rect');
+    if(r.tagName==='circle'){r.setAttribute('r',2.6)}else{r.setAttribute('x',-2.5);r.setAttribute('y',-3.5);r.setAttribute('width',5);r.setAttribute('height',7)}
+    r.setAttribute('fill',CONF[i%CONF.length]);r.setAttribute('class','cf');const a=Math.random()*Math.PI*2,d=34+Math.random()*58;
+    r.style.setProperty('--dx',(Math.cos(a)*d).toFixed(0)+'px');r.style.setProperty('--dy',(Math.sin(a)*d-24).toFixed(0)+'px');r.style.setProperty('--rt',(Math.random()*540-270).toFixed(0)+'deg');
+    g.appendChild(r);fx.appendChild(g);setTimeout(()=>g.remove(),1200)}}
+function popText(txt,x,y,col){const fx=ANIM.svg&&ANIM.svg.querySelector('#fx');if(!fx)return;const g=document.createElementNS(NS,'g');g.setAttribute('transform',`translate(${x} ${y})`);
+  const t=document.createElementNS(NS,'text');t.setAttribute('class','pop');t.setAttribute('text-anchor','middle');t.setAttribute('font-size','19');t.setAttribute('font-weight','800');t.setAttribute('font-family','Baloo 2,Nunito,sans-serif');t.setAttribute('fill',col||'#FF5A5F');t.setAttribute('stroke','#fff');t.setAttribute('stroke-width','4');t.setAttribute('paint-order','stroke');t.setAttribute('stroke-linejoin','round');t.textContent=txt;
+  g.appendChild(t);fx.appendChild(g);setTimeout(()=>g.remove(),1000)}
+function cheer(){const m=ANIM.svg&&ANIM.svg.querySelector('#mascot');if(!m)return;m.classList.remove('cheer');void m.getBoundingClientRect();m.classList.add('cheer');setTimeout(()=>m.classList.remove('cheer'),900)}
+function fireCues(a,b){const cs=ANIM.def&&ANIM.def.cues;if(!cs)return;cs.forEach(c=>{if(c[0]>a&&c[0]<=b){const k=c[5]||CUESFX[c[1]];if(k)sfx(k);if(c[1])popText(c[1],c[2]||160,c[3]||64,c[4])}})}
+function setCaption(si){const svg=ANIM.svg,tx=svg.querySelector('#captxt'),rc=svg.querySelector('#caprect'),bd=svg.querySelector('#capbadge'),nm=svg.querySelector('#capnum');
+  const txt=ANIM.def.caps[si];const fs=Math.min(13.5,262/(txt.length*.55));tx.setAttribute('font-size',fs.toFixed(1));const tw=txt.length*.55*fs;const w=Math.min(308,tw+68),x0=(320-w)/2;
+  rc.setAttribute('width',w);rc.setAttribute('x',x0);bd.setAttribute('cx',x0+17);nm.setAttribute('x',x0+17);nm.textContent=si+1;tx.setAttribute('x',x0+36+(w-46)/2);tx.textContent=txt}
+function drawAt(t){
+  const svg=ANIM.svg;if(!svg)return;
+  ANIM.kids.forEach((k,i)=>{const p=poseOf(i,t);
+    p.by+=Math.sin(t/380+i*1.7)*.9;p.hd+=Math.sin(t/760+i)*1.8;p.tw+=Math.sin(t/900+i*2)*.8;
+    if(p.ey>.8&&((t+i*913)%3400)<130)p.ey=.06;
+    applyPose(k,p)});
+  let si=ANIM.bounds.findIndex(r=>t>=r[0]&&t<r[1]);if(si<0)si=ANIM.bounds.length-1;
+  svg.querySelectorAll('[data-w]').forEach(el=>{const w=el.getAttribute('data-w').split('-').map(Number);el.classList.toggle('on',t>=w[0]&&t<w[1])});
+  if(si!==ANIM.step){const first=ANIM.step===-1;ANIM.step=si;
+    svg.querySelectorAll('[data-s]').forEach(el=>el.classList.toggle('on',el.getAttribute('data-s').split(' ').includes(String(si+1))));
+    setCaption(si);
+    document.querySelectorAll('.steg li').forEach((li,j)=>li.classList.toggle('now',j===si));
+    if(!first&&!ANIM.paused){burst(160,86);cheer();sfx('step')}}
+  if(ANIM.def.tick)ANIM.def.tick(t,{q:s=>svg.querySelector(s),pose:poseOf,def:ANIM.def})}
+function animFrame(now){
+  if(!ANIM.svg||!ANIM.svg.isConnected){ANIM.raf=0;return}
+  const dt=Math.min(64,now-(ANIM.last||now));ANIM.last=now;
+  if(!ANIM.paused){const prev=ANIM.t;ANIM.t=(prev+dt/(S.tempo||1))%ANIM.T;if(ANIM.t>=prev)fireCues(prev,ANIM.t);else{fireCues(prev,ANIM.T);fireCues(-1,ANIM.t)}drawAt(ANIM.t)}
+  ANIM.raf=requestAnimationFrame(animFrame)}
+function mountAnim(){
+  const svg=document.querySelector('svg.scene');
+  if(!svg||!S.cur||!ANIM.def||!ANIM.def.kids)return;
+  ANIM.svg=svg;ANIM.step=-1;ANIM.last=0;
+  ANIM.kids=ANIM.def.kids.map((_,i)=>{const g=svg.querySelector(`[data-kid="${i}"]`),q=j=>g.querySelector(`[data-j="${j}"]`);return{body:q('body'),legL:q('legL'),legR:q('legR'),torso:q('torso'),armL:q('armL'),armR:q('armR'),foreL:q('foreL'),foreR:q('foreR'),head:q('head'),eyeL:q('eyeL'),eyeR:q('eyeR'),lidL:q('lidL'),lidR:q('lidR'),browL:q('browL'),browR:q('browR'),mouth:q('mouth'),tongue:q('tongue')}});
+  ANIM.paused=!!S.artPaused;drawAt(ANIM.t);
+  if(!ANIM.raf)ANIM.raf=requestAnimationFrame(animFrame)}
+
+const ALT={
+blomman:'Ett barn växer från litet frö till hög blomma med armarna uppsträckta, medan solen skiner och det regnar.',
+eko:'Läraren och ett barn klappar i takt efter varandra.',
+tradet:'Ett barn står som ett träd med armarna som grenar och svajar i vinden bredvid ett träd.',
+skaka:'Ett barn skakar händer, armar och fötter.',
+farg:'Ett barn går och rör vid saker i olika färger: rött, blått och grönt.',
+ballong:'Ett barn med slutna ögon andas in så att en ballong blir stor och ut så att den krymper.',
+ljud:'Ett barn med slutna ögon lyssnar efter ljud från en fågel.',
+slowmotion:'Ett barn och en sköldpadda går riktigt långsamt.',
+spann:'Ett barn spänner musklerna hårt och släpper sedan.',
+regn:'Ett barn gör regnljud med händerna under ett moln med regn.',
+sinnen:'Ett barn står stilla bland träd med öra, ögon, näsa och hand som symboler för sinnena.',
+djur:'Ett barn hoppar bredvid en elefant, en groda och en fjäril.',
+flod:'Ett barn simmar bland fiskar i en tänkt flod.',
+frys:'Ett barn dansar till musik och fryser när det står FRYS.',
+skrap:'Ett barn bär ett bananskal till tre sorteringskärl för papper, plast och matavfall.',
+berg:'Ett barn klättrar uppför ett berg mot en flagga på toppen.',
+skatt:'Ett barn med förstoringsglas letar efter något mjukt, hårt och runt.'
+};
+
+/* ---------- Fler övningar: rörelsemoduler och scengenerator ---------- */
+const nper=(a,b,p)=>Math.max(1,Math.round((b-a)/p));
+function mir(p){const o={};for(const k in p){const v=p[k],m={la:'ra',ra:'la',lel:'rel',rel:'lel',ll:'lr',lr:'ll'}[k];if(m)o[m]=v;else if(k==='tw'||k==='hd'||k==='bx')o[k]=-v;else o[k]=v}return o}
+const HOLD=(a,b,p)=>[[a,p],[b,p]];
+const MOD={
+ stand:(a,b)=>HOLD(a,b,{}),
+ out:(a,b)=>HOLD(a,b,{la:90,ra:90,ll:10,lr:10}),
+ clap:(a,b)=>osc(a,b,nper(a,b,800),CLAPO,CLAPS),
+ march:(a,b)=>osc(a,b,nper(a,b,560),{ll:20,lr:1,la:26,ra:-6,by:-4,lel:30},{ll:1,lr:20,la:-6,ra:26,by:0,rel:30}),
+ high:(a,b)=>osc(a,b,nper(a,b,440),{ll:30,lr:1,la:40,ra:-8,by:-6,lel:60},{ll:1,lr:30,la:-8,ra:40,by:-6,rel:60}),
+ slowwalk:(a,b)=>osc(a,b,nper(a,b,1800),{ll:12,lr:1,la:16,ra:-2},{ll:1,lr:12,la:-2,ra:16}),
+ jack:(a,b)=>osc(a,b,nper(a,b,760),{la:172,ra:172,ll:24,lr:24,by:-7,mo:1},{la:8,ra:8,ll:4,lr:4,by:0,mo:.5}),
+ up:(a,b)=>HOLD(a,b,{la:172,ra:172,hd:-8,by:-3,mo:.8}),
+ tip:(a,b)=>osc(a,b,nper(a,b,1000),{la:172,ra:172,by:-6,hd:-6,mo:.8},{la:172,ra:172,by:0,hd:-6}),
+ sideReach:(a,b)=>osc(a,b,nper(a,b,1600),{la:172,ra:20,tw:-12,hd:-6},{la:20,ra:172,tw:12,hd:6}),
+ wind:(a,b)=>osc(a,b,nper(a,b,1000),{la:172,ra:14,tw:-14,hd:-6,ll:10,lr:10},{la:14,ra:172,tw:14,hd:6,ll:10,lr:10}),
+ shake:(a,b)=>osc(a,b,nper(a,b,300),{la:20,ra:20,lel:60,rel:60,tw:-5,by:-1},{la:20,ra:20,lel:110,rel:110,tw:5,by:0}),
+ neck:(a,b)=>osc(a,b,nper(a,b,1800),{hd:-16,tw:-3},{hd:16,tw:3}),
+ yawn:(a,b)=>{const d=b-a;return[[a,{}],[a+.3*d|0,{la:172,ra:172,mo:1.5,ey:.2,hd:-8}],[a+.8*d|0,{la:172,ra:172,mo:1.5,ey:.2,hd:-8}],[b,{la:6,ra:6,mo:.6,ey:.6}]]},
+ cat:(a,b)=>osc(a,b,nper(a,b,2800),{c:.85,la:22,ra:22,lel:60,rel:60,hd:18},{c:.2,la:172,ra:172,hd:-14,mo:.9}),
+ curl:(a,b)=>HOLD(a,b,{c:.95,hd:26,la:10,ra:10,lel:112,rel:112,tw:6,ey:.2,mo:0}),
+ curl2:(a,b)=>HOLD(a,b,{c:.5,la:20,ra:20,lel:95,rel:95,hd:12}),
+ curlbreath:(a,b)=>osc(a,b,nper(a,b,3600),{c:.95,hd:26,la:10,ra:10,lel:112,rel:112,ey:.2,mo:0,by:0},{c:.9,hd:24,la:12,ra:12,lel:108,rel:108,ey:.2,mo:0,by:-2}),
+ peek:(a,b)=>[[a,{c:.8,hd:18,la:14,ra:14,lel:80,rel:80,mo:.5}],[(a+b)/2|0,{c:.2,hd:-6,la:70,ra:70,mo:.9}],[b,{c:0,la:140,ra:140,hd:-8,mo:1,by:-2}]],
+ bearSleep:(a,b)=>osc(a,b,nper(a,b,3600),{c:.6,tw:10,hd:26,la:20,ra:20,lel:105,rel:105,ey:0,mo:0,by:0},{c:.6,tw:10,hd:24,la:22,ra:22,lel:100,rel:100,ey:0,mo:0,by:-2}),
+ wakeStretch:(a,b)=>[[a,{c:.5,tw:6,hd:20,la:20,ra:20,ey:.3,mo:0}],[(a+b)/2|0,{c:0,la:172,ra:172,hd:-8,mo:1.4,ey:.2}],[b,{la:172,ra:172,hd:-6,mo:.8}]],
+ sunUp:(a,b)=>[[a,{la:6,ra:6}],[b,{la:172,ra:172,hd:-8,mo:.8}]],
+ breathe:(a,b)=>osc(a,b,nper(a,b,5000),{la:20,ra:20,mo:.2},{la:150,ra:150,mo:.6}),
+ wings:(a,b)=>osc(a,b,nper(a,b,3600),{la:28,ra:28,lel:-8,rel:-8,mo:.2},{la:112,ra:112,lel:-14,rel:-14,mo:.6}),
+ shiftW:(a,b)=>[[a,{}],[b,{tw:-4,ll:2,lr:14,by:-1}]],
+ tree:(a,b)=>osc(a,b,nper(a,b,3600),{la:164,ra:164,lr:38,by:-1},{la:158,ra:158,lr:38,tw:-2,by:-1}),
+ snow:(a,b)=>[[a,{la:164,ra:164,lel:10,rel:10}],[b,{la:50,ra:50,lel:25,rel:25}]],
+ stars:(a,b)=>osc(a,b,nper(a,b,2600),{la:172,ra:172,hd:-12,mo:.8},{la:100,ra:100,lel:60,rel:60,hd:0,mo:.4}),
+ seaweed:(a,b)=>osc(a,b,nper(a,b,2200),{tw:-14,la:150,ra:150,lel:20,rel:-20,hd:-6},{tw:14,la:150,ra:150,lel:-20,rel:20,hd:6}),
+ rainbowR:(a,b)=>[[a,{ra:20}],[(a+b)/2|0,{ra:172,hd:-8,mo:.7}],[b,{ra:20}]],
+ rainbowL:(a,b)=>[[a,{la:20}],[(a+b)/2|0,{la:172,hd:8,mo:.7}],[b,{la:20}]],
+ rainbowBoth:(a,b)=>[[a,{la:20,ra:20}],[(a+b)/2|0,{la:172,ra:172,mo:.8}],[b,{la:20,ra:20}]],
+ tipHop:(a,b)=>osc(a,b,nper(a,b,700),{by:-14,la:30,ra:30,mo:1},{by:0,la:30,ra:30}),
+ clapHop:(a,b)=>osc(a,b,nper(a,b,800),{by:-14,la:172,ra:172,mo:1.1},{by:0,la:172,ra:172,mo:.6}),
+ crouchHold:(a,b)=>HOLD(a,b,{c:.95,la:172,ra:172,hd:-6,mo:.5}),
+ rocket:(a,b)=>{const d=b-a;return[[a,{c:.95,la:172,ra:172}],[a+.45*d|0,{c:.95,la:172,ra:172,mo:1.1}],[a+.6*d|0,{c:0,by:-30,la:172,ra:172,mo:1.3}],[a+.8*d|0,{c:0,by:0,la:172,ra:172}],[b,{la:60,ra:60,mo:.7}]]},
+ monkey:(a,b)=>osc(a,b,nper(a,b,1000),{la:150,ra:20,tw:-6,c:.25,ll:14,lr:14},{la:20,ra:150,tw:6,c:.25,ll:14,lr:14}),
+ stomp:(a,b)=>osc(a,b,nper(a,b,520),{ll:24,lr:2,by:-5,la:30,ra:-4},{ll:2,lr:24,by:-5,la:-4,ra:30}),
+ rooSet:(a,b)=>HOLD(a,b,{c:.4,la:38,ra:38,lel:100,rel:100}),
+ hop:(a,b)=>osc(a,b,nper(a,b,950),{c:.6,la:40,ra:40,lel:90,rel:90,ll:6,lr:6},{c:0,by:-22,la:40,ra:40,lel:90,rel:90}),
+ ready:(a,b)=>HOLD(a,b,{c:.35,la:70,ra:70,lel:-20,rel:-20,ll:14,lr:14}),
+ kick:(a,b)=>osc(a,b,nper(a,b,1100),{ll:40,la:10,ra:60,by:-1,tw:4},{lr:40,la:60,ra:10,by:-1,tw:-4}),
+ cheer:(a,b)=>osc(a,b,nper(a,b,800),{la:172,ra:172,by:-12,mo:1.3,br:.9},{la:150,ra:150,by:0,mo:1}),
+ surfSet:(a,b)=>HOLD(a,b,{c:.4,ll:18,lr:18,la:90,ra:90,lel:-10,rel:-10}),
+ surf:(a,b)=>osc(a,b,nper(a,b,1700),{c:.4,ll:18,lr:18,la:90,ra:90,tw:-9,lel:-10,rel:-10},{c:.4,ll:18,lr:18,la:90,ra:90,tw:9,lel:-10,rel:-10}),
+ paddle:(a,b)=>osc(a,b,nper(a,b,720),{c:.3,la:60,ra:20,tw:-6,ll:12,lr:12},{c:.3,la:20,ra:60,tw:6,ll:12,lr:12}),
+ knead:(a,b)=>osc(a,b,nper(a,b,520),{c:.25,la:38,ra:38,lel:80,rel:80},{c:.25,la:30,ra:30,lel:104,rel:104,by:-2}),
+ toss:(a,b)=>osc(a,b,nper(a,b,1400),{la:160,ra:160,by:-10,mo:1},{la:60,ra:60,c:.3,by:0}),
+ sprinkle:(a,b)=>osc(a,b,nper(a,b,700),{la:90,ra:30,lel:-30,tw:-4,c:.1},{la:30,ra:90,rel:-30,tw:4,c:.1}),
+ puddle:(a,b)=>osc(a,b,nper(a,b,1400),{c:.5,la:70,ra:70,lel:-10,rel:-10},{c:0,by:-24,la:20,ra:20,ll:20,lr:20,mo:1}),
+ flap:(a,b)=>osc(a,b,nper(a,b,650),{la:40,ra:40,lel:-10,rel:-10,by:-2},{la:150,ra:150,by:-8}),
+ soar:(a,b)=>osc(a,b,nper(a,b,2200),{la:100,ra:100,tw:-8,by:-6,hd:-4},{la:100,ra:100,tw:8,by:-6,hd:4}),
+ land:(a,b)=>[[a,{la:100,ra:100,by:-6}],[(a+b)/2|0,{la:40,ra:40,by:0,c:.2}],[b,{la:6,ra:6,c:0}]],
+ pick:(a,b)=>osc(a,b,nper(a,b,1800),{la:172,ra:14,hd:-12,rel:70},{la:60,ra:30,lel:90,hd:6,c:.2}),
+ ninjaSet:(a,b)=>HOLD(a,b,{c:.3,ll:14,lr:14,la:60,ra:60,lel:90,rel:90}),
+ punch:(a,b)=>osc(a,b,nper(a,b,1500),{ra:90,la:20,tw:-6,c:.3,ll:12,lr:12},{la:90,ra:20,tw:6,c:.3,ll:12,lr:12}),
+ bow:(a,b)=>[[a,{}],[(a+b)/2|0,{c:.4,hd:28,la:10,ra:10}],[b,{c:.4,hd:28,la:10,ra:10}]],
+ twistWave:(a,b)=>osc(a,b,nper(a,b,1800),{hd:-12,ra:150,rel:20,la:30,tw:-4},{hd:12,ra:150,rel:-20,la:30,tw:4}),
+ highfive:(a,b)=>osc(a,b,nper(a,b,1500),{ra:160,mo:1,by:-2},{ra:140,mo:.8})
+};
+/* extra bakgrunder och rekvisita */
+const STARS=[[20,20],[60,44],[110,16],[150,52],[200,24],[236,60],[300,18],[40,80],[180,84],[130,92]];
+const NIGHT=()=>`<defs><linearGradient id="nightg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B1D4D"/><stop offset="1" stop-color="#3A4FA0"/></linearGradient></defs><rect width="320" height="200" fill="url(#nightg)"/>`
+ +STARS.map((q,i)=>`<path class="tw" style="animation-delay:${-i*.4}s" transform="translate(${q[0]} ${q[1]})" d="M0 -5l1.5 3.5 3.8.4-2.9 2.5.9 3.8L0 2.3l-3.3 1.9.9-3.8-2.9-2.5 3.8-.4z" fill="#FFF3B0"/>`).join('')
+ +`<g transform="translate(272 48)"><circle r="20" fill="#FFF3B0" stroke="#FFD86B" stroke-width="2"/><path d="M-9 -3q3 -3 6 0M3 -3q3 -3 6 0" stroke="#2B2140" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M-6 6q6 5 12 0" stroke="#2B2140" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="-11" cy="3" r="3" fill="#FF8FA3" opacity=".5"/><circle cx="11" cy="3" r="3" fill="#FF8FA3" opacity=".5"/></g>`
+ +`<ellipse cx="60" cy="162" rx="170" ry="34" fill="#1B5E5A"/><ellipse cx="280" cy="166" rx="130" ry="28" fill="#17504E"/><rect y="152" width="320" height="48" fill="#1F6B4A"/>`;
+const SEA=()=>`<defs><linearGradient id="seag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5DD6F7"/><stop offset="1" stop-color="#1B6FB8"/></linearGradient></defs><rect width="320" height="200" fill="url(#seag)"/><g fill="#fff" opacity=".13"><polygon points="40,0 80,0 120,200 60,200"/><polygon points="170,0 200,0 260,200 210,200"/></g>`
+ +[[30,150],[290,150],[262,160]].map((q,i)=>`<g transform="translate(${q[0]} 178)"><path class="sw2" style="animation-delay:${-i*.7}s" d="M0 0 Q-8 -24 0 -44 Q8 -24 0 0" fill="#2EC27E" stroke="#1E8F5E" stroke-width="1.5"/></g>`).join('')
+ +[[70,160],[130,120],[210,150],[250,100],[100,70]].map((q,i)=>`<circle class="bub" style="animation-delay:${-i*.9}s" cx="${q[0]}" cy="${q[1]}" r="${3+i%3}" fill="none" stroke="#fff" stroke-width="1.5" opacity=".8"/>`).join('')
+ +`<rect y="172" width="320" height="28" fill="#F0D79A"/><g fill="#E3C27A"><circle cx="40" cy="186" r="2.5"/><circle cx="130" cy="192" r="2"/><circle cx="220" cy="184" r="2.5"/><circle cx="290" cy="192" r="2"/></g>`;
+const SNOW=(n)=>Array.from({length:n},(_,i)=>`<circle class="sn" cx="${20+i*(280/n)}" cy="${30+(i*17)%30}" r="${2+i%2}" fill="#fff" style="animation-delay:${-(i*.53%3.6)}s"/>`).join('');
+const ROCKETSHAPE=(cl)=>`<g class="${cl}"><path d="M0 -10 C-12 -26 -12 -52 0 -70 C12 -52 12 -26 0 -10Z" fill="#F2F2F7" ${AO}/><path d="M0 -70 C-6 -64 -9 -58 -10 -52 L10 -52 C9 -58 6 -64 0 -70Z" fill="#FF5A5F" ${AO}/><circle cx="0" cy="-38" r="6" fill="#7CD3FF" ${AO}/><path d="M-11 -22 L-22 -6 L-9 -12Z M11 -22 L22 -6 L9 -12Z" fill="#FF5A5F" ${AO}/><path class="flm" d="M-6 -9 Q0 14 6 -9Z" fill="#FFB300"/></g>`;
+const ROCKET=ROCKETSHAPE('rkt');
+const PUDDLES=`<g fill="#6EC6FF" stroke="#3B9AE0" stroke-width="1.4"><ellipse cx="62" cy="190" rx="30" ry="5.5"/><ellipse cx="160" cy="193" rx="34" ry="5.5"/><ellipse cx="256" cy="190" rx="30" ry="5.5"/></g>`;
+const BASKET=`<g transform="translate(160 192)"><path d="M-22 -14 h44 l-6 16 h-32z" fill="#C98F4F" ${AO}/><path d="M-18 -8 h36 M-16 -2 h32" stroke="#8B5A2B" stroke-width="1.5"/><circle cx="-8" cy="-18" r="6" fill="#FF5A5F" ${AO}/><circle cx="6" cy="-19" r="6" fill="#FF5A5F" ${AO}/><circle cx="-1" cy="-24" r="6" fill="#FF8C42" ${AO}/></g>`;
+const BALL=`<g class="mou" transform="translate(300 186)"><circle r="9" fill="#fff" ${AO}/><path d="M0 -4l4 3-1.5 4.5h-5l-1.5-4.5z" fill="#2B2140"/></g>`;
+const DOUGH=`<g transform="translate(262 150)"><circle r="20" fill="#FFD28A" ${AO}/><circle cx="-6" cy="-5" r="3" fill="#E0412E"/><circle cx="7" cy="-3" r="3" fill="#E0412E"/><circle cx="0" cy="7" r="3" fill="#E0412E"/><path d="M-12 5q4 5 9 1M8 8q4 -3 6 -8" stroke="#F5C242" stroke-width="3" fill="none" stroke-linecap="round"/></g>`;
+/* scengenerator */
+const BGS={class:()=>CLASS(),out:(sp)=>OUT(sp.sun!==false),night:()=>NIGHT(),sea:()=>SEA()};
+function genScene(sp){
+  const T=sp.mods.map(m=>m[1]),starts=[];let acc=0;T.forEach(x=>{starts.push(acc);acc+=x});
+  const nk=sp.kids||(sp.animal?2:3);
+  const xs=nk===3?[80,160,240]:(sp.animal?[76,158]:[100,200]);
+  const looks=sp.looks||[2,0,3];
+  const kids=xs.slice(0,nk).map((x,i)=>{let tr=[];
+    sp.mods.forEach((m,si)=>{const a=starts[si]+450,b=starts[si]+m[1];let keys=(MOD[m[0]]||MOD.stand)(a,b);if(i%2===1)keys=keys.map(k=>[k[0],mir(k[1])]);tr=tr.concat(keys)});
+    return{x,y:186,s:nk===3?.97:1,look:looks[i%looks.length],ph:[0,-150,-300][i],tr}});
+  const an=sp.animal?`<g data-s="${sp.animal.s||'1 2 3 4'}">${ANI(sp.animal.n,sp.animal.x||262,sp.animal.y||176,sp.animal.sc||1.3,sp.animal.extra)}</g>`:'';
+  return{T,caps:sp.caps,bg:(BGS[sp.bg||'class'])(sp)+(sp.bgx||''),props:an+(sp.props||''),kids,cues:sp.cues,mascot:sp.mascot}}
+const GSPEC={
+giraff:{bg:'class',animal:{n:'giraffe',sc:1.0},mods:[['up',3400],['tip',3200],['sideReach',3800],['shake',2800]],caps:['Sträck armarna högt','På tå: ännu högre','Sträck åt sidorna','Skaka loss']},
+lejon:{bg:'class',animal:{n:'lion',sc:1.25},mods:[['up',2600],['yawn',4200],['neck',3200],['shake',2800]],caps:['Sträck armarna upp','Stor gäspning som ett lejon','Rulla försiktigt på huvudet','Skratta och skaka loss'],cues:[[4000,'AAAAH!',160,64,'#E8892B']]},
+katt:{bg:'class',animal:{n:'cat',sc:1.45},mods:[['curl',3000],['cat',3800],['cat',3800],['shake',2800]],caps:['Kura ihop dig som en katt','Sträck ut och sträck på ryggen','Puckelrygg, sedan lång rygg','Mjau! Skaka loss'],cues:[[10200,'MJAU!',160,64,'#F4A259']]},
+solen:{bg:'out',sun:true,mods:[['stand',2600],['sunUp',3800],['up',3200],['breathe',3400]],caps:['Det är tidig morgon','Lyft armarna som solen','Händerna ihop: solen skiner!','Sänk armarna och andas']},
+tahopp:{bg:'class',mods:[['stand',2200],['tipHop',3400],['clapHop',3800],['shake',2800]],caps:['Stå med lite luft runt dig','Hoppa lätt på tå','Klappa över huvudet vid hoppet','Landa mjukt, skaka ut'],cues:[[6400,'KLAPP!',160,62,'#FF5A5F'],[7600,'KLAPP!',160,62,'#9B5DE5']]},
+speglar:{bg:'class',kids:2,mods:[['stand',2200],['twistWave',3800],['twistWave',3800],['highfive',2800]],caps:['Stå mitt emot en kompis','Härma kompisen som en spegel','Byt: nu leder du','High five i luften!'],cues:[[10400,'HIGH FIVE!',160,62,'#1FC77E']]},
+sköldpaddan:{bg:'class',animal:{n:'turtle',sc:1.2,extra:true},mods:[['slowwalk',3200],['curl',3400],['curlbreath',3800],['peek',3400]],caps:['Gå sakta som en sköldpadda','Gå in i skalet','Andas lugnt i skalet','Titta fram och sträck ut']},
+bjorn:{bg:'class',animal:{n:'bear',sc:1.15},mods:[['yawn',3200],['curl',3000],['bearSleep',5000],['wakeStretch',3400]],caps:['Gäspa som en björn','Kura ihop dig och sov','Andas långsamt: hör snarkningen','Vakna och sträck på dig']},
+fjaril:{bg:'out',animal:{n:'butterfly',sc:1.35,y:100},mods:[['stand',2400],['wings',3800],['wings',3800],['wings',3600]],caps:['Armarna är fjärilsvingar','Andas in: lyft vingarna','Andas ut: sänk vingarna','Gör det fem gånger'],cues:[[3000,'IN…',160,62,'#00BBF9'],[5000,'UT…',160,62,'#FF5A5F']]},
+trad:{bg:'out',props:TREE(284,176,.85),mods:[['stand',2600],['shiftW',3200],['tree',4000],['tree',3600]],caps:['Stå stadigt som ett träd','Flytta vikten till ena foten','Fot mot benet, armar som grenar','Andas stilla, byt sida']},
+sno:{bg:'night',props:`<g data-s="2 3">${SNOW(14)}</g>`,mods:[['stand',2600],['up',3200],['snow',4400],['stand',3600]],caps:['Du är en snöglob','Armarna upp: det snöar','Sänk händerna: snön faller','Stå still tills snön lagt sig']},
+manen:{bg:'night',mods:[['stand',2600],['stars',4000],['stars',3800],['breathe',3600]],caps:['Det är natt, titta upp','Plocka en stjärna','Lägg stjärnan mot hjärtat','Andas lugnt, plocka fler']},
+tang:{bg:'sea',animal:{n:'fish',sc:1.4,y:92,x:240,s:'1 2 3 4'},mods:[['stand',2400],['seaweed',3800],['seaweed',3800],['stand',3000]],caps:['Du är tång på havsbotten','Vaja när vågorna kommer','Armar och händer följer med','Havet blir stilla']},
+regnbage:{bg:'out',mods:[['stand',2200],['rainbowR',3800],['rainbowL',3800],['rainbowBoth',3600]],caps:['Rita en regnbåge i luften','Andas in, rita uppåt','Andas ut, rita nedåt','Regnbåge med båda händerna']},
+stjarnhopp:{bg:'class',mods:[['stand',2200],['jack',3800],['jack',4200],['breathe',3200]],caps:['Fötter ihop, armar ner','Hoppa ut som en stjärna','Hoppa tillbaka, ditt tempo','Stort andetag']},
+raketen:{bg:'out',sun:false,kids:2,props:`<g data-s="1 2" transform="translate(270 178)">${ROCKETSHAPE('')}</g><g data-s="3" transform="translate(270 178)">${ROCKET}</g>`,mods:[['curl',2800],['crouchHold',3200],['rocket',3200],['stand',2800]],caps:['Raketen står på marken','Räkna ner från fem','BLAST OFF!','Landa mjukt och andas ut'],cues:[[8600,'BLAST OFF!',160,62,'#FF5A5F']]},
+apan:{bg:'out',animal:{n:'monkey',sc:1.4},mods:[['stand',2400],['monkey',3800],['stomp',3800],['shake',3000]],caps:['Böj knäna, armar som en apa','Gunga armarna','Hoppa från fot till fot','Apljud och slappna av'],cues:[[10000,'UH UH AH AH!',160,62,'#A86B3C']]},
+kangurun:{bg:'out',animal:{n:'kangaroo',sc:1.05,x:246},mods:[['rooSet',2600],['hop',3800],['hop',3800],['breathe',3000]],caps:['Böj knäna, händer framför dig','Hoppa lätt framåt','Hoppa tillbaka, samma rytm','Stanna och andas ut']},
+fotboll:{bg:'out',props:BALL,mods:[['ready',2600],['kick',3800],['kick',3800],['cheer',3000]],caps:['Gör dig redo: knäna lite böjda','Sparka med högerfoten','Sparka med vänsterfoten','Jubla med armarna upp!'],cues:[[10600,'MÅÅÅL!',160,62,'#1FC77E']]},
+kvarnen:{bg:'out',mods:[['out',2400],['wind',3800],['wind',3800],['shake',2800]],caps:['Armarna ut som kvarnvingar','Snurra vingarna','Böj dig åt sidan','Stanna och skaka loss']},
+surfaren:{bg:'sea',mods:[['surfSet',2600],['surf',4000],['paddle',3800],['surf',3200]],caps:['Stå brett som på en surfbräda','Gunga med vågen','Paddla för att få fart','Res dig och balansera']},
+jogg:{bg:'out',props:TREE(40,176,.8)+TREE(284,176,.85),mods:[['march',2600],['high',3400],['high',3400],['slowwalk',3400]],caps:['Jogga på stället, små steg','Lyft knäna högre','Lite snabbare en stund','Gå lugnt och andas']},
+pizza:{bg:'class',props:`<g data-s="4">${DOUGH}</g>`,mods:[['knead',2800],['toss',3600],['knead',3200],['sprinkle',3400]],caps:['Knåda degen','Kasta degen högt upp','Fånga och rulla ut','Lägg på sås och ost'],cues:[[6400,'HOPP!',160,62,'#FF8C42']]},
+polar:{bg:'out',props:PUDDLES,mods:[['stand',2400],['puddle',3800],['puddle',3800],['shake',2800]],caps:['Pölar överallt','Hoppa över en pöl','Hoppa över nästa, längre','Landa och skaka av vattnet'],cues:[[3600,'PLASK!',160,62,'#1E88E5']]},
+fagel:{bg:'out',animal:{n:'bird',sc:1.35,y:150},mods:[['curl2',2800],['flap',3600],['soar',4000],['land',3200]],caps:['Fågel i boet, vingarna nära','Flaxa med vingarna','Svävar högt','Landa mjukt och vila']},
+apple:{bg:'out',kids:2,props:TREE(276,176,1.1)+BASKET,mods:[['up',2600],['pick',3800],['pick',3800],['pick',3200]],caps:['Titta upp efter äpplen','Sträck dig och plocka','Lägg äpplet i korgen','Plocka fler och räkna']},
+ninja:{bg:'class',mods:[['ninjaSet',2600],['punch',3800],['punch',3800],['bow',3000]],caps:['Stå stadigt som en ninja','Slå långsamt med ena armen','Byt arm, fortfarande långsamt','Bocka och andas']}
+};
+const GEXTRA=[
+{id:'giraff',namn:'Sträck dig som en giraff',mal:'vakna',krav:0,tider:[2,3],miljo:false,intro:'Hög hals och långa armar.',steg:['Stå upp och sträck armarna rakt upp, som en giraffs hals.','Ställ dig på tå och sträck dig ännu högre. Räkna till fem.','Sträck dig åt vänster och sedan åt höger, som en giraff som tar löv.','Skaka loss och ta ett stort andetag.'],alla:'Sitt ner och sträck armarna upp. Hoppa över att stå på tå.',alt:'Ett barn sträcker sig högt bredvid en giraff.'},
+{id:'lejon',namn:'Gäspa som ett lejon',mal:'vakna',krav:0,tider:[2],miljo:false,intro:'Stor gäspning, vaken kropp.',steg:['Stå eller sitt och sträck armarna upp.','Gör en stor gäspning med öppen mun, som ett lejon.','Rulla försiktigt på axlarna och rör på huvudet.','Skratta lite och skaka händerna.'],alla:'Man kan gäspa med stängd mun om det känns bättre.',alt:'Ett barn gäspar stort bredvid ett lejon.'},
+{id:'katt',namn:'Vakna som en katt',mal:'vakna',krav:0,tider:[2,3],miljo:false,intro:'Kura ihop dig och sträck dig.',steg:['Gör dig liten som en katt som sover, med huvudet ner.','Sträck ut armarna långt framför dig och sträck på ryggen.','Gör en puckelrygg och sedan en lång rygg. Upprepa.','Mjauuu! Skaka loss och ta ett andetag.'],alla:'Gör det sittande och luta överkroppen försiktigt.',alt:'Ett barn gör sig liten och sträcker sig som en katt bredvid en katt.'},
+{id:'solen',namn:'Hälsa solen',mal:'vakna',krav:0,tider:[2,3],miljo:true,intro:'Solen går upp.',steg:['Stå stilla med armarna längs sidorna. Det är tidig morgon.','Lyft armarna långsamt i en stor cirkel, som solen som går upp.','Håll händerna ihop över huvudet. Solen skiner!','Sänk armarna och ta ett stort andetag.'],alla:'Gör det sittande.',alt:'Barn lyfter armarna som en uppgående sol.'},
+{id:'tahopp',namn:'Tåhopp och klapp',mal:'vakna',krav:1,tider:[2,3,5],miljo:false,intro:'Lätta hopp och klapp.',steg:['Stå med lite luft runt dig.','Hoppa lätt på tå fem gånger.','Klappa händerna över huvudet vid varje hopp.','Landa mjukt och skaka ut armarna.'],alla:'Stå på tå utan att hoppa, och klappa som vanligt.',alt:'Barn hoppar lätt på tå och klappar över huvudet.'},
+{id:'speglar',namn:'Spegelkompisar',mal:'vakna',krav:0,tider:[3,5],miljo:false,intro:'Härma som en spegel.',steg:['Stå mitt emot en kompis.','Kompisen gör en rörelse. Du härmar som en spegel.','Byt: nu är det du som leder.','Tacka varandra med en high five i luften.'],alla:'Gör små rörelser sittande mitt emot varandra.',alt:'Två barn står mitt emot varandra och härmar varandras rörelser.'},
+{id:'sköldpaddan',namn:'Sköldpaddan går in i skalet',mal:'lugna',krav:0,tider:[2,3,5],miljo:false,intro:'Dra dig in i skalet och andas.',steg:['Du är en sköldpadda som går sakta.','Dra in huvudet och armarna i skalet. Andas lugnt.','Stanna där en stund och räkna sakta till fem.','Titta fram igen, sträck ut och ta ett djupt andetag.'],alla:'Sitt ner och luta huvudet mot bröstet.',alt:'Barn gör sig små som en sköldpadda som drar sig in i sitt skal, bredvid en sköldpadda.'},
+{id:'bjorn',namn:'Björnen sover',mal:'lugna',krav:0,tider:[3,5],miljo:false,intro:'Gäspa, sov och vakna.',steg:['Gäspa stort som en björn.','Kura ihop dig som en sovande björn.','Andas långsamt in och ut. Hör björnen snarka.','Vakna sakta och sträck på dig.'],alla:'Lägg huvudet mot armarna på bänken.',alt:'Barn kurar ihop sig som en sovande björn, bredvid en sovande björn.'},
+{id:'fjaril',namn:'Fjärilsandning',mal:'lugna',krav:0,tider:[2,3],miljo:true,intro:'Vingar som följer andetaget.',steg:['Håll ut armarna som fjärilsvingar.','Andas in och lyft vingarna långsamt.','Andas ut och sänk vingarna långsamt.','Gör det fem gånger. Fjärilen landar.'],alla:'Rör bara händerna och underarmarna.',alt:'Barn lyfter och sänker armarna som fjärilsvingar bredvid en fjäril.'},
+{id:'trad',namn:'Stå som ett träd',mal:'lugna',krav:0,tider:[3,5],miljo:true,intro:'Balans och lugn.',steg:['Stå stadigt med båda fötterna i golvet.','Flytta vikten till ena foten.','Sätt andra foten mot benet och sträck upp armarna som grenar.','Stå stilla och andas. Byt sida.'],alla:'Håll i bänken eller behåll båda fötterna i golvet.',alt:'Barn står på ett ben med armarna upp som ett träd.'},
+{id:'sno',namn:'Snöglobens snö',mal:'lugna',krav:0,tider:[3,5],miljo:true,intro:'Snön faller och lägger sig.',steg:['Stå stilla. Du är en snöglob.','Lyft armarna högt som en snöstorm.','Sänk händerna sakta så att snön faller.','Stå helt stilla tills snön har lagt sig.'],alla:'Gör det sittande.',alt:'Barn sänker armarna sakta medan snön faller.'},
+{id:'manen',namn:'Månen och stjärnorna',mal:'lugna',krav:0,tider:[3,5],miljo:false,intro:'Plocka stjärnor i natten.',steg:['Det är natt. Stå stilla och titta upp.','Sträck upp armarna och plocka en stjärna.','Ta ner stjärnan och lägg den mot hjärtat.','Andas lugnt. Plocka fler stjärnor.'],alla:'Gör det sittande.',alt:'Barn sträcker sig upp efter stjärnor under månen.'},
+{id:'tang',namn:'Tången i vågorna',mal:'lugna',krav:0,tider:[2,3],miljo:true,intro:'Vaja som tång i havet.',steg:['Stå som tång som sitter fast på havsbotten.','Låt kroppen vaja försiktigt när vågorna kommer.','Armar och händer följer med som tång.','Havet blir stilla. Stå still och andas.'],alla:'Vaja med överkroppen och armarna sittande.',alt:'Barn vajar som tång i havet bland fiskar.'},
+{id:'regnbage',namn:'Regnbågsandning',mal:'lugna',krav:0,tider:[2,3,5],miljo:true,intro:'Rita en regnbåge med handen.',steg:['Rita en regnbåge i luften med ena handen.','Andas in medan du ritar uppåt.','Andas ut medan du ritar nedåt.','Gör en regnbåge med varje hand, sedan med båda.'],alla:'Rita regnbågen med fingret på bänken.',alt:'Barn ritar regnbågar i luften med händerna.'},
+{id:'stjarnhopp',namn:'Stjärnhopp',mal:'energi',krav:1,tider:[2,3,5],miljo:false,intro:'Hoppa ut som en stjärna.',steg:['Stå med fötterna ihop och armarna ner.','Hoppa ut med fötter och armar, som en stjärna.','Hoppa tillbaka. Upprepa i ditt eget tempo.','Avsluta med ett stort andetag.'],alla:'Gör rörelsen utan hopp: sträck en arm och en fot åt sidan.',alt:'Barn gör stjärnhopp med armarna uppåt och fötterna isär.'},
+{id:'raketen',namn:'Raketen',mal:'energi',krav:0,tider:[2,3],miljo:false,intro:'Räkna ner och skjut iväg.',steg:['Kura ihop dig. Raketen står på marken.','Räkna ner från fem med händerna ovanför huvudet.','Blast off! Hoppa upp med armarna uppåt.','Landa mjukt och andas ut.'],alla:'Res dig upp och sträck armarna uppåt i stället för att hoppa.',alt:'Barn kurar ihop sig och skjuter sedan iväg som raketer.'},
+{id:'apan',namn:'Cirkusapan',mal:'energi',krav:1,tider:[3,5],miljo:false,intro:'Gunga armarna som en apa.',steg:['Böj knäna lite och låt armarna hänga som en apa.','Gunga armarna framåt och bakåt och klia dig på magen.','Hoppa lätt från fot till fot.','Gör ett glatt apljud och slappna av.'],alla:'Gunga armarna sittande och hoppa inte.',alt:'Barn gungar armarna som apor bredvid en apa.'},
+{id:'kangurun',namn:'Kängurun',mal:'energi',krav:1,tider:[3,5],miljo:false,intro:'Hoppa som en känguru.',steg:['Böj knäna och håll händerna framför bröstet.','Hoppa lätt framåt som en känguru.','Hoppa tillbaka. Håll samma rytm.','Stanna och andas ut.'],alla:'Gör små hopp på stället eller vicka med kroppen sittande.',alt:'Barn hoppar som kängurur bredvid en känguru.'},
+{id:'fotboll',namn:'Fotbollsstjärnan',mal:'energi',krav:1,tider:[3,5],miljo:true,intro:'Sparka en tänkt boll.',steg:['Gör dig redo som en målvakt: knäna lite böjda, händer ute.','Sparka en tänkt boll med högerfoten.','Sparka med vänsterfoten.','Jubla med armarna uppåt!'],alla:'Sparka lugnt eller gör bara armrörelserna.',alt:'Barn sparkar en tänkt boll och jublar.'},
+{id:'kvarnen',namn:'Väderkvarnen',mal:'energi',krav:0,tider:[2,3],miljo:true,intro:'Snurra armarna som kvarnvingar.',steg:['Stå med fötterna isär och armarna ut.','Snurra armarna som kvarnvingar.','Böj dig åt sidan när en arm går upp.','Stanna och skaka loss.'],alla:'Gör det sittande med armarna.',alt:'Barn snurrar armarna som en väderkvarn.'},
+{id:'surfaren',namn:'Surfaren',mal:'energi',krav:0,tider:[3,5],miljo:true,intro:'Balansera på vågen.',steg:['Stå brett med böjda knän, som på en surfbräda.','Gunga kroppen med vågen åt höger och vänster.','Paddla med armarna för att få fart.','Res dig upp och vifta med armarna för balansen.'],alla:'Gunga och paddla med armarna sittande.',alt:'Barn surfar på en våg med armarna ute.'},
+{id:'jogg',namn:'Jogga i skogen',mal:'energi',krav:0,tider:[2,3,5],miljo:true,intro:'Jogga på stället.',steg:['Börja jogga på stället med små steg.','Lyft knäna högre.','Jogga lite snabbare en liten stund.','Gå långsamt och andas lugnt.'],alla:'Marschera sittande genom att lyfta knäna.',alt:'Barn joggar på stället bland träd.'},
+{id:'pizza',namn:'Pizzabagaren',mal:'energi',krav:0,tider:[3,5],miljo:false,intro:'Knåda, kasta och lägg på.',steg:['Knåda degen med båda händerna.','Kasta upp degen högt i luften.','Fånga degen och rulla ut den.','Lägg på tomatsås och ost med stora gester.'],alla:'Gör alla rörelser sittande.',alt:'Barn knådar och kastar pizzadeg.'},
+{id:'polar',namn:'Hoppa över pölarna',mal:'energi',krav:1,tider:[3,5],miljo:true,intro:'Hopp över en regnvåt skolgård.',steg:['Det har regnat. Se er omkring: pölar överallt.','Hoppa över en pöl med fötterna ihop.','Hoppa över nästa pöl, ännu längre.','Landa och skaka av vattnet.'],alla:'Kliv över pölarna i stället för att hoppa.',alt:'Barn hoppar över blå pölar.'},
+{id:'fagel',namn:'Fågelflykt',mal:'energi',krav:1,tider:[3,5],miljo:true,intro:'Flaxa, svävar och landa.',steg:['Stå som en fågel i boet med armarna nära kroppen.','Flaxa med armarna långsamt och lyft från marken.','Svävar högt med armarna ute.','Landa mjukt och vila vingarna.'],alla:'Flaxa med armarna sittande.',alt:'Barn flaxar med armarna som fåglar bredvid en fågel.'},
+{id:'apple',namn:'Äppelplockarna',mal:'energi',krav:0,tider:[3,5],miljo:true,intro:'Plocka äpplen från trädet.',steg:['Stå vid trädet och titta upp efter äpplen.','Sträck dig högt och plocka ett äpple.','Lägg äpplet i korgen vid fötterna.','Plocka fler och räkna dem högt.'],alla:'Sträck dig sittande och lägg äpplet i knät.',alt:'Barn sträcker sig efter äpplen i ett träd.'},
+{id:'ninja',namn:'Ninjarörelser',mal:'energi',krav:1,tider:[3,5],miljo:false,intro:'Allt går mycket långsamt.',steg:['Stå stadigt som en ninja. Allt går mycket långsamt.','Slå sakta framåt med ena armen.','Byt arm och slå långsamt.','Bocka tackande och ta ett andetag.'],alla:'Gör rörelserna sittande, lika långsamt.',alt:'Barn gör långsamma ninjarörelser med armarna.'}
+];
+GEXTRA.forEach(x=>{const sp=GSPEC[x.id];if(!sp)return;SCN[x.id]=()=>genScene(sp);ALT[x.id]=x.alt;EX.push({id:x.id,namn:x.namn,mal:x.mal,krav:x.krav,tider:x.tider,miljo:x.miljo,intro:x.intro,steg:x.steg,alla:x.alla})});
+
+const V={
+setup(){return `<div class="top"><h1>Lektionspuls</h1></div>
+<p class="sub">Korta rörelsepauser för klassrummet. Du väljer, klassen rör sig. Eleverna behöver ingen telefon.</p>
+${mapCard()}
+<div class="card"><p class="q">Hur lång paus?</p><div class="chips">${[2,3,5].map(m=>`<button class="chip ${S.tid===m?'on':''}" data-tid="${m}" aria-pressed="${S.tid===m}">${m} minuter</button>`).join('')}</div></div>
+<div class="card"><p class="q">Var är ni?</p><div class="chips">${PLATS.map((p,i)=>`<button class="chip ${S.plats===i?'on':''}" data-plats="${i}" aria-pressed="${S.plats===i}">${p.n}<small>${p.d}</small></button>`).join('')}</div>
+<div class="sw" style="margin-top:8px"><span>Bara övningar med natur och miljö</span><button class="chip ${S.miljo?'on':''}" data-miljo="1" aria-pressed="${S.miljo}">${S.miljo?'Ja':'Nej'}</button></div></div>
+${moodCard()}
+<details><summary>Så visar du den på smartboarden</summary>
+<p class="note">Öppna den här sidan i smartboardens webbläsare, eller visa telefonen på tavlan med skärmspegling. Hur man speglar skiljer sig mellan tavlor, så fråga skolans IT om du inte vet hur din fungerar. Tryck sedan på Tavelläge när övningen visas för att få stor text.</p></details>
+<details><summary>Vad säger forskningen?</summary>
+<p class="note"><b>Aktiva pauser</b> (vakna, bränna energi): översikter tyder på att korta rörelsepauser i klassrummet kan förbättra uppmärksamhet och arbetsro, men studierna skiljer sig åt och mer forskning behövs. Effekten på kognitiva funktioner och kondition är oklar.</p>
+<p class="note"><b>Lugna pauser</b> (andning och uppmärksamhet): evidensen är blandad. Vissa översikter ser förbättringar av uppmärksamhet, andra bara mycket små effekter.</p>
+<p class="note"><b>Viktigt:</b> studierna gäller upplägget i stort, inte just de här övningarna. Övningarna i appen är inte själva utvärderade i forskning och är exempel som läraren kan anpassa.</p>
+<p class="note">Källor att läsa själv:<br>
+<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11822862/" target="_blank" rel="noopener">Effectiveness of school-based active breaks on classroom behavior, executive functions and physical fitness (systematisk översikt)</a><br>
+<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9219312" target="_blank" rel="noopener">Ruhland &amp; Lange (2021): Effect of classroom-based physical activity interventions on attention and on-task behavior</a><br>
+<a href="https://thecommunityguide.org/findings/physical-activity-classroom-based-physical-activity-break-interventions" target="_blank" rel="noopener">The Community Guide: Classroom-based physical activity break interventions</a><br>
+<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9524483/" target="_blank" rel="noopener">Mindfulness-based school interventions: a systematic review of outcome evidence quality (2022)</a></p></details>
+<p class="fine">Ingen tävling och inga kroppsmått. Alla deltar efter förmåga, och varje övning har ett sätt att vara med sittande.</p>`},
+ex(){const e=S.cur;if(!e)return V.setup();const t=S.timer;
+const need=S.tid>Math.max(...e.tider);
+const head=`<div class="card"><div class="exhead ${e.mal}"><h2>${e.namn}</h2><p>${MAL[e.mal].n} · ${e.mal==='lugna'?'lugn paus':'aktiv paus'} · ${PLATS[e.krav].n}${e.miljo?' · natur och miljö':''}</p></div>${mapMini()}`;
+const art=`<div class="art"><svg class="scene ${S.artPaused?'paused':''}" viewBox="0 0 320 200" style="--tempo:${S.tempo}" role="img" aria-label="${ALT[e.id]||e.namn}">${sceneMarkup(e)}</svg><button class="link hide-board" data-act="artpause">Pausa eller spela bilden</button><div class="tempo hide-board"><span>Tempo:</span>${[[1,'Normalt'],[1.8,'Lugnt'],[2.6,'Extra lugnt']].map(q=>`<button class="chip tchip ${S.tempo===q[0]?'on':''}" data-tempo="${q[0]}" aria-pressed="${S.tempo===q[0]}">${q[1]}</button>`).join('')}<button class="chip tchip ${S.sound?'on':''}" data-sound="1" aria-pressed="${S.sound}">Ljud: ${S.sound?'På':'Av'}</button><button class="chip tchip ${S.music?'on':''}" data-music="1" aria-pressed="${S.music}">Musik: ${S.music?'På':'Av'}</button></div></div>`;
+const steps=`<ol class="steg">${e.steg.map((x,j)=>`<li data-st="${j}"><button class="stbtn" data-st="${j}">${x}</button></li>`).join('')}</ol><p class="hint hide-board">Tryck på ett steg för att se rörelsen igen.</p>`;
+if(t&&t.done)return head+`<div class="done"><h2>Tack, nu är pausen slut</h2><p>Sätt er ner och andas ut.</p></div><button class="btn2 starbtn" data-act="star" ${S.starGiven?'disabled':''}>${S.starGiven?'⭐ Klar!':'⭐ Klar! Gå vidare på kartan'}</button><div class="row" style="margin-top:14px"><button class="btn2" data-act="again">Samma igen</button><button class="btn2" data-act="other">Annan övning</button></div><div class="row hide-board" style="margin-top:10px"><button class="btn2" data-act="back">Nya val</button></div></div>`;
+if(t)return head+`<div class="exgrid">${art}<div><div class="clock" id="clock" role="timer" aria-live="off">${mmss(t.left)}</div>${steps}<div class="row"><button class="btn2" data-act="pause">${t.paused?'Fortsätt':'Pausa'}</button><button class="btn2" data-act="stop">Stoppa</button></div></div></div></div>`;
+return head+`<div class="exgrid">${art}<div>${steps}${need?`<p class="note">Övningen räcker ungefär ${Math.max(...e.tider)} minuter. Upprepa den och låt barnen hitta på egna varianter tills tiden är slut.</p>`:''}<div class="alla"><b>Så kan alla vara med</b><br>${e.alla}</div><button class="btn" data-act="start">Starta ${S.tid} minuter</button><button class="btn2 starbtn" data-act="star" ${S.starGiven?'disabled':''}>${S.starGiven?'⭐ Klar!':'⭐ Klar! Gå vidare på kartan'}</button><div class="row" style="margin-top:10px"><button class="btn2" data-act="other">Annan övning</button><button class="btn2 hide-board" data-act="back">Ändra val</button></div></div></div></div>`}
+};
+function render(){
+  const app=$('#app');
+  let h=S.screen==='setup'?V.setup():V.ex();
+  if(S.screen==='ex'&&!S.board)h+=`<div style="text-align:center"><button class="link" data-act="board">Tavelläge</button></div>`;
+  app.innerHTML=h+(S.board?'<button class="xbtn" data-act="exitboard">Stäng tavelläge</button>':'')+(S.celebrate?worldBox():'');
+  window.scrollTo(0,0);
+  if(S.screen==='ex'&&S.cur&&!(S.timer&&S.timer.done))mountAnim();
+  if(S.screen==='setup'&&!S.celebrate)animMap();
+  syncMusic()}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;if(S.sound||S.music)ac();
+  if(d.tid){S.tid=+d.tid;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
+  if(d.mal){S.mal=d.mal;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
+  if(d.plats!==undefined){S.plats=+d.plats;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
+  if(d.miljo){S.miljo=!S.miljo;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
+  if(d.mood){S.mal=d.mood;S.skip=[];S.cur=pick();if(S.cur){markUsed(S.cur);S.screen='ex';stopTimer();ANIM.t=0;S.starGiven=false;S.celebrate=false;render()}return}
+  if(d.trip){S.trip.type=d.trip;save('lp_trip',S.trip);render();return}
+  if(d.goal){S.trip.goal=+d.goal;if(S.trip.stars>=S.trip.goal)S.trip.stars=S.trip.goal-1;S.tripShown=S.trip.stars;save('lp_trip',S.trip);render();return}
+  if(d.music){S.music=!S.music;save('lp_music',S.music);if(S.music)ac();render();return}
+  if(d.sound){S.sound=!S.sound;save('lp_sound',S.sound);if(S.sound)sfx('step');render();return}
+  if(d.tempo){S.tempo=+d.tempo;save('lp_tempo',S.tempo);render();return}
+  if(d.st!==undefined){const j=+d.st;if(ANIM.bounds[j]){ANIM.t=ANIM.bounds[j][0]+40;S.artPaused=false;ANIM.paused=false;const sv=document.querySelector('.scene');if(sv)sv.classList.remove('paused');drawAt(ANIM.t)}return}
+  const a=d.act;if(!a)return;
+  if(a==='find'){S.cur=pick();ANIM.t=0;S.starGiven=false;S.screen='ex';stopTimer();render();return}
+  if(a==='other'){stopTimer();if(S.cur){unmarkUsed();S.skip.push(S.cur.id)}S.cur=pick();if(S.cur)markUsed(S.cur);ANIM.t=0;S.starGiven=false;render();return}
+  if(a==='back'){stopTimer();S.screen='setup';render();return}
+  if(a==='start'||a==='again'){if(a==='again')S.starGiven=false;startTimer();return}
+  if(a==='pause'){pauseTimer();return}
+  if(a==='stop'){stopTimer();render();return}
+  if(a==='star'){if(S.starGiven)return;S.starGiven=true;ensureWeek();const m=S.map,ti=todayIdx();stopTimer();S.screen='setup';if(!m.done[ti]){m.done[ti]=true;if(ti===4){S.celebrate=true;sfx('fanfare')}else sfx('step')}else{m.bonus=(m.bonus||0)+1;sfx('step')}save('lp_map',m);render();return}
+  if(a==='closeworld'){S.celebrate=false;render();return}
+  if(a==='resetmap'){if(!S.resetArm){S.resetArm=true;render();setTimeout(()=>{if(S.resetArm){S.resetArm=false;if(S.screen==='setup')render()}},4000);return}S.resetArm=false;S.map.done=[false,false,false,false,false];S.map.bonus=0;S.mapShown=null;save('lp_map',S.map);render();return}
+  if(a==='artpause'){S.artPaused=!S.artPaused;ANIM.paused=S.artPaused;const sv=document.querySelector('.scene');if(sv)sv.classList.toggle('paused',S.artPaused);return}
+  if(a==='board'){enterBoard();return}
+  if(a==='exitboard'){exitBoard();return}});
+render();
+</script>
+</body>
+</html>
