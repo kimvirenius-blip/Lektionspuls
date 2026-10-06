@@ -218,6 +218,43 @@ summary{cursor:pointer;font-weight:700;padding:12px 0;min-height:44px}
 .mood.g-vakna{background:var(--vakna);color:var(--on-vakna)}.mood.g-lugna{background:var(--lugna);color:var(--on-lugna)}.mood.g-energi{background:var(--energi);color:var(--on-energi)}
 .ring{animation:ringp 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 50%}
 @keyframes ringp{0%,100%{transform:scale(.9);opacity:.9}50%{transform:scale(1.12);opacity:.4}}
+.sheen{animation:sheenm 3.4s linear infinite}
+@keyframes sheenm{from{transform:translateX(0) skewX(-18deg)}to{transform:translateX(330px) skewX(-18deg)}}
+
+.cardsvg{display:block;width:100%;height:auto}
+.mini5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.mslot{background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;color:inherit}
+.mslot[disabled]{cursor:default}
+.mslot .md{font-weight:800;font-size:12px}
+.mslot .mc{display:block;width:100%;border-radius:10px}
+.mslot .mc.today{outline:3px solid var(--ink);animation:todayp 1.4s ease-in-out infinite}
+@keyframes todayp{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.arow{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x proximity}
+.aslot{flex:0 0 118px;padding:0;border:0;background:none;scroll-snap-align:start;cursor:pointer}
+.aslot[disabled]{cursor:default}
+.cnt{font-size:14px;color:var(--ink2);font-weight:700;margin-left:8px}
+.flip{perspective:1000px;width:min(70vw,250px);margin:10px auto;cursor:pointer}
+.fl{position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,1.2,.5,1);aspect-ratio:200/280}
+.flip.on .fl{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.ffront{transform:rotateY(180deg)}
+.cele .box.cv .flip{cursor:default}.cele .box.cv .flip.on{perspective:none}
+.rvt{font-weight:800;font-size:19px;margin:0;font-family:'Baloo 2','Nunito',sans-serif}
+.rvs{margin:0 0 8px;font-family:'Lilita One','Baloo 2',sans-serif;font-size:20px}
+.cfwrap{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+
+.fricard{background:linear-gradient(135deg,#FFE29A,#FFC933);border-color:#2B2140;color:#2A1E00}
+.fricard .btn{background:#2B2140;color:#FFE29A}
+.row2{display:flex;gap:12px;align-items:center}
+.portrait{width:96px;height:auto;flex:0 0 96px}
+.cele .box{max-height:92vh;overflow:auto}
+.ms .mhead{display:flex;align-items:center;gap:10px;margin-bottom:6px;text-align:left}
+.ms .portrait{width:92px;flex:0 0 92px}
+.bubble{background:#FFF8D6;color:#2A1E00;border:2px solid #2B2140;border-radius:16px;padding:10px 12px;font-weight:800;flex:1;font-size:16px}
+.mtext{font-size:18px;font-weight:700;margin:0 0 8px}
+.mq{font-weight:800;margin:6px 0 2px;text-align:left}
+.mlist{text-align:left;margin:0 0 8px;padding-left:20px;font-weight:600}
+.mnote{color:var(--ink2);font-size:14px;margin:0 0 12px;text-align:left}
 .scene [data-s],.scene [data-w]{opacity:0;transition:opacity .45s}
 .scene .on{opacity:1}
 .steg li{border-radius:12px}
@@ -277,7 +314,7 @@ const EX=[
 ];
 
 const S=Object.assign({tid:3,mal:'vakna',plats:0,miljo:false},load('lp_val',{}));
-S.tempo=load('lp_tempo',1.8);S.sound=load('lp_sound',true);S.music=load('lp_music',true);S.trip=Object.assign({type:'raket',goal:25,stars:0,done:0},load('lp_trip',{}));S.starGiven=false;S.celebrate=false;S.resetArm=false;S.tripShown=S.trip.stars;S.map=load('lp_map',null);S.used=load('lp_used',{});S.seq=Math.max(0,...Object.values(S.used));S.skip=[];S.prevUsed=null;S.mapShown=null;S.screen='setup';S.artPaused=false;S.cur=null;S.recent=[];S.board=false;S.timer=null;
+S.tempo=load('lp_tempo',1.8);S.sound=load('lp_sound',true);S.music=load('lp_music',true);S.trip=Object.assign({type:'raket',goal:25,stars:0,done:0},load('lp_trip',{}));S.starGiven=false;S.celebrate=false;S.resetArm=false;S.tripShown=S.trip.stars;S.map=load('lp_map',null);S.used=load('lp_used',{});S.seq=Math.max(0,...Object.values(S.used));S.skip=[];S.prevUsed=null;S.mapShown=null;S.album=load('lp_album',{});S.mission=false;S.lastMission=load('lp_mission',null);S.reveal=null;S.viewCard=null;S.afterReveal=false;S.screen='setup';S.artPaused=false;S.cur=null;S.recent=[];S.board=false;S.timer=null;
 let tick=null,ctx=null;
 
 function candidates(){
@@ -701,7 +738,7 @@ function worldSVG(wi,done,ti){
   return g+`</g>`+dateBanner()}
 function animMap(){const a=document.getElementById('avatar');const cur=avIdx(S.map.done,todayIdx());const prev=S.mapShown;S.mapShown=cur;if(!a||prev==null||prev===cur)return;const to=a.style.transform;a.style.transition='none';a.style.transform=avatarT(prev);void a.getBoundingClientRect();a.style.transition='transform 1.6s cubic-bezier(.3,1.3,.5,1)';a.style.transform=to}
 function mapCard(){ensureWeek();const m=S.map,w=WORLDS[m.world],ti=todayIdx(),dn=m.done.filter(Boolean).length,pct=Math.round(100*dn/WNODES),todayDone=!!m.done[ti];
-  return `<div class="card"><p class="q" style="margin-bottom:4px">Veckans värld: ${w.n}</p><p class="note" style="margin:0 0 8px">${todayDone?`${DAYS[ti]}ens nivå är klar. Fler pauser idag är en bonus!`:`Idag är det ${DAYS[ti].toLowerCase()}: gör en övning så klarar klassen dagens nivå.`} En nivå per skoldag, måndag till fredag. Ny värld varje måndag.</p>
+  return `<div class="card"><p class="q" style="margin-bottom:4px">Veckans värld: ${w.n}</p><p class="note" style="margin:0 0 8px">${todayDone?`${DAYS[ti]}ens nivå är klar. Fler pauser idag är en bonus!`:(ti===4?'Idag är det fredag: gör fredagsuppdraget eller en övning, så klarar klassen veckans sista nivå.':`Idag är det ${DAYS[ti].toLowerCase()}: gör en övning så klarar klassen dagens nivå.`)} En nivå per skoldag, måndag till fredag. Ny värld varje måndag.</p>
 <svg class="tripsvg" viewBox="0 0 320 266" role="img" aria-label="Karta över ${w.n}. ${dn} av ${WNODES} dagar klara. Idag är ${DAYS[ti].toLowerCase()}.">${worldSVG(m.world,m.done,ti)}</svg>
 <div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${WNODES}" aria-valuenow="${dn}"><i style="width:${pct}%"></i></div>
 <div class="tempo" style="margin:0"><span>⭐ ${dn} av ${WNODES} dagar klara${m.bonus?` · ${m.bonus} bonuspauser`:''}${m.worlds?` · ${m.worlds} världar klarade`:''}</span><button class="link" data-act="resetmap">${S.resetArm?'Tryck igen för att börja om':'Börja om veckan'}</button></div></div>`}
@@ -709,6 +746,124 @@ function mapMini(){ensureWeek();const m=S.map,w=WORLDS[m.world],ti=todayIdx(),dn
 function moodCard(){return `<div class="card"><p class="q">Hur är stämningen i klassen idag?</p><div class="moods">${Object.keys(MAL).map(k=>`<button class="mood g-${k}" data-mood="${k}"><span class="mi">${{vakna:'🥱',lugna:'😌',energi:'⚡'}[k]}</span><span><b>${MAL[k].n}</b><small>${MAL[k].d}</small></span></button>`).join('')}</div></div>`}
 function worldBox(){ensureWeek();const m=S.map,w=WORLDS[m.world];const cf=Array.from({length:26},(_,i)=>`<i class="cft" style="left:${(i*37)%100}%;background:${CONF[i%CONF.length]};animation-delay:${-(i*.31%2.4)}s"></i>`).join('');
   return `<div class="cele" role="dialog" aria-label="${w.n} klarad"><div class="cfwrap">${cf}</div><div class="box"><svg class="tripsvg" viewBox="0 0 320 266" role="img" aria-label="Kartan över ${w.n} med slottet nått">${worldSVG(m.world,[true,true,true,true,true],4)}</svg><h2 style="margin:10px 0 4px;font-size:30px">Ni klarade ${w.n}!</h2><p style="margin:0 0 12px;font-size:18px;font-weight:700">Klassen nådde slottet efter en hel vecka. Ny värld väntar på måndag. Trevlig helg!</p><button class="btn" data-act="closeworld">Stäng</button></div></div>`}
+/* ---------- Samlarkort: 40 egna varelser (fem per värld, ett per dag) ---------- */
+const RARITY=[{n:'Vanlig',c:'#B0BEC5',d:'#78909C'},{n:'Ovanlig',c:'#6BCB77',d:'#2E9E4A'},{n:'Sällsynt',c:'#4FC3F7',d:'#1E88E5'},{n:'Episk',c:'#B57BEE',d:'#7B3FD0'},{n:'Legendarisk',c:'#FFC933',d:'#E09800'}];
+const C=(name,desc,b,ear,tail,eyes,feet,pat,acc,c1,c2,c3,m)=>({name,desc,b,ear,tail,eyes,feet,pat,acc,c1,c2,c3,m:m||'s'});
+const CARDS=[
+ C('Mossa','Älskar mjuka mossklippor och långa kramar.','round','none','curl','big','feet','spots','leaf','#6BCB77','#D8F5C9','#2E9E4A'),
+ C('Kottis','Rullar nerför backar bara för skojs skull.','pear','point','none','two','feet','scales','none','#B07A44','#E7C79A','#7B5638'),
+ C('Svampa','Gömmer sig bakom stenar och säger bu!','bean','none','none','big','feet','none','cap','#F5E6D3','#FFFFFF','#E03C31','o'),
+ C('Bärnis','Samlar bär i sin stora mage och delar med alla.','round','leaf','none','big','arms','spots','none','#7A4FBF','#C9B2F0','#4A2B8F','o'),
+ C('Skogsfen','Vaktar skogen när alla andra sover.','tall','antenna','none','big','wings','stars','crown','#A8E6A1','#F4FFE8','#FFD23F'),
+ C('Bubbla','Ploppar upp överallt där det finns bubblor.','round','fin','fish','big','fins','none','none','#7FD3FF','#E3F6FF','#2D9CDB','o'),
+ C('Snäcki','Bär sitt hem på ryggen och trivs bäst vid stranden.','pear','none','none','big','feet','stripes','shell','#FFB3C7','#FFE6EE','#FF6F91'),
+ C('Tångis','Vajar med vågorna och nynnar på havets sånger.','tall','leaf','curl','sleepy','feet','stripes','none','#2EC27E','#BFF2D8','#1E8F5E'),
+ C('Krabbo','Går sidledes och nyper bara på skämt.','round','antenna','none','big','arms','spots','none','#FF6B5A','#FFD1C9','#C0392B','o'),
+ C('Havskungen','Rider på de största vågorna med sin gyllene krona.','tall','fin','fish','big','fins','scales','crown','#26C6DA','#D6F7FB','#FFD23F'),
+ C('Stjärnis','Blinkar när natten kommer och lyser upp mörkret.','round','antenna','none','big','feet','stars','none','#FFD23F','#FFF3B0','#FF9F1C'),
+ C('Planeta','Snurrar runt sig själv och blir aldrig yr.','round','none','none','big','arms','stripes','ring','#9B5DE5','#D9C2F7','#F15BB5'),
+ C('Kometa','Susar förbi med en lång glittrande svans.','pear','point','flame','big','feet','none','none','#4FC3F7','#D6F1FF','#FF8C42'),
+ C('Måni','Lyssnar på alla som tittar upp en kväll.','bean','none','none','sleepy','feet','spots','none','#E8E4D5','#FFFFFF','#BDB7A0'),
+ C('Galaxo','Reser mellan galaxerna och samlar stjärnstoft.','tall','antenna','none','three','wings','stars','helmet','#6C63FF','#CFCBFF','#FFD23F'),
+ C('Stenis','Står stadigt som ett berg och lyssnar bäst.','round','point','none','two','feet','spots','none','#9AA8B5','#D9E0E6','#6B7A88'),
+ C('Klippa','Klättrar högt upp och ropar hej till ekot.','pear','horn','none','big','feet','stripes','none','#C98F4F','#F2D9B3','#8B5A2B'),
+ C('Snöfjäll','Bor på toppen där snön aldrig smälter.','bean','round','fluff','big','feet','none','scarf','#F2F8FF','#FFFFFF','#FF5A5F'),
+ C('Eko','Upprepar det man säger, fast lite roligare.','round','bunny','fluff','big','feet','none','none','#D9A066','#F8E3C7','#8B5A2B','o'),
+ C('Kristallen','Glittrar i alla regnbågens färger.','tall','horn','none','big','feet','stars','crown','#7FE0F5','#E6FAFF','#FFD23F'),
+ C('Bananis','Älskar att gunga i lianer och äta frukt.','bean','round','curl','big','arms','none','none','#FFD23F','#FFF3B0','#B07A44','o'),
+ C('Lianen','Slingrar sig fram genom de tjocka träden.','pear','leaf','curl','sleepy','feet','stripes','none','#34C26B','#C8F2D7','#1E8F4A'),
+ C('Papagoja','Härmar alla ljud i djungeln och skrattar högst.','round','point','spike','big','wings','stripes','none','#FF5A5F','#FFE2E3','#00BBF9','o'),
+ C('Trumpis','Har de största öronen och hör allt i djungeln.','pear','round','curl','big','feet','none','none','#9BB0C4','#DCE6EF','#6B7A88'),
+ C('Djungelkungen','Härskar över djungeln med ett varmt hjärta.','tall','horn','curl','big','feet','stripes','crown','#FF9F1C','#FFE3B0','#8B4A00'),
+ C('Solis','Värmer sanden och alla som går förbi.','round','none','none','big','arms','none','none','#FFB347','#FFE0A8','#FF7A00'),
+ C('Taggis','Taggig på utsidan men snäll hela vägen.','pear','leaf','none','big','arms','spots','none','#4CC15A','#D4F5D0','#2E7D32'),
+ C('Sandy','Flyttar sig med vinden och lämnar fina spår.','bean','round','fluff','sleepy','feet','stripes','none','#F2D09A','#FFF0D4','#C9A15F'),
+ C('Dyna','Åker nerför sanddynorna på magen.','round','bunny','curl','big','feet','spots','scarf','#E8B76A','#FFE9C2','#B07A44'),
+ C('Oasen','Dyker upp när man är som mest törstig.','tall','leaf','fluff','big','feet','stars','crown','#3DD6C6','#D5FAF5','#FFD23F'),
+ C('Flingan','Faller mjukt från himlen och dansar i luften.','round','antenna','none','big','feet','stars','frost','#E6F6FF','#FFFFFF','#7FD3FF'),
+ C('Isis','Glider fram över isen utan att ramla.','pear','point','none','big','feet','stripes','none','#A5E4FF','#E6F9FF','#4FC3F7'),
+ C('Pingo','Åker rutschkana på magen hela vintern.','bean','none','none','big','feet','none','scarf','#3A4A63','#FFFFFF','#FF8C42','o'),
+ C('Frostis','Har kall nos men varm mage.','round','round','fluff','sleepy','arms','spots','hat','#CFE9FF','#F5FBFF','#7FB5E6'),
+ C('Isdrottningen','Får sina vänner att glittra som nysnö.','tall','horn','fluff','big','wings','stars','crown','#BDEBFF','#F5FDFF','#9B5DE5'),
+ C('Lakrits','Svart som natten men söt som socker.','round','point','curl','big','feet','stripes','none','#2B2140','#5A4B7A','#FFFFFF'),
+ C('Gelé','Skakar och gungar när han skrattar.','bean','none','none','big','feet','none','none','#FF6B8B','#FFC2D0','#E0345E','o'),
+ C('Muffis','Bakad med kärlek och en nypa glitter.','pear','none','none','big','feet','stripes','hat','#F2C38B','#FFE9CC','#FF8FD1'),
+ C('Karamell','Smälter av glädje när någon säger tack.','round','round','fluff','sleepy','feet','spots','none','#D9964A','#F6D5A1','#A0612A'),
+ C('Sockerkungen','Härskar över Godisriket med ett brett leende.','tall','bunny','curl','big','wings','stars','crown','#FF8FD1','#FFE0F3','#FFD23F')
+];
+function creature(sp,u){
+  const OL2='stroke="#2B2140" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"';
+  const B={round:{t:-84,fy:-52},pear:{t:-92,fy:-62},bean:{t:-84,fy:-56},tall:{t:-104,fy:-74}}[sp.b],t=B.t,fy=B.fy;
+  const shape=a=>({round:`<ellipse cx="0" cy="-46" rx="42" ry="38" ${a}/>`,pear:`<path d="M0 -92C26 -92 30 -66 44 -48C54 -30 36 -8 0 -8C-36 -8 -54 -30 -44 -48C-30 -66 -26 -92 0 -92Z" ${a}/>`,bean:`<rect x="-38" y="-84" width="76" height="78" rx="36" ${a}/>`,tall:`<rect x="-30" y="-104" width="60" height="98" rx="30" ${a}/>`})[sp.b];
+  let g='';
+  // bakom kroppen
+  if(sp.feet==='wings')g+=`<path d="M-30 ${fy+6}Q-80 ${fy-24} -66 ${fy+30}Q-48 ${fy+22} -30 ${fy+26}Z M30 ${fy+6}Q80 ${fy-24} 66 ${fy+30}Q48 ${fy+22} 30 ${fy+26}Z" fill="${sp.c3}" opacity=".9" ${OL2}/>`;
+  g+={curl:`<path d="M38 -22Q66 -20 62 -46Q60 -60 47 -53" stroke="#2B2140" stroke-width="8.5" fill="none" stroke-linecap="round"/><path d="M38 -22Q66 -20 62 -46Q60 -60 47 -53" stroke="${sp.c3}" stroke-width="5.2" fill="none" stroke-linecap="round"/>`,fluff:`<circle cx="46" cy="-28" r="14" fill="${sp.c2}" ${OL2}/>`,fish:`<path d="M36 -30L66 -48L66 -12Z" fill="${sp.c3}" ${OL2}/>`,spike:`<path d="M38 -34L66 -58L58 -34L72 -26L40 -22Z" fill="${sp.c3}" ${OL2}/>`,flame:`<path class="flm" d="M34 -22Q70 -42 64 -14Q52 -16 34 -6Z" fill="${sp.c3}" ${OL2}/>`,none:''}[sp.tail]||'';
+  g+=`<ellipse cx="-19" cy="-7" rx="14" ry="8" fill="${sp.c3}" ${OL2}/><ellipse cx="19" cy="-7" rx="14" ry="8" fill="${sp.c3}" ${OL2}/>`;
+  if(sp.feet==='fins')g+=`<ellipse cx="-46" cy="-34" rx="13" ry="7" fill="${sp.c3}" ${OL2} transform="rotate(-30 -46 -34)"/><ellipse cx="46" cy="-34" rx="13" ry="7" fill="${sp.c3}" ${OL2} transform="rotate(30 46 -34)"/>`;
+  // öron/horn bakom kroppen
+  g+={point:`<path d="M-36 ${t+24}L-26 ${t-14}L-8 ${t+8}Z M36 ${t+24}L26 ${t-14}L8 ${t+8}Z" fill="${sp.c1}" ${OL2}/><path d="M-28 ${t+14}L-25 ${t-4}L-17 ${t+9}Z M28 ${t+14}L25 ${t-4}L17 ${t+9}Z" fill="${sp.c3}" opacity=".6"/>`,round:`<circle cx="-30" cy="${t+14}" r="13" fill="${sp.c1}" ${OL2}/><circle cx="-30" cy="${t+14}" r="6.5" fill="${sp.c2}"/><circle cx="30" cy="${t+14}" r="13" fill="${sp.c1}" ${OL2}/><circle cx="30" cy="${t+14}" r="6.5" fill="${sp.c2}"/>`,bunny:`<ellipse cx="-16" cy="${t-4}" rx="9.5" ry="25" fill="${sp.c1}" ${OL2} transform="rotate(-10 -16 ${t+10})"/><ellipse cx="-16" cy="${t-2}" rx="4.5" ry="17" fill="${sp.c3}" opacity=".55" transform="rotate(-10 -16 ${t+10})"/><ellipse cx="16" cy="${t-4}" rx="9.5" ry="25" fill="${sp.c1}" ${OL2} transform="rotate(10 16 ${t+10})"/><ellipse cx="16" cy="${t-2}" rx="4.5" ry="17" fill="${sp.c3}" opacity=".55" transform="rotate(10 16 ${t+10})"/>`,horn:`<path d="M-24 ${t+12}L-17 ${t-16}L-8 ${t+6}Z M24 ${t+12}L17 ${t-16}L8 ${t+6}Z" fill="${sp.c3}" ${OL2}/>`,antenna:`<path d="M-14 ${t+8}Q-20 ${t-10} -27 ${t-22} M14 ${t+8}Q20 ${t-10} 27 ${t-22}" stroke="#2B2140" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="-27" cy="${t-24}" r="5.6" fill="${sp.c3}" ${OL2}/><circle cx="27" cy="${t-24}" r="5.6" fill="${sp.c3}" ${OL2}/>`,fin:`<path d="M-16 ${t+12}Q0 ${t-40} 16 ${t+12}Z" fill="${sp.c3}" ${OL2}/>`,leaf:`<path d="M-6 ${t+6}Q-36 ${t-20} -20 ${t-30}Q-2 ${t-16} -6 ${t+6}Z M6 ${t+6}Q36 ${t-20} 20 ${t-30}Q2 ${t-16} 6 ${t+6}Z" fill="${sp.c3}" ${OL2}/>`,none:''}[sp.ear]||'';
+  // kropp
+  g+=shape(`fill="${sp.c1}" ${OL2}`);
+  g+=`<clipPath id="cb${u}">${shape('')}</clipPath><g clip-path="url(#cb${u})"><ellipse cx="0" cy="${fy+22}" rx="23" ry="21" fill="${sp.c2}" opacity=".95"/>`;
+  g+={spots:[[-22,-70,6],[18,-62,5],[-10,-30,5],[27,-36,4],[-30,-46,4.4],[2,-82,4]].map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="${q[2]}" fill="${sp.c3}" opacity=".55"/>`).join(''),stripes:[-90,-70,-50,-30].map(y=>`<rect x="-60" y="${y}" width="120" height="8" fill="${sp.c3}" opacity=".32"/>`).join(''),stars:[[-24,-72],[24,-66],[-26,-34],[28,-30],[0,-90]].map(q=>`<path transform="translate(${q[0]} ${q[1]})" d="M0 -5l1.6 3.4 3.7.5-2.7 2.6.7 3.7L0 3.3l-3.3 1.9.7-3.7-2.7-2.6 3.7-.5z" fill="${sp.c3}" opacity=".85"/>`).join(''),scales:[-80,-64,-48,-32].map((y,i)=>[-26,-8,10,28].map(x=>`<path d="M${x+(i%2?9:0)} ${y}q8 -9 16 0" stroke="${sp.c3}" stroke-width="2.2" fill="none" opacity=".6"/>`).join('')).join(''),none:''}[sp.pat]||'';
+  g+=`</g>`+shape(`fill="none" ${OL2}`);
+  if(sp.feet==='arms')g+=`<circle cx="-47" cy="-36" r="9.5" fill="${sp.c1}" ${OL2}/><circle cx="47" cy="-36" r="9.5" fill="${sp.c1}" ${OL2}/>`;
+  // ansikte
+  const ey=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" stroke="#2B2140" stroke-width="1.4"/><circle cx="${x+r*.12}" cy="${y+r*.05}" r="${r*.55}" fill="#2B2140"/><circle cx="${x+r*.4}" cy="${y-r*.28}" r="${r*.2}" fill="#fff"/>`;
+  g+={big:ey(-14,fy,9)+ey(14,fy,9),two:ey(-13,fy,6.4)+ey(13,fy,6.4),one:ey(0,fy-2,13),three:ey(-16,fy+5,6.4)+ey(16,fy+5,6.4)+ey(0,fy-11,6.4),sleepy:`<path d="M-22 ${fy+1}q8 7 16 0M6 ${fy+1}q8 7 16 0" stroke="#2B2140" stroke-width="2.4" fill="none" stroke-linecap="round"/>`}[sp.eyes]||'';
+  const my=fy+17;
+  g+=sp.m==='o'?`<path d="M-7 ${my}Q0 ${my+14} 7 ${my}Z" fill="#8A1E2D" stroke="#2B2140" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="0" cy="${my+7}" rx="3.6" ry="2.2" fill="#FF7A8A"/>`:`<path d="M-8 ${my}Q0 ${my+9} 8 ${my}" stroke="#2B2140" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  g+=`<circle cx="-26" cy="${fy+11}" r="4.6" fill="#FF8FA3" opacity=".55"/><circle cx="26" cy="${fy+11}" r="4.6" fill="#FF8FA3" opacity=".55"/>`;
+  // accessoar
+  g+={leaf:[[-15,2,-25],[0,-6,0],[15,2,25]].map(q=>`<path transform="translate(${q[0]} ${t+q[1]}) rotate(${q[2]})" d="M0 0Q-8 -10 0 -22Q8 -10 0 0Z" fill="#4CC15A" ${OL2}/>`).join(''),bow:`<g transform="translate(22 ${t+8})"><path d="M0 0L-12 -8L-12 8Z M0 0L12 -8L12 8Z" fill="#FF5DA2" ${OL2}/><circle r="3.6" fill="#FF5DA2" ${OL2}/></g>`,helmet:`<circle cx="0" cy="${fy-4}" r="${sp.b==='tall'?40:46}" fill="rgba(190,235,255,.28)" stroke="#fff" stroke-width="3"/><path d="M-26 ${fy-30}q10 -8 22 -8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>`,crown:`<path d="M-19 ${t+4}L-19 ${t-14}L-9.5 ${t-6}L0 ${t-18}L9.5 ${t-6}L19 ${t-14}L19 ${t+4}Z" fill="#FFD23F" ${OL2}/><circle cx="0" cy="${t-8}" r="2.8" fill="#FF5A5F"/><circle cx="-11" cy="${t-1}" r="2.2" fill="#4FC3F7"/><circle cx="11" cy="${t-1}" r="2.2" fill="#4FC3F7"/>`,shell:`<g transform="translate(32 -44)"><circle r="15" fill="${sp.c3}" ${OL2}/><path d="M0 0q6 -2 6 -7q0 -8 -9 -8q-12 0 -12 12q0 14 15 14" stroke="#2B2140" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>`,scarf:`<path d="M-32 ${fy+27}Q0 ${fy+40} 32 ${fy+27}L30 ${fy+38}Q0 ${fy+52} -30 ${fy+38}Z" fill="#FF5A5F" ${OL2}/><path d="M18 ${fy+40}L24 ${fy+62}L12 ${fy+58}Z" fill="#FF5A5F" ${OL2}/>`,hat:`<path d="M-15 ${t+8}L0 ${t-34}L15 ${t+8}Z" fill="${sp.c3}" ${OL2}/><circle cx="0" cy="${t-36}" r="5.4" fill="#fff" ${OL2}/><path d="M-9 ${t-6}h18M-6 ${t-18}h12" stroke="#fff" stroke-width="2.4" opacity=".8"/>`,cap:`<path d="M-44 ${t+20}Q0 ${t-40} 44 ${t+20}Q0 ${t+10} -44 ${t+20}Z" fill="#E03C31" ${OL2}/><circle cx="-18" cy="${t-2}" r="5" fill="#fff"/><circle cx="8" cy="${t-10}" r="6" fill="#fff"/><circle cx="26" cy="${t+4}" r="4" fill="#fff"/>`,ring:`<ellipse cx="0" cy="-46" rx="62" ry="12" fill="none" stroke="#2B2140" stroke-width="8.5" transform="rotate(-18 0 -46)"/><ellipse cx="0" cy="-46" rx="62" ry="12" fill="none" stroke="${sp.c3}" stroke-width="5.4" transform="rotate(-18 0 -46)"/>`,frost:[[-30,t+6],[30,t+2],[0,t-10]].map(q=>`<path transform="translate(${q[0]} ${q[1]})" d="M0 -6V6M-5 -3L5 3M-5 3L5 -3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`).join(''),none:''}[sp.acc]||'';
+  return g}
+function wrapText(s,n){const w=s.split(' ');const lines=[''];w.forEach(x=>{const l=lines[lines.length-1];if((l+' '+x).trim().length>n)lines.push(x);else lines[lines.length-1]=(l+' '+x).trim()});return lines}
+function cardSVG(id,o){o=o||{};const w=Math.floor(id/5),d=id%5,sp=CARDS[id],W=WORLDS[w],R=RARITY[d],u=(o.uid||'x')+id,sil=!!o.sil;
+  const lines=sil?wrapText('Klara '+DAYS[d].toLowerCase()+'ens nivå så får ni veta vem det är!',27):wrapText(sp.desc,27);
+  const stars=[0,1,2,3,4].map(i=>`<path transform="translate(${100-40+i*20} 207)" d="M0 -6.5l2.1 4.4 4.8.6-3.5 3.4.9 4.8L0 3.1l-4.3 2.1.9-4.8-3.5-3.4 4.8-.6z" fill="${i<=d?(sil?'#B0BEC5':'#FFC933'):'#E3E8EC'}" stroke="${i<=d?(sil?'#90A4AE':'#E09800'):'#C9D1D8'}" stroke-width=".9"/>`).join('');
+  const deco=W.decor.slice(0,3).map((q,i)=>`<text x="${[32,166,150][i]}" y="${[84,92,176][i]}" font-size="${[22,20,16][i]}" text-anchor="middle" opacity="${sil?.25:.7}">${q[0]}</text>`).join('');
+  return `<svg class="cardsvg" viewBox="0 0 200 280" role="img" aria-label="${sil?'Okänt kort':sp.name+', kort '+(id+1)+' av 40, '+R.n}"><defs><linearGradient id="cf${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${sil?'#CFD8DC':R.c}"/><stop offset="1" stop-color="${sil?'#90A4AE':R.d}"/></linearGradient><linearGradient id="cs${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${W.sky[0]}"/><stop offset="1" stop-color="${W.sky[1]}"/></linearGradient><clipPath id="cw${u}"><rect x="16" y="48" width="168" height="146" rx="10"/></clipPath><clipPath id="cc${u}"><rect x="2" y="2" width="196" height="276" rx="16"/></clipPath></defs>`
+   +`<rect x="2" y="2" width="196" height="276" rx="16" fill="url(#cf${u})" stroke="#2B2140" stroke-width="3"/><rect x="8" y="8" width="184" height="264" rx="11" fill="#FFFDF5" stroke="rgba(0,0,0,.18)" stroke-width="1.4"/>`
+   +`<rect x="16" y="14" width="168" height="28" rx="14" fill="${sil?'#CFD8DC':R.c}" stroke="#2B2140" stroke-width="2"/><text x="100" y="34" text-anchor="middle" font-family="Lilita One,Baloo 2,Nunito,sans-serif" font-size="${sil?18:Math.min(18,150/(sp.name.length*.55)).toFixed(1)}" fill="#2B2140">${sil?'???':sp.name}</text>`
+   +`<g clip-path="url(#cw${u})"><rect x="16" y="48" width="168" height="146" fill="url(#cs${u})"/><ellipse cx="60" cy="214" rx="130" ry="44" fill="${W.ground}" opacity=".9"/><ellipse cx="170" cy="218" rx="110" ry="38" fill="${W.ground}"/>${deco}<g transform="translate(100 186) scale(1.06)" style="${sil?'filter:brightness(0);opacity:.4':''}"><g class="${(sil||o.still)?'':'bb'}" style="--d:2.6s">${creature(sp,u)}</g></g></g><rect x="16" y="48" width="168" height="146" rx="10" fill="none" stroke="#2B2140" stroke-width="2.4"/>`
+   +stars+`<text x="100" y="228" text-anchor="middle" font-family="Lilita One,Baloo 2,Nunito,sans-serif" font-size="11" fill="${sil?'#90A4AE':R.d}">${sil?'Hemlig varelse':R.n}</text>`
+   +lines.slice(0,3).map((l,i)=>`<text x="100" y="${243+i*11}" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.6" font-weight="700" fill="#4A3A5C">${l}</text>`).join('')
+   +`<text x="100" y="272" text-anchor="middle" font-family="Nunito,sans-serif" font-size="8" font-weight="800" fill="#8A7A9C">#${String(id+1).padStart(2,'0')} av 40 · ${W.n} · ${DAYS_S[d]}</text>`
+   +((d===4&&!sil)?`<g clip-path="url(#cc${u})" style="pointer-events:none"><rect class="sheen" x="-70" y="0" width="46" height="280" fill="rgba(255,255,255,.4)"/></g>`:'')+`</svg>`}
+function cardBack(){return `<svg class="cardsvg" viewBox="0 0 200 280" role="img" aria-label="Kortets baksida"><defs><linearGradient id="cbk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7A4FBF"/><stop offset="1" stop-color="#2D6CDF"/></linearGradient><pattern id="cbp" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M10 4l1.8 3.8 4.2.6-3 3 .7 4.2L10 13.5 6.3 15.6 7 11.4 4 8.4l4.2-.6z" fill="rgba(255,255,255,.22)"/></pattern></defs><rect x="2" y="2" width="196" height="276" rx="16" fill="url(#cbk)" stroke="#2B2140" stroke-width="3"/><rect x="10" y="10" width="180" height="260" rx="11" fill="url(#cbp)" stroke="#FFD23F" stroke-width="3"/><g transform="translate(100 140)"><circle r="46" fill="#FFD23F" stroke="#2B2140" stroke-width="3"/><text y="22" text-anchor="middle" font-family="Lilita One,Baloo 2,sans-serif" font-size="64" fill="#2B2140">?</text></g><text x="100" y="228" text-anchor="middle" font-family="Lilita One,Baloo 2,sans-serif" font-size="17" fill="#fff" stroke="#2B2140" stroke-width="3" paint-order="stroke">Lektionspuls</text></svg>`}
+
+
+function cfHTML(n){return Array.from({length:n},(_,i)=>`<i class="cft" style="left:${(i*37)%100}%;background:${CONF[i%CONF.length]};animation-delay:${-(i*.31%2.4)}s"></i>`).join('')}
+function albumTeaser(){ensureWeek();const w=S.map.world,n=Object.keys(S.album).length,ti=todayIdx();
+  return `<div class="card"><p class="q" style="margin-bottom:4px">Veckans kort</p><p class="note" style="margin:0 0 8px">Klara dagens nivå så får klassen ett nytt samlarkort från ${WORLDS[w].n}. Vem väntar imorgon?</p><div class="mini5">${[0,1,2,3,4].map(i=>{const id=w*5+i,has=!!S.album[id];return `<button class="mslot" data-card="${id}" ${has?'':'disabled'} aria-label="${has?CARDS[id].name:'Okänt kort, '+DAYS[i].toLowerCase()}"><span class="mc ${i===ti&&!has?'today':''}">${cardSVG(id,{uid:'t',sil:!has,still:true})}</span><span class="md">${DAYS_S[i]}</span></button>`}).join('')}</div><button class="btn2" style="width:100%;margin-top:10px" data-act="album">🃏 Öppna klassens album (${n} av 40)</button></div>`}
+function albumScreen(){ensureWeek();const n=Object.keys(S.album).length;
+  let h=`<div class="top"><h1>Klassens album</h1></div><p class="sub">${n} av 40 kort. Ett nytt kort väntar varje skoldag.</p><div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="40" aria-valuenow="${n}"><i style="width:${Math.round(n*2.5)}%"></i></div><button class="btn2" data-act="backmap" style="width:100%;margin:6px 0 12px">← Tillbaka till kartan</button>`;
+  WORLDS.forEach((W,w)=>{const have=[0,1,2,3,4].filter(i=>S.album[w*5+i]).length;
+    h+=`<div class="card"><p class="q" style="margin-bottom:2px">${W.n}<span class="cnt">${have}/5${w===S.map.world?' · veckans värld':''}</span></p><div class="arow">${[0,1,2,3,4].map(i=>{const id=w*5+i,has=!!S.album[id];return `<button class="aslot" data-card="${id}" ${has?'':'disabled'} aria-label="${has?CARDS[id].name:'Okänt kort'}">${cardSVG(id,{uid:'a',sil:!has,still:true})}</button>`}).join('')}</div></div>`});
+  return h}
+function revealBox(){const r=S.reveal,sp=CARDS[r.id],d=r.id%5;
+  return `<div class="cele" role="dialog" aria-label="Nytt kort"><div class="cfwrap" id="cfw"></div><div class="box rv"><p class="rvt" id="rvt">Ett nytt kort väntar! Tryck på kortet för att vända det.</p><div class="flip ${r.flipped?'on':''}" data-act="flipcard" role="button" tabindex="0" aria-label="Vänd kortet"><div class="fl"><div class="face fback">${cardBack()}</div><div class="face ffront">${cardSVG(r.id,{uid:'r'})}</div></div></div><p class="rvs" id="rvs" ${r.flipped?'':'hidden'}>Ni har nu ${Object.keys(S.album).length} av 40 kort</p><button class="btn" data-act="keepcard" id="keepb" ${r.flipped?'':'hidden'}>Lägg i albumet</button></div></div>`}
+function cardView(){const id=S.viewCard;return `<div class="cele" role="dialog" aria-label="${CARDS[id].name}"><div class="box cv"><div class="flip on" style="width:min(74vw,290px)">${cardSVG(id,{uid:'v'})}</div><button class="btn" data-act="closecard" style="margin-top:12px">Stäng</button></div></div>`}
+
+/* ---------- Fredagens snällhetsuppdrag: veckans varelse ber klassen om hjälp ---------- */
+const MISSIONS=[
+ {short:'hjälpa någon',hello:'Hej! Jag är Skogsfen och jag vaktar skogen.',text:'I skogen hjälps alla åt, och det gör skogen stark. Ert uppdrag: hjälp någon före måndag.',ideas:['Hjälp någon att bära eller plocka upp något','Fråga om du kan hjälpa till hemma','Hjälp en kompis som har det svårt med något']},
+ {short:'dela med sig',hello:'Hej! Jag är Havskungen och jag älskar att dela.',text:'Havet räcker till alla när man delar. Ert uppdrag: dela med dig av något före måndag.',ideas:['Låt någon vara med i leken','Dela din tid: fråga om någon vill göra något tillsammans','Dela med dig av ett fint ord']},
+ {short:'ge tre fina ord',hello:'Hej! Jag är Galaxo och jag samlar stjärnor.',text:'En vänlig mening kan lysa som en stjärna. Ert uppdrag: ge tre stjärnor, alltså tre fina ord, till tre olika personer före måndag.',ideas:['"Du är bra på att …"','"Tack för att du …"','"Jag gillar att du …"']},
+ {short:'våga bjuda in någon',hello:'Hej! Jag är Kristallen och jag glittrar när någon är modig.',text:'Ibland krävs det lite mod för att vara snäll. Ert uppdrag: våga bjuda in någon eller säga hej före måndag.',ideas:['Fråga någon som står ensam om den vill vara med','Säg hej till någon du inte brukar prata med','Säg till en vuxen om någon verkar ledsen']},
+ {short:'säga tack',hello:'Hej! Jag är Djungelkungen och mina papegojor är mycket artiga.',text:'Ett tack gör hela djungeln gladare. Ert uppdrag: säg tack till tre personer före måndag och berätta varför.',ideas:['"Tack för att du hjälpte mig med …"','"Tack för att du är en bra kompis"','"Tack för att du hjälper mig hemma"']},
+ {short:'lyssna på någon',hello:'Hej! Jag är Oasen och jag är bra på att lyssna.',text:'Den som lyssnar ger en vän lugn och skugga. Ert uppdrag: lyssna riktigt på någon i två minuter utan att avbryta.',ideas:['Fråga hur dagen har varit','Titta på den som pratar och nicka','Ställ en följdfråga']},
+ {short:'värma någon',hello:'Hej! Jag är Isdrottningen och jag gillar värme.',text:'Ett leende kan smälta den kallaste snön. Ert uppdrag: värm någon före måndag.',ideas:['Ge någon ett leende och en vänlig hälsning','Rita ett litet kort till någon','Fråga hur någon mår och lyssna']},
+ {short:'sprida glädje',hello:'Hej! Jag är Sockerkungen och jag sprider glädje.',text:'Det som är sött är något fint man säger eller gör. Ert uppdrag: sprid glädje till någon före måndag.',ideas:['Hitta på ett glatt skämt som alla kan skratta åt','Gör en kompis glad med ett fint ord','Hjälp någon som blivit ledsen att le']}
+];
+function portraitSVG(id){const w=Math.floor(id/5),W=WORLDS[w];return `<svg class="portrait" viewBox="0 0 160 140" role="img" aria-label="${CARDS[id].name}"><defs><linearGradient id="pg${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${W.sky[0]}"/><stop offset="1" stop-color="${W.sky[1]}"/></linearGradient><clipPath id="pc${id}"><circle cx="80" cy="70" r="66"/></clipPath></defs><circle cx="80" cy="70" r="68" fill="#FFD23F" stroke="#2B2140" stroke-width="3"/><g clip-path="url(#pc${id})"><rect width="160" height="140" fill="url(#pg${id})"/><ellipse cx="80" cy="150" rx="100" ry="34" fill="${W.ground}"/><g transform="translate(80 128) scale(.88)"><g class="bb" style="--d:2.4s">${creature(CARDS[id],'p'+id)}</g></g></g></svg>`}
+function fridayCard(){ensureWeek();if(todayIdx()!==4||S.map.done[4])return '';const w=S.map.world,id=w*5+4;
+  return `<div class="card fricard"><div class="row2">${portraitSVG(id)}<div><p class="q" style="margin:0 0 4px">Fredagsuppdrag!</p><p style="margin:0;font-weight:700">${CARDS[id].name} har ett särskilt uppdrag åt klassen.</p></div></div><button class="btn" style="margin-top:10px" data-act="mission">Öppna uppdraget</button></div>`}
+function mondayCard(){ensureWeek();const L=S.lastMission;if(!L||L.seen||L.week===S.map.week||todayIdx()>2)return '';const m=MISSIONS[L.world];
+  return `<div class="card"><p class="q" style="margin-bottom:4px">Berätta om förra veckans uppdrag</p><p class="note" style="margin:0 0 8px">I fredags lovade ni att ${m.short}. Hur gick det? Berätta för en kompis eller för hela klassen, och prata om hur det kändes.</p><button class="btn2" style="width:100%" data-act="missionseen">Vi har berättat</button></div>`}
+function missionBox(){ensureWeek();const w=S.map.world,m=MISSIONS[w],id=w*5+4;
+  return `<div class="cele" role="dialog" aria-label="Fredagens snällhetsuppdrag"><div class="box ms"><div class="mhead">${portraitSVG(id)}<div class="bubble">${m.hello}</div></div><h2 style="margin:4px 0;font-size:26px">Veckans snällhetsuppdrag</h2><p class="mtext">${m.text}</p><p class="mq">Tre idéer att välja på:</p><ul class="mlist">${m.ideas.map(i=>`<li>${i}</li>`).join('')}</ul><p class="mnote">Prata två och två: vad vill du göra? Lägg sedan handen på hjärtat och lova! Det är okej om du inte hinner allt. Berätta på måndag hur det gick.</p><button class="btn" data-act="missiondone">💛 Vi lovar! Klart</button><button class="link" data-act="missionclose">Stäng</button></div></div>`}
 /* rotation: den övning som användes senast hamnar sist i kön */
 function markUsed(e){S.prevUsed={id:e.id,v:S.used[e.id]};S.seq=(S.seq||0)+1;S.used[e.id]=S.seq;save('lp_used',S.used)}
 function unmarkUsed(){const q=S.prevUsed;if(!q)return;if(q.v==null)delete S.used[q.id];else S.used[q.id]=q.v;S.prevUsed=null;save('lp_used',S.used)}
@@ -941,7 +1096,7 @@ GEXTRA.forEach(x=>{const sp=GSPEC[x.id];if(!sp)return;SCN[x.id]=()=>genScene(sp)
 const V={
 setup(){return `<div class="top"><h1>Lektionspuls</h1></div>
 <p class="sub">Korta rörelsepauser för klassrummet. Du väljer, klassen rör sig. Eleverna behöver ingen telefon.</p>
-${mapCard()}
+${mapCard()}${fridayCard()}${mondayCard()}${albumTeaser()}
 <div class="card"><p class="q">Hur lång paus?</p><div class="chips">${[2,3,5].map(m=>`<button class="chip ${S.tid===m?'on':''}" data-tid="${m}" aria-pressed="${S.tid===m}">${m} minuter</button>`).join('')}</div></div>
 <div class="card"><p class="q">Var är ni?</p><div class="chips">${PLATS.map((p,i)=>`<button class="chip ${S.plats===i?'on':''}" data-plats="${i}" aria-pressed="${S.plats===i}">${p.n}<small>${p.d}</small></button>`).join('')}</div>
 <div class="sw" style="margin-top:8px"><span>Bara övningar med natur och miljö</span><button class="chip ${S.miljo?'on':''}" data-miljo="1" aria-pressed="${S.miljo}">${S.miljo?'Ja':'Nej'}</button></div></div>
@@ -969,14 +1124,14 @@ return head+`<div class="exgrid">${art}<div>${steps}${need?`<p class="note">Övn
 };
 function render(){
   const app=$('#app');
-  let h=S.screen==='setup'?V.setup():V.ex();
+  let h=S.screen==='setup'?V.setup():S.screen==='album'?albumScreen():V.ex();
   if(S.screen==='ex'&&!S.board)h+=`<div style="text-align:center"><button class="link" data-act="board">Tavelläge</button></div>`;
-  app.innerHTML=h+(S.board?'<button class="xbtn" data-act="exitboard">Stäng tavelläge</button>':'')+(S.celebrate?worldBox():'');
+  app.innerHTML=h+(S.board?'<button class="xbtn" data-act="exitboard">Stäng tavelläge</button>':'')+(S.reveal?revealBox():S.viewCard!=null?cardView():S.mission?missionBox():S.celebrate?worldBox():'');
   window.scrollTo(0,0);
   if(S.screen==='ex'&&S.cur&&!(S.timer&&S.timer.done))mountAnim();
-  if(S.screen==='setup'&&!S.celebrate)animMap();
+  if(S.screen==='setup'&&!S.celebrate&&!S.reveal)animMap();
   syncMusic()}
-document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;if(S.sound||S.music)ac();
+document.addEventListener('click',e=>{const b=e.target.closest('button,[data-act=flipcard]');if(!b)return;const d=b.dataset;if(S.sound||S.music)ac();
   if(d.tid){S.tid=+d.tid;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
   if(d.mal){S.mal=d.mal;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
   if(d.plats!==undefined){S.plats=+d.plats;save('lp_val',{tid:S.tid,mal:S.mal,plats:S.plats,miljo:S.miljo});render();return}
@@ -988,6 +1143,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
   if(d.sound){S.sound=!S.sound;save('lp_sound',S.sound);if(S.sound)sfx('step');render();return}
   if(d.tempo){S.tempo=+d.tempo;save('lp_tempo',S.tempo);render();return}
   if(d.st!==undefined){const j=+d.st;if(ANIM.bounds[j]){ANIM.t=ANIM.bounds[j][0]+40;S.artPaused=false;ANIM.paused=false;const sv=document.querySelector('.scene');if(sv)sv.classList.remove('paused');drawAt(ANIM.t)}return}
+  if(d.card!==undefined){const id=+d.card;if(S.album[id]){S.viewCard=id;render()}return}
   const a=d.act;if(!a)return;
   if(a==='find'){S.cur=pick();ANIM.t=0;S.starGiven=false;S.screen='ex';stopTimer();render();return}
   if(a==='other'){stopTimer();if(S.cur){unmarkUsed();S.skip.push(S.cur.id)}S.cur=pick();if(S.cur)markUsed(S.cur);ANIM.t=0;S.starGiven=false;render();return}
@@ -995,7 +1151,16 @@ document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)r
   if(a==='start'||a==='again'){if(a==='again')S.starGiven=false;startTimer();return}
   if(a==='pause'){pauseTimer();return}
   if(a==='stop'){stopTimer();render();return}
-  if(a==='star'){if(S.starGiven)return;S.starGiven=true;ensureWeek();const m=S.map,ti=todayIdx();stopTimer();S.screen='setup';if(!m.done[ti]){m.done[ti]=true;if(ti===4){S.celebrate=true;sfx('fanfare')}else sfx('step')}else{m.bonus=(m.bonus||0)+1;sfx('step')}save('lp_map',m);render();return}
+  if(a==='star'){if(S.starGiven)return;S.starGiven=true;ensureWeek();const m=S.map,ti=todayIdx();stopTimer();S.screen='setup';if(!m.done[ti]){m.done[ti]=true;const id=m.world*5+ti;S.reveal={id:id,flipped:false,dup:!!S.album[id]};S.album[id]=1;save('lp_album',S.album);S.afterReveal=(ti===4);sfx('step')}else{m.bonus=(m.bonus||0)+1;sfx('step')}save('lp_map',m);render();return}
+  if(a==='flipcard'){if(!S.reveal||S.reveal.flipped)return;S.reveal.flipped=true;const el=document.querySelector('.flip');if(el)el.classList.add('on');const d=S.reveal.id%5;sfx(d===4?'fanfare':'ping');setTimeout(()=>{const t=document.getElementById('rvt'),b=document.getElementById('keepb'),v=document.getElementById('rvs'),c=document.getElementById('cfw');if(!S.reveal)return;if(t)t.textContent=S.reveal.dup?'Ni har redan den här vännen. Ny dag, samma kompis!':'Nytt kort: '+CARDS[S.reveal.id].name+'!';if(b)b.hidden=false;if(v)v.hidden=false;if(c)c.innerHTML=cfHTML(28)},520);return}
+  if(a==='keepcard'){S.reveal=null;if(S.afterReveal){S.celebrate=true;S.afterReveal=false;sfx('fanfare')}render();return}
+  if(a==='mission'){S.mission=true;render();return}
+  if(a==='missionclose'){S.mission=false;render();return}
+  if(a==='missionseen'){if(S.lastMission){S.lastMission.seen=true;save('lp_mission',S.lastMission)}render();return}
+  if(a==='missiondone'){ensureWeek();const m=S.map;S.mission=false;stopTimer();S.screen='setup';if(!m.done[4]){m.done[4]=true;const id=m.world*5+4;S.reveal={id:id,flipped:false,dup:!!S.album[id]};S.album[id]=1;save('lp_album',S.album);S.afterReveal=true;S.lastMission={week:m.week,world:m.world,seen:false};save('lp_mission',S.lastMission);save('lp_map',m);sfx('step')}render();return}
+  if(a==='album'){S.screen='album';render();return}
+  if(a==='backmap'){S.screen='setup';render();return}
+  if(a==='closecard'){S.viewCard=null;render();return}
   if(a==='closeworld'){S.celebrate=false;render();return}
   if(a==='resetmap'){if(!S.resetArm){S.resetArm=true;render();setTimeout(()=>{if(S.resetArm){S.resetArm=false;if(S.screen==='setup')render()}},4000);return}S.resetArm=false;S.map.done=[false,false,false,false,false];S.map.bonus=0;S.mapShown=null;save('lp_map',S.map);render();return}
   if(a==='artpause'){S.artPaused=!S.artPaused;ANIM.paused=S.artPaused;const sv=document.querySelector('.scene');if(sv)sv.classList.toggle('paused',S.artPaused);return}
